@@ -51,7 +51,7 @@ const Navbar = () => {
         </div>
       </div>
       <NavbarSearch />
-      <NavbarSearchResponsive />
+      {/* <NavbarSearchResponsive /> */}
       <NavbarLinks />
       <div className={navbar.navbar_chat}>
         <p>

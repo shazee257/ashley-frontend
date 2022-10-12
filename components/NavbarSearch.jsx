@@ -14,6 +14,7 @@ import { AiOutlineShoppingCart, AiOutlineHeart } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { FiSearch } from "react-icons/fi";
 import HoverCart from "./HoverCart";
+import NavbarLinksResponsive from "./NavbarLinksResponsive";
 
 // from mui
 
@@ -72,6 +73,9 @@ const NavbarSearch = () => {
 
   return (
     <div className={navsearch.navbar_search_wrapper}>
+      <div className={navsearch.navbar_toggle_menu_wrapper}>
+        <NavbarLinksResponsive />
+      </div>
       <div className={navsearch.logo}>
         <Link href="/">
           <a>
