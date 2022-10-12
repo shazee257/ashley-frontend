@@ -107,7 +107,7 @@ const Products = () => {
               filteredProducts?.length > 0 ?
                 filteredProducts?.map((product) => (
                   <ProductCard key={product._id} cardProduct={product} />
-                )) : (<h5 style={{ margin: "80px auto" }}>No Products Found</h5>)
+                )) : (<h5 style={{ margin: "80px auto" }} className='text-2xl font-bold'>No Products Found</h5>)
             }
           </div>
           {/* products cards ends here  */}
