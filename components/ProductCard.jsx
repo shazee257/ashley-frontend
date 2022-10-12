@@ -9,7 +9,7 @@ import product from "../styles/ProductCard.module.scss";
 
 const ProductCard = ({ cardProduct }) => {
   // get min & max price from variants
-  const prices = cardProduct.variants.map((variant) => variant.sale_price);
+  const prices = cardProduct?.variants.map((variant) => variant.sale_price);
   const minPrice = Math.min(...prices);
   const maxPrice = Math.max(...prices);
 

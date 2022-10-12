@@ -20,11 +20,12 @@ const SearchedProducts = () => {
 
   const productsBySearch = useSelector(selectSearchProducts);
 
+  console.log(productsBySearch, "productsBySearch");
   //   const router = useRouter();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const products = useSelector(selectProducts);
-  const category = useSelector(selectCategory);
+  // const category = useSelector(selectCategory);
 
   //   const filteredProducts = products?.products.filter((fp) => {
   //     return fp.category_id.slug === router.query.productslug;
@@ -57,12 +58,10 @@ const SearchedProducts = () => {
   //     // console.log(proByCat);
   //   };
 
-  useEffect(() => {
-    dispatch(fetchCategory());
-    dispatch(fetchProducts());
-  }, [dispatch]);
-
-  const url = process.env.NEXT_PUBLIC_BASE_URL;
+  // useEffect(() => {
+  //   dispatch(fetchCategory());
+  //   dispatch(fetchProducts());
+  // }, [dispatch]);
 
   return (
     <div className={product.products_wrapper}>
@@ -72,7 +71,7 @@ const SearchedProducts = () => {
             <h3>
               {/* {filteredProducts[0] && filteredProducts[0].category_id.title} */}
             </h3>
-            <p>N of Ns Products Showing</p>
+            <p>{productsBySearch.length} of {products.length} Products Showing</p>
           </div>
           {/* <div className={product.filters_cat}>
             <h3>{parentCat.title} </h3>
@@ -92,16 +91,16 @@ const SearchedProducts = () => {
         </div>
         {/* filters ends here  */}
         <div className={product.products_item_wrapper}>
-          {/* cats ends here  */}
           <div className={product.products_cards_wrapper}>
-            {/* {!filteredProducts ? ( */}
-            {/* <h5 style={{ margin: "80px auto" }}>No Products Found</h5> */}
-            {/* ) : ( */}
-            {/* (proByCat.length >= 1 ? proByCat : filteredProducts) */}
-            {productsBySearch?.map((product) => (
-              <ProductCard key={product._id} products={product} />
-            ))}
+            {
+              productsBySearch?.length > 0 ?
+                productsBySearch?.map((product) => (
+                  <ProductCard key={product._id} cardProduct={product} />
+                )) : (<h5 style={{ margin: "80px auto" }} className='text-2xl font-bold'>No Products Found</h5>)
+            }
           </div>
+
+
           {/* products cards ends here  */}
         </div>
       </div>

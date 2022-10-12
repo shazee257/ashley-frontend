@@ -40,7 +40,7 @@ const style = {
 
 const NavbarSearch = () => {
   const selectCartDetail = useSelector(selectCart);
-  const selectProductDetail = useSelector(selectProducts);
+  // const selectProductDetail = useSelector(selectProducts);
   const cartCount = selectCartDetail.length;
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -51,19 +51,22 @@ const NavbarSearch = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const products = selectProductDetail?.products;
+  const products = useSelector(selectProducts);
   const loginData = useSelector(selectLoginData);
 
   useEffect(() => {
-    const filteredData = products?.filter((item) =>
-      item.title.toLowerCase().includes(searchTerm.toLocaleLowerCase())
+    const filteredData = products?.filter((product) =>
+      product.title.toLowerCase().includes(searchTerm.toLocaleLowerCase())
     );
+    console.log(filteredData, "filteredData");
     setSearchedProducts(filteredData);
-  }, [products, searchTerm]);
+  }, [searchTerm]);
 
   const searchClickHandler = () => {
-    dispatch(setSearchProducts(searchedProducts));
-    router.push("/search/searchedproducts");
+    if (searchTerm) {
+      dispatch(setSearchProducts(searchedProducts));
+      router.push("/search/searchedproducts");
+    }
   };
 
   const logoutHandler = () => {
