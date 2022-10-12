@@ -1,0 +1,237 @@
+@import "./Variables.module.scss";
+
+.Financing_wrapper {
+  width: 95%;
+  margin: 40px 0px;
+  padding-left: 50px;
+
+  .small_heading {
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .heading_red {
+    margin-top: 40px;
+    color: $red;
+    text-align: center;
+    font-size: 36px;
+  }
+
+  .imagediv {
+    margin-top: 40px;
+    width: 100%;
+    height: 420px;
+    position: relative;
+    border-radius: 20px;
+    .image {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .getstart_wrapper {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    .getstart_div {
+      width: 32%;
+      h4 {
+        text-align: center;
+        color: #2c3092;
+        font-weight: 700;
+      }
+      p {
+        margin-top: 20px;
+        text-align: center;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .differenceimagediv {
+    margin: auto;
+    margin-top: 50px;
+    width: 70%;
+    height: 250px;
+    position: relative;
+    .image {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .heading {
+    margin-top: 60px;
+    text-align: center;
+    font-size: 36px;
+  }
+
+  .creditOptions_wrapper {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    font-style: normal;
+    .creditOptions_div {
+      width: 48%;
+      display: flex;
+      flex-direction: column;
+      h3 {
+        color: $red;
+        font-size: 24px;
+        text-align: center;
+      }
+      ul {
+        padding-left: 50px;
+        font-style: normal;
+        li {
+          font-weight: 500;
+          line-height: 36px;
+          font-size: 16px;
+        }
+      }
+
+      .creditOptionsimg_div {
+        margin: auto;
+        width: 90%;
+        height: 280px;
+        position: relative;
+        .image {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-large) {
+  .Financing_wrapper {
+    margin: 30px 0px;
+    .imagediv {
+      height: 380px;
+    }
+
+    .differenceimagediv {
+      width: 90%;
+      height: 230px;
+    }
+
+    .creditOptions_wrapper {
+      .creditOptions_div {
+        .creditOptionsimg_div {
+          height: 230px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-medium) {
+  .Financing_wrapper {
+    padding-left: 20px;
+    margin-top: 30px;
+    margin-bottom: 0px;
+
+    .heading_red {
+      margin-top: 20px;
+      font-size: 30px;
+    }
+
+    .imagediv {
+      margin-top: 20px;
+      height: 250px;
+    }
+
+    .getstart_wrapper {
+      flex-direction: column;
+      margin-top: 20px;
+      .getstart_div {
+        width: 80%;
+        margin: auto;
+        p {
+          margin-top: 0px;
+        }
+      }
+    }
+
+    .differenceimagediv {
+      margin-top: 10px;
+      width: 100%;
+      height: 150px;
+    }
+
+    .heading {
+      margin-top: 30px;
+      font-size: 32px;
+    }
+
+    .creditOptions_wrapper {
+      flex-direction: column;
+      margin-top: 20px;
+      .creditOptions_div {
+        width: 100%;
+        border-bottom: 3px solid $extra-light-grey;
+        padding-bottom: 20px;
+        h3 {
+          text-align: center;
+          margin-top: 10px;
+        }
+        ul {
+          padding-left: 30px;
+          li {
+            line-height: 29px;
+          }
+        }
+      }
+
+      .remove_bottom_bordoer {
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-small) {
+  .Financing_wrapper {
+    .heading_red {
+      font-size: 24.5px;
+    }
+
+    .imagediv {
+      height: 220px;
+    }
+
+    .getstart_wrapper {
+      flex-direction: column;
+      margin-top: 20px;
+      .getstart_div {
+        width: 100%;
+      }
+    }
+
+    .heading {
+      font-size: 22px;
+    }
+
+    .creditOptions_wrapper {
+      flex-direction: column;
+      margin-top: 20px;
+      .creditOptions_div {
+        h3 {
+          margin-top: 5px;
+          font-size: 19px;
+        }
+        ul {
+          padding-left: 20px;
+          li {
+            line-height: 26px;
+          }
+        }
+
+        .creditOptionsimg_div {
+          height: 170px;
+        }
+      }
+    }
+  }
+}

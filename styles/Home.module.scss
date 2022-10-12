@@ -1,0 +1,473 @@
+@import "../styles/Variables.module.scss";
+
+.home_wrapper {
+  @include flex-column;
+  font-family: $open-sans;
+  width: 100%;
+  background-color: rgb(250, 250, 252);
+  position: relative;
+
+  .discount_cards_wrapper {
+    width: 95%;
+    margin: 10px 0;
+    background-color: white;
+    padding: 20px 0;
+
+    .discount_cards_heading {
+      width: 100%;
+      margin: 20px auto;
+      @include flex-center;
+
+      h2 {
+        font-weight: 600;
+        text-transform: capitalize;
+        text-shadow: 0 0 10px $extra-light-grey;
+      }
+    }
+
+    .discount_cards {
+      width: 100%;
+      @include flex-between;
+      flex-wrap: wrap;
+      align-content: space-between;
+      margin: 30px 0;
+      display: flex;
+      justify-content: space-evenly;
+    }
+  }
+
+  .categories_wrapper {
+    background: #fff;
+    width: 95%;
+    @include flex-column;
+    margin: 30px 0;
+
+    h3 {
+      font-weight: 600;
+      margin: 30px 0;
+
+      span {
+        display: none;
+      }
+    }
+
+    .shopby_categories_headings {
+      width: 100%;
+      @include flex-center;
+      justify-content: space-around;
+      margin: 10px 0;
+
+      p {
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: $grey;
+        cursor: pointer;
+        text-decoration: none;
+      }
+    }
+
+    
+    .shopby_categories_headings_hidden {
+      width: 100%;
+      @include flex-center;
+      justify-content: space-around;
+      margin: 10px 0;
+
+      p {
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: $grey;
+        cursor: pointer;
+      }
+    }
+
+    .shopby_categories_content {
+      width: 100%;
+      @include flex-between;
+
+      .shopby_categories_bigcard {
+        width: 75%;
+        height: 648px;
+        @include flex-column;
+        align-items: flex-start;
+        justify-content: space-between;
+
+        &:hover {
+          box-shadow: 0 0 5px $extra-light-grey;
+          cursor: pointer;
+        }
+
+        .shopby_categories_card_image {
+          position: relative;
+          height: 580px;
+          width: 100%;
+          margin-bottom: 10px;
+        }
+
+        .shopby_categories_cart_link {
+          background-color: rgb(243, 243, 243);
+          @include flex-center;
+          justify-content: flex-end;
+          width: 100%;
+          height: 70px;
+          padding-right: 10px;
+          font-size: 24px;
+          color: $light-grey;
+          cursor: pointer;
+
+          span {
+            color: $grey;
+            margin: 0;
+            margin-left: 10px;
+            font-size: 30px;
+          }
+        }
+      }
+
+      .shopby_categories_small_cards {
+        flex: 1;
+        height: 660px;
+        margin-left: 10px;
+        @include flex-between;
+        flex-wrap: wrap;
+        align-items: center;
+
+        // align-content: space-between;
+        .shopby_categories_small_card {
+          // box-shadow: 0 0 5px $light-grey;
+          cursor: pointer;
+          width: 49%;
+          height: 210px;
+          background-color: rgb(243, 243, 243);
+          @include flex-column;
+          justify-content: space-between;
+          margin: 0;
+
+          &:hover {
+            box-shadow: 0 0 5px $extra-light-grey;
+          }
+
+          .shopby_categories_card_image {
+            position: relative;
+            width: 80%;
+            height: 80%;
+
+            &:hover {
+              transform: scale(1.1);
+            }
+          }
+
+          p {
+            font-weight: 500;
+            margin: 0;
+            padding: 5px;
+            width: 80%;
+            text-align: center;
+          }
+        }
+      }
+    }
+
+    .categories {
+      display: flex;
+      justify-content: space-evenly;
+      margin: 10px 0;
+    }
+  }
+
+  .banner_card_wrapper {
+    display: flex;
+    margin: 20px 0;
+    background-color: white;
+    padding: 40px 0;
+    width: 95%;
+  }
+
+  .category_cards {
+    width: 95%;
+    @include flex-between;
+    justify-content: space-evenly;
+    margin: 20px 0;
+    background-color: white;
+    padding: 40px 0;
+    margin-bottom: 20px;
+  }
+
+  .free_shipping {
+    width: 95%;
+    background-color: white;
+    padding: 50px 0;
+    margin: 20px 0;
+
+    .category_cards {
+      display: flex;
+      justify-content: space-evenly;
+      width: 100%;
+    }
+
+    h4 {
+      font-weight: 600;
+      text-align: center;
+    }
+
+    h2 {
+      font-weight: 800;
+      text-align: center;
+      margin: 10px 0 30px 0;
+    }
+  }
+
+  .thin_banner_wrapper {
+    width: 95%;
+    margin: 20px 0;
+    background-color: white;
+    padding: 30px 20px;
+  }
+
+  .chatbot_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $grey;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px black;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    cursor: pointer;
+    z-index: 1000000;
+
+    .chatbot_icon {
+      font-size: 30px;
+      margin: 0;
+      padding: 0;
+      margin-bottom: 4px;
+      color: white;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+
+    .chatbot {
+      position: absolute;
+      bottom: 0;
+      right: 70px;
+      box-shadow: 0 0 10px black;
+      padding: 0;
+      margin: 0;
+      height: fit-content;
+      background: rgb(239, 239, 239);
+      border-radius: 4px;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-large) {
+  .home_wrapper {
+    .categories_wrapper {
+      .shopby_categories_headings {
+        p {
+          letter-spacing: 0px;
+          font-size: 15px;
+        }
+      }
+
+      .shopby_categories_content {
+        .shopby_categories_small_cards {
+          .shopby_categories_small_card {
+            p {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+    .discount_cards_wrapper {
+      .discount_cards {
+        width: 98.5%;
+        justify-content: space-between;
+        margin: 30px 7px;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-medium) {
+  .home_wrapper {
+    .categories_wrapper {
+      h3 {
+        cursor: pointer;
+        margin-bottom: 10px;
+        text-align: left;
+
+        span {
+          display: inline-block;
+          cursor: pointer;
+          margin-left: 10px;
+        }
+      }
+
+      .shopby_categories_headings_hidden {
+        display: none;
+        p {
+          display: none;
+        }
+      }
+
+      .shopby_categories_headings {
+        @include flex-center;
+        margin: 10px 0;
+        display: flex;
+        @include flex-column;
+        width: 45%;
+        box-shadow: 0 0 5px $extra-light-grey;
+
+        p {
+          width: 100%;
+          padding-left: 5px;
+          padding-top: 10px;
+          text-align: left;
+        }
+      }
+
+      .shopby_categories_content {
+        display: flex;
+        flex-direction: column;
+
+        .shopby_categories_bigcard {
+          width: 95%;
+          height: 400px;
+        }
+
+        .shopby_categories_small_cards {
+          margin-top: 5px;
+          width: 95%;
+          margin-left: 0px;
+
+          .shopby_categories_small_card {
+            padding-top: 15px;
+            margin-top: 10px;
+
+            p {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+
+    .discount_cards_wrapper {
+      .discount_cards {
+        width: 96%;
+        justify-content: space-between;
+        margin: 30px 12px;
+      }
+    }
+
+    .thin_banner_wrapper {
+      padding: 30px 8px;
+      margin: 20px 0;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-small) {
+  .home_wrapper {
+    .discount_cards_wrapper {
+      margin: 10px 5px;
+
+      .discount_cards_heading {
+        margin: 0px;
+      }
+
+      .discount_cards {
+        width: 97%;
+        justify-content: space-between;
+        margin: 5px 5px;
+      }
+    }
+
+    .categories_wrapper {
+      margin-top: 35px;
+      margin-bottom: 0px;
+      padding-bottom: 10px;
+
+      h3 {
+        margin: 15px 0;
+      }
+
+      .shopby_categories_headings {
+        width: 95%;
+
+        p {
+          text-align: center;
+        }
+      }
+
+      .shopby_categories_content {
+        display: flex;
+        flex-direction: column;
+
+        .shopby_categories_bigcard {
+          height: 350px;
+
+          .shopby_categories_cart_link {
+            font-size: 20px;
+          }
+        }
+
+        .shopby_categories_small_cards {
+          margin-top: 0px;
+          width: 95%;
+          margin-left: 0px;
+
+          .shopby_categories_small_card {
+            padding-top: 15px;
+
+            p {
+              font-size: 13px;
+            }
+          }
+        }
+      }
+    }
+
+    .banner_card_wrapper {
+      padding: 10px 0px;
+      margin: 0px;
+    }
+
+    .free_shipping {
+      h4 {
+        font-size: 21px;
+      }
+
+      h2 {
+        font-size: 22px;
+      }
+    }
+
+    .thin_banner_wrapper {
+      padding: 10px 4px;
+      margin: 0px;
+    }
+
+    .chatbot_wrapper {
+      right: 10px;
+      width: 40px;
+      height: 40px;
+
+      .chatbot_icon {
+        font-size: 18px;
+      }
+
+      .chatbot {
+        right: 5px;
+        bottom: 45px;
+      }
+    }
+  }
+}

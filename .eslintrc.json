@@ -1,0 +1,14 @@
+// {
+//   "extends": [
+//     "next/babel",
+//     "next/core-web-vitals"
+//   ]
+// }
+// {
+//   "extends": [
+//     "next"
+//   ]
+// }
+{
+  "extends": ["next/babel", "next/core-web-vitals"]
+}

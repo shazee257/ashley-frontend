@@ -1,0 +1,60 @@
+@import "./Variables.module.scss";
+
+.accordion_wrapper {
+  width: 100%;
+  margin-bottom: 0px;
+
+  .accordion_item {
+    padding: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+
+    .accordion_heading {
+      @include flex-between;
+      align-items: center;
+      width: 100%;
+      cursor: pointer;
+
+      h2 {
+        font-size: 16px;
+        margin: 5px 0;
+        font-weight: 600;
+        text-transform: capitalize;
+      }
+
+      span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 10px;
+
+        .accordion_icon {
+          margin: 0;
+          font-weight: 600;
+          font-size: 22px;
+        }
+      }
+    }
+
+    .accordion_content {
+      max-height: 0;
+      overflow: hidden;
+
+      h3 {
+        cursor: pointer;
+        font-size: 14px;
+        padding-left: 10px;
+        margin-top: 20px;
+
+        &:hover {
+          text-decoration: underline;
+      }
+      }
+    }
+
+    .accordion_content.show {
+      max-height: 9999px;
+      transition: max-height 3s ease-in-out 0s;
+    }
+  }
+}

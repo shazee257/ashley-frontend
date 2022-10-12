@@ -1,0 +1,63 @@
+@import "../styles/Variables.module.scss";
+
+.discount_card {
+  cursor: pointer;
+  box-shadow: 0 0 10px $extra-light-grey;
+  margin: 10px 0;
+  width: 32%;
+  border-radius: 2px;
+
+  .img {
+    position: relative;
+    width: 100%;
+    height: 260px;
+  }
+}
+
+@media (max-width: $breakpoint-large) {
+  .discount_card {
+    cursor: pointer;
+    box-shadow: 0 0 4px grey;
+    margin: 10px 0;
+    width: 32%;
+
+    border-radius: 2px;
+
+    .img {
+      height: 220px;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-medium) {
+  .discount_card {
+    cursor: pointer;
+    box-shadow: 0 0 4px grey;
+
+    // margin: 10px;
+    // width: 32%;
+    margin: 5px;
+    width: 45%;
+    border-radius: 2px;
+    background: #000;
+
+    .img {
+      height: 200px;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-small) {
+  .discount_card {
+    cursor: pointer;
+    box-shadow: 0 0 4px grey;
+
+    margin: 5px 4px;
+    width: 47%;
+    border-radius: 2px;
+
+    .img {
+      height: 135px;
+    }
+  }
+}

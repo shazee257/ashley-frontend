@@ -1,0 +1,37 @@
+{
+  "name": "e-commerce-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@mui/icons-material": "^5.8.4",
+    "@mui/material": "^5.9.1",
+    "@reduxjs/toolkit": "^1.8.3",
+    "axios": "^0.27.2",
+    "next": "12.2.2",
+    "react": "18.2.0",
+    "react-chatbot-kit": "^2.1.0",
+    "react-dom": "18.2.0",
+    "react-icons": "^4.4.0",
+    "react-images-uploading": "^3.1.7",
+    "react-material-ui-carousel": "^3.4.2",
+    "react-player": "^2.11.0",
+    "react-redux": "^8.0.2",
+    "react-slick": "^0.29.0",
+    "react-stars": "^2.2.5",
+    "react-toastify": "^9.0.8",
+    "redux-persist": "^6.0.0",
+    "slick-carousel": "^1.8.1",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "eslint": "8.19.0",
+    "eslint-config-next": "12.2.2",
+    "sass": "^1.53.0"
+  }
+}
