@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint"
   },
+  
   "dependencies": {
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.1",
@@ -29,6 +30,7 @@
     "slick-carousel": "^1.8.1",
     "yup": "^0.32.11"
   },
+
   "devDependencies": {
     "autoprefixer": "^10.4.12",
     "eslint": "8.19.0",

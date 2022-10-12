@@ -451,8 +451,8 @@ const ProductDetail = ({ productDetail }) => {
                   <span
                     style={{
                       backgroundImage: `url(${imgURL}colors/${colors
-                          .slice(sizeID, sizeID + 1)
-                          .map((color) => color[colorID])[0].image
+                        .slice(sizeID, sizeID + 1)
+                        .map((color) => color[colorID])[0].image
                         })`,
                       height: 24,
                       width: 24,
@@ -1082,14 +1082,14 @@ const ProductDetail = ({ productDetail }) => {
               <p>Usually ships in 1 to 2 weeks</p>
             </div>
             <div className={product.expert_service}>
-              <div style={{ position: "relative", display: "flex" }}>
+              {/* <div style={{ position: "relative", display: "flex" }}>
                 {" "}
                 <Image
                   src="/../../assets/expert.png"
                   alt="expert"
                   layout="fill"
                 />{" "}
-              </div>
+              </div> */}
               <div>
                 {" "}
                 <h6>Add Expert Service</h6>{" "}

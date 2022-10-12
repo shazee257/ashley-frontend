@@ -1,16 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
   reactStrictMode: true,
-  swcMinify: true,
+  // swcMinify: true,
   images: {
     domains: ["ashley-api.herokuapp.com"],
   },
 };
-
-module.exports = nextConfig;
-
-// module.exports = {
-//   images: {
-//     domains: ["ashley-api.herokuapp.com"],
-//   },
-// };

@@ -76,7 +76,7 @@
       }
 
       .products_cards_wrapper {
-        @include flex-center;
+        @include flex-start;
         border-left: 1px solid $extra-light-grey;
         border-top: 1px solid $extra-light-grey;
         flex-wrap: wrap;
