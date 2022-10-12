@@ -8,37 +8,14 @@ import { AiOutlineHeart, AiFillStar } from "react-icons/ai";
 import product from "../styles/ProductCard.module.scss";
 
 const ProductCard = ({ cardProduct }) => {
-  const price = cardProduct.variants.map((variant) => {
-    return variant.sale_price;
-  });
-  // const desc = products.variants.map((variant) => {
-  //   return variant.description.slice(0,10);
-  // });
+  // get min & max price from variants
+  const prices = cardProduct.variants.map((variant) => variant.sale_price);
+  const minPrice = Math.min(...prices);
+  const maxPrice = Math.max(...prices);
 
-  const images = cardProduct.variants.slice(1, 2).map((variant) => {
-    return variant.features.slice(0, 1).map((feature) => {
-      return feature.images.slice(0, 1).map((images) => {
-        return images;
-      });
-    });
-  });
-  const imagesHover = cardProduct.variants.slice(0, 1).map((variant) => {
-    return variant.features.slice(0, 1).map((feature) => {
-      return feature.images.slice(0, 1).map((images) => {
-        return images;
-      });
-    });
-  });
-
-  const maxPrice = price.reduce((a, b) => {
-    return Math.max(a, b);
-  });
-  const minPrice = price.reduce((a, b) => {
-    return Math.min(a, b);
-  });
-
-  const imageURL = "https://ashley-api.herokuapp.com/uploads/";
-  // const src = imageURL;
+  // get image from variants array and features array
+  const image = cardProduct.variants[0]?.features[0]?.images[0];
+  const imageHover = cardProduct.variants[0]?.features[1]?.images[0];
 
   const options = {
     edit: false,
@@ -58,17 +35,13 @@ const ProductCard = ({ cardProduct }) => {
         </div>
         <div className={product.card_image}>
           <Image
-            src={`${imageURL}products/${images[0][0][0]}`}
-            alt="bed"
-            layout="fill"
-            objectFit="cover"
+            src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${image}`}
+            alt="bed" layout="fill" objectFit="cover"
           />
           <div className={product.display}>
             <Image
-              src={`${imageURL}products/${imagesHover[0][0][0]}`}
-              alt="bed"
-              layout="fill"
-              objectFit="cover"
+              src={`${process.env.NEXT_PUBLIC_uploadURL}products/${imageHover}`}
+              alt="bed" layout="fill" objectFit="cover"
             />
           </div>
         </div>
@@ -76,26 +49,8 @@ const ProductCard = ({ cardProduct }) => {
           <h4>{cardProduct.title}</h4>
           <div className={product.ratings}>
             <ReactStars {...options} />
-
-            {/* <div className={product.span}>
-              <AiFillStar />
-            </div>
-            <div className={product.span}>
-              <AiFillStar />
-            </div>
-            <div className={product.span}>
-              <AiFillStar />
-            </div>
-            <div className={product.span}>
-              <AiFillStar />
-            </div>
-            <div className={product.span}>
-              <AiFillStar />
-            </div> */}
           </div>
-          <p>
-            $ {minPrice} - $ {maxPrice}
-          </p>
+          <p>$ {minPrice} - $ {maxPrice}</p>
         </div>
       </a>
     </Link>
