@@ -188,7 +188,7 @@ const ProductDetail = ({ productDetail, productReviews }) => {
           {/* Large Image */}
           <div className={productCss.large_img_div}>
             <Image
-              src={bed}
+              src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${selectedFeature.images[0]}`}
               alt="Picture of the author"
               layout="fill"
               className={productCss.img}
@@ -653,13 +653,13 @@ const ProductDetail = ({ productDetail, productReviews }) => {
           </div>) :
           (<div className={productCss.out_of_stock}>
             <h4>
-              Subtotal: <span>${productQuantity * cartDetail.price}</span>
+              Subtotal: <span>${quantity * selectedVariant.sale_price}</span>
             </h4>
             <div className={productCss.heading_and_icon}>
               <h4>Temporarily Out of Stock</h4>
               <div
                 className={productCss.icon}
-                onClick={addToWishHandler}
+                // onClick={addToWishHandler}
                 style={{
                   height: 40,
                   width: 40,
@@ -672,7 +672,7 @@ const ProductDetail = ({ productDetail, productReviews }) => {
             </div>
             <div
               dangerouslySetInnerHTML={{
-                __html: zeroStockMsg,
+                __html: selectedFeature.zero_stock_msg,
               }}
               style={{ padding: 10 }}
             >
@@ -680,9 +680,12 @@ const ProductDetail = ({ productDetail, productReviews }) => {
           </div>
           )}
       </div>
+      {/* OK */}
 
       <div className={productCss.realted_product_wrapper}>
         <p className={productCss.realted_product_heading}>YOU MAY ALSO LIKE</p>
+
+
         <Slider {...siblingproductssettings}>
           {/* cardWrapper one */}
           <div className={productCss.realtedProduct_cardWrapper}>
@@ -871,6 +874,7 @@ const ProductDetail = ({ productDetail, productReviews }) => {
           </div>
         </Slider>
       </div>
+      <ProductCarousal height={200} slider={selectedFeature.images} url={process.env.NEXT_PUBLIC_uploadURL} />
     </div >
   );
 };
