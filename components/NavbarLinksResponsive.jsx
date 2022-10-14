@@ -80,7 +80,10 @@ const NavbarLinksResponsive = () => {
                       <GoLocation />
                     </a>
                   </Link>
-                  Your Closet Ashley
+                  <span>
+                    Your Closet Ashley
+                  </span>
+
                   {/* <Link href="/location"> */}
                   {/* <span onClick={() => setshowhide(!showhide)}>
                     Please Enter Zip Code
@@ -122,7 +125,6 @@ const NavbarLinksResponsive = () => {
                   </Modal>
                 </div>
               </div>
-
 
               {/* parent three */}
               <div className={navbarlinkresponsive.links}>

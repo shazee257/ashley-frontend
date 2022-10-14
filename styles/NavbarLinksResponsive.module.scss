@@ -1,7 +1,7 @@
 @import "./Variables.module.scss";
 
 .menubar_wrapper {
-    margin: 0 5px;
+    // margin: 0 5px;
     margin-top: 0px;
 
     .cart_icon {
@@ -9,7 +9,7 @@
         padding: 0;
 
         .icon {
-            font-size: 35px;
+            font-size: 38px;
         }
 
         .hide {
@@ -19,7 +19,7 @@
         .menubar {
             position: absolute;
             overflow-y: scroll;
-            top: 100px;
+            top: 80px;
             left: 0;
             color: black;
             // width: 500px;
@@ -78,8 +78,10 @@
                     height: auto;
 
                     p {
+                        margin: 10px 0px;
                         font-size: 14px;
                         color: $light-grey;
+                        display: flex;
 
                         span {
                             cursor: pointer;
@@ -95,7 +97,7 @@
                             margin-right: 10px;
                         }
                     }
-                    
+
                     .arrow {
                         cursor: pointer;
                         font-size: 20px;
@@ -155,6 +157,20 @@
     }
 }
 
+@media (max-width: $breakpoint-medium) {
+    .menubar_wrapper {
+        .cart_icon {
+            font-size: 10px;
+            .menubar {
+                top: 60px;
+            }
+            .icon {
+                font-size: 30px;
+            }
+        }
+    }
+}
+
 @media (max-width: 550px) {
     .menubar_wrapper {
         .cart_icon {
@@ -162,13 +178,10 @@
 
             .icon {
                 cursor: pointer;
-                font-size: 22px;
             }
 
             .menubar {
                 width: 100%;
-                // height: 600px;
-                // height: 100vh;
                 top: 60px;
 
                 .hidenavbarbylist {
@@ -225,6 +238,16 @@
                         }
                     }
                 }
+            }
+        }
+    }
+}
+
+@media (max-width: $breakpoint-small) {
+    .menubar_wrapper {
+        .cart_icon {
+            .icon {
+                font-size: 23px;
             }
         }
     }
