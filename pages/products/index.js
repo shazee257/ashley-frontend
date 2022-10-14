@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategory, selectCategory } from "../../app/features/categorySlice";
 import { fetchProducts, selectProducts } from "../../app/features/productSlice";
+import { selectSearchProducts } from "../../app/features/searchSlice";
 
 import FilterAccordion from "../../components/FilterAccordion";
 import ProductCard from "../../components/ProductCard";
@@ -20,7 +21,6 @@ import Link from "next/link";
 const Products = () => {
   const router = useRouter();
   const { categorySlug } = router.query;
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,16 +30,26 @@ const Products = () => {
 
   const products = useSelector(selectProducts);
   const categories = useSelector(selectCategory);
+  const searchProducts = useSelector(selectSearchProducts);
 
-  const filteredProducts = products?.filter((fp) => {
-    return fp.category_id.slug === categorySlug;
-  });
+  let filteredProducts = [];
+  let currentCategory = {};
+  let parentCategory = {};
+  let siblingCategories = [];
+  let topCategoriesExceptOne = [];
 
-  const currentCategory = categories?.find((cat) => cat.slug === categorySlug);
-  const parentCategory = categories?.find((cat) => cat._id == currentCategory?.parent_id);
+  if (categorySlug) {
+    currentCategory = categories?.find((cat) => cat.slug === categorySlug);
+    parentCategory = categories?.find((cat) => cat._id == currentCategory?.parent_id);
+    siblingCategories = categories?.filter((cat) => cat.parent_id === parentCategory._id);
+    topCategoriesExceptOne = siblingCategories?.filter((cat) => cat.slug !== categorySlug);
 
-  const siblingCategories = categories?.filter((cat) => cat.parent_id === parentCategory._id);
-  const topCategoriesExceptOne = siblingCategories?.filter((cat) => cat.slug !== categorySlug);
+    filteredProducts = products?.filter((fp) => {
+      return fp.category_id.slug === categorySlug;
+    });
+  } else {
+    filteredProducts = searchProducts;
+  }
 
   return (
     <div className={product.products_wrapper}>
@@ -53,7 +63,7 @@ const Products = () => {
           <div className={product.filters_cat}>
             <h3>{parentCategory?.title}</h3>
             {siblingCategories?.map((siblingCat) => (
-              <Link href={`/products/${siblingCat.slug}`} key={siblingCat._id}>
+              <Link href={`/products?categorySlug=${siblingCat.slug}`} key={siblingCat._id}>
                 <p>{siblingCat.title}</p>
               </Link>
             ))}
@@ -66,11 +76,11 @@ const Products = () => {
 
         <div className={product.products_item_wrapper}>
           {/* new work start top sub categories */}
-          <div className="flex my-7 justify-evenly {product.images_fiter}">
+          <div className="flex cursor-pointer my-7 justify-evenly {product.images_fiter}">
             {topCategoriesExceptOne?.slice(0, 5).map((siblingCategory) => (
               <div className="{product.images_fiter_wrapper}"
                 key={siblingCategory._id}>
-                <Link href={`/products/${siblingCategory.slug}`} key={siblingCategory._id}>
+                <Link href={`/products?categorySlug=${siblingCategory.slug}`} key={siblingCategory._id}>
                   <div className="flex flex-col items-center justify-center h-60 w-48" >
                     <div className={`flex items-center justify-center h-40 w-40 bg-green-200 rounded-full ${product.sub_categories_image_div}`}>
                       {/* <div className="{product.sub_categories_image}"> */}
@@ -93,15 +103,6 @@ const Products = () => {
           </div>
           {/* new work end  sub categories */}
 
-          {/* sub categories new work */}
-          {/* <div className={product.categories_wrapper}>
-            <CategoriesCard img={catchair} title="" />
-            <CategoriesCard img={catchair} title="" />
-            <CategoriesCard img={catchair} title="" />
-            <CategoriesCard img={catchair} title="" />
-            <CategoriesCard img={catchair} title="" />
-          </div> */}
-          {/* cats ends here  */}
           <div className={product.products_cards_wrapper}>
             {
               filteredProducts?.length > 0 ?

@@ -4,8 +4,8 @@ import Switch from "@mui/material/Switch";
 import Image from "next/image";
 import { addToCart } from "../../../app/features/cartSlice";
 import { useDispatch } from "react-redux";
-import { fetchProducts } from "../../../app/features/productSlice";
-import { fetchCategory } from "../../../app/features/categorySlice";
+import { fetchProducts, selectProducts } from "../../../app/features/productSlice";
+import { fetchCategory, selectCategory } from "../../../app/features/categorySlice";
 import { addToWishlist } from "../../../app/features/wishlistSlice";
 
 import Accordion from "@mui/material/Accordion";
@@ -86,6 +86,8 @@ const ProductDetail = ({ productDetail, productReviews }) => {
   const [selectedColor, setSelectedColor] = useState(productDetail.variants[0].features[0].color_id.title);
   const [itemCode, setItemCode] = useState(productDetail.variants[0].features[0].sku);
   // const [price, setPrice] = useState(productDetail.variants[0].sale_price);
+
+
 
   // get colors
   const getColors = () => {
@@ -880,7 +882,7 @@ const ProductDetail = ({ productDetail, productReviews }) => {
 export async function getServerSideProps(context) {
   const { productSlug } = context.query;
 
-  const res = await fetch(`https://ashley-api.herokuapp.com/products/${productSlug}`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_baseURL}/products/${productSlug}`);
 
   const data = await res.json();
   const { product, reviews } = data;
