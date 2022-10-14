@@ -115,8 +115,6 @@ const ProductDetail = ({ productDetail, productReviews }) => {
 
   const sizes = getSizes();
 
-  console.log("colors", colors);
-
   // useEffect(() => {
   //   setCartDetail({
   //     ...cartDetail,
@@ -158,21 +156,21 @@ const ProductDetail = ({ productDetail, productReviews }) => {
     prevArrow: <SamplePrevArrow />,
   };
 
-  // const siblingproductssettings = {
-  //   dots: true,
-  //   // infinite: true,
-  //   infinite: false,
-  //   // speed: 1000,
-  //   slidesToShow: 5,
-  //   slidesToScroll: 1,
-  //   arrows: true,
-  //   // autoplay: true,
-  //   autoplay: false,
-  //   autoplaySpeed: 3000,
+  const siblingproductssettings = {
+    dots: true,
+    // infinite: true,
+    infinite: false,
+    // speed: 1000,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    arrows: true,
+    // autoplay: true,
+    autoplay: false,
+    autoplaySpeed: 3000,
 
-  //   nextArrow: <SampleNextArrow />,
-  //   prevArrow: <SamplePrevArrow />,
-  // };
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+  };
 
   return (
     <div className={productCss.product_detail_wrapper}>
@@ -357,6 +355,7 @@ const ProductDetail = ({ productDetail, productReviews }) => {
       </div>
 
       <div className={productCss.product_features_and_subtotal}>
+        {/* 4 Tabs Section */}
         <div className={productCss.features}>
           <div className={productCss.feature_heading}>
             <h4
@@ -591,33 +590,30 @@ const ProductDetail = ({ productDetail, productReviews }) => {
 
         {selectedFeature.quantity > 0 ? (
           <div className={productCss.subtotal}>
-            <h3>Subtotal: $ {quantity * selectedVariant.sale_price}</h3>
-            {selectedFeature.quantity <= 9 && (
-              <h3 style={{ color: "red" }}>
-                Hurry Up Only{" "}
+            <h3>Subtotal: $ {(quantity * selectedVariant.sale_price).toFixed(2)}</h3>
+            {selectedFeature.quantity < 10 && (
+              <h3 style={{ color: "red", fontSize: '14px' }}>
+                {'Hurry Up! Only'}
                 <span
                   style={{
                     borderRadius: "50%",
                     boxShadow: "0 0 5px red",
-                    padding: "2px 10px",
+                    padding: "4px 10px",
+                    margin: "0 5px",
                   }}
                 >
                   {selectedFeature.quantity}
                 </span>{" "}
-                Items Left
+                items left
               </h3>
             )}
 
             <div className={productCss.qty_wrapper}>
               <h3>Qty:</h3>
               <div className={productCss.qty}>
-                <p
-                // onClick={decQuantity}
-                >-</p>
-                <p>{selectedFeature.quantity}</p>
-                <p
-                // onClick={incQuantity}
-                >+</p>
+                <p onClick={() => setQuantity(quantity - 1)}>-</p>
+                <p>{quantity}</p>
+                <p onClick={() => setQuantity(quantity + 1)}>+</p>
               </div>
               <button
               // onClick={addToCartHandler}
@@ -685,11 +681,11 @@ const ProductDetail = ({ productDetail, productReviews }) => {
           )}
       </div>
 
-      {/* <div className={productCss.realted_product_wrapper}>
+      <div className={productCss.realted_product_wrapper}>
         <p className={productCss.realted_product_heading}>YOU MAY ALSO LIKE</p>
-        <Slider {...siblingproductssettings}> */}
-      {/* cardWrapper one */}
-      {/* <div className={productCss.realtedProduct_cardWrapper}>
+        <Slider {...siblingproductssettings}>
+          {/* cardWrapper one */}
+          <div className={productCss.realtedProduct_cardWrapper}>
             <div className={productCss.heart}>
               <h4 className={productCss.icon}>
                 <AiOutlineHeart />
@@ -717,10 +713,10 @@ const ProductDetail = ({ productDetail, productReviews }) => {
             <h4>Save 5% wid Code:LDSAVINGS</h4>
             <h3>Free Grounp Shipping</h3>
             <h2>More Products Options Available</h2>
-          </div> */}
+          </div>
 
-      {/* cardWrapper two */}
-      {/* <div className={productCss.realtedProduct_cardWrapper}>
+          {/* cardWrapper two */}
+          <div className={productCss.realtedProduct_cardWrapper}>
             <div className={productCss.heart}>
               <h4 className={productCss.icon}>
                 <AiOutlineHeart />
@@ -748,10 +744,10 @@ const ProductDetail = ({ productDetail, productReviews }) => {
             <h4>Save 5% wid Code:LDSAVINGS</h4>
             <h3>Free Grounp Shipping</h3>
             <h2>More Products Options Available</h2>
-          </div> */}
+          </div>
 
-      {/* cardWrapper three */}
-      {/* <div className={productCss.realtedProduct_cardWrapper}>
+          {/* cardWrapper three */}
+          <div className={productCss.realtedProduct_cardWrapper}>
             <div className={productCss.heart}>
               <h4 className={productCss.icon}>
                 <AiOutlineHeart />
@@ -779,10 +775,10 @@ const ProductDetail = ({ productDetail, productReviews }) => {
             <h4>Save 5% wid Code:LDSAVINGS</h4>
             <h3>Free Grounp Shipping</h3>
             <h2>More Products Options Available</h2>
-          </div> */}
+          </div>
 
-      {/* cardWrapper four */}
-      {/* <div className={productCss.realtedProduct_cardWrapper}>
+          {/* cardWrapper four */}
+          <div className={productCss.realtedProduct_cardWrapper}>
             <div className={productCss.heart}>
               <h4 className={productCss.icon}>
                 <AiOutlineHeart />
@@ -810,10 +806,10 @@ const ProductDetail = ({ productDetail, productReviews }) => {
             <h4>Save 5% wid Code:LDSAVINGS</h4>
             <h3>Free Grounp Shipping</h3>
             <h2>More Products Options Available</h2>
-          </div> */}
+          </div>
 
-      {/* cardWrapper five*/}
-      {/* <div className={productCss.realtedProduct_cardWrapper}>
+          {/* cardWrapper five*/}
+          <div className={productCss.realtedProduct_cardWrapper}>
             <div className={productCss.heart}>
               <h4 className={productCss.icon}>
                 <AiOutlineHeart />
@@ -841,10 +837,10 @@ const ProductDetail = ({ productDetail, productReviews }) => {
             <h4>Save 5% wid Code:LDSAVINGS</h4>
             <h3>Free Grounp Shipping</h3>
             <h2>More Products Options Available</h2>
-          </div> */}
+          </div>
 
-      {/* cardWrapper six*/}
-      {/* <div className={productCss.realtedProduct_cardWrapper}>
+          {/* cardWrapper six*/}
+          <div className={productCss.realtedProduct_cardWrapper}>
             <div className={productCss.heart}>
               <h4 className={productCss.icon}>
                 <AiOutlineHeart />
@@ -872,9 +868,9 @@ const ProductDetail = ({ productDetail, productReviews }) => {
             <h4>Save 5% wid Code:LDSAVINGS</h4>
             <h3>Free Grounp Shipping</h3>
             <h2>More Products Options Available</h2>
-          </div> */}
-      {/* </Slider> */}
-      {/* </div> */}
+          </div>
+        </Slider>
+      </div>
     </div >
   );
 };
