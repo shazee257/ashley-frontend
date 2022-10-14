@@ -15,7 +15,7 @@ const ProductCard = ({ cardProduct }) => {
 
   // get image from variants array and features array
   const image = cardProduct.variants[0]?.features[0]?.images[0];
-  const imageHover = cardProduct.variants[0]?.features[1]?.images[0];
+  const imageHover = cardProduct.variants[0]?.features[0]?.images[2];
 
   const options = {
     edit: false,

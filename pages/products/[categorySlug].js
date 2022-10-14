@@ -66,26 +66,26 @@ const Products = () => {
 
         <div className={product.products_item_wrapper}>
           {/* new work start top sub categories */}
-          <div className={product.images_fiter}>
+          <div className="flex my-7 justify-evenly {product.images_fiter}">
             {topCategoriesExceptOne?.slice(0, 5).map((siblingCategory) => (
-              <div className={product.images_fiter_wrapper}
+              <div className="{product.images_fiter_wrapper}"
                 key={siblingCategory._id}>
                 <Link href={`/products/${siblingCategory.slug}`} key={siblingCategory._id}>
-                  <div>
-                    <div className={product.sub_categories_image_div}>
-                      <div className={product.sub_categories_image}>
-                        <Image
-                          className={product.image}
-                          src={iconone}
-                          alt="Picture of the author"
-                          layout="fill"
-                          // width={50}
-                          // height={50}
-                          priority
-                        />
-                      </div>
+                  <div className="flex flex-col items-center justify-center h-60 w-48" >
+                    <div className={`flex items-center justify-center h-40 w-40 bg-green-200 rounded-full ${product.sub_categories_image_div}`}>
+                      {/* <div className="{product.sub_categories_image}"> */}
+                      <Image
+                        className={product.image_sub_categories}
+                        src={iconone}
+                        alt="Picture of the author"
+                        layout="fixed"
+                        width={100}
+                        height={100}
+                        priority
+                      />
+                      {/* </div> */}
                     </div>
-                    <p className={product.sub_categories_name_ExpectOne}>{siblingCategory.title}</p>
+                    <p className="mt-3 text-sm {product.sub_categories_name_ExpectOne}">{siblingCategory.title}</p>
                   </div>
                 </Link>
               </div>
