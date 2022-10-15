@@ -199,7 +199,7 @@ const ProductDetail = ({ productDetail, productReviews }) => {
           <div className={productCss.productslider_wrapper}>
             <Slider {...settings}>
               {selectedFeature.images.map((image, index) => (
-                <div className={productCss.imagediv}>
+                <div className={productCss.imagediv} key={index}>
                   <Image
                     className="cursor-pointer  hover:opacity-70"
                     src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${image}`}
@@ -218,15 +218,14 @@ const ProductDetail = ({ productDetail, productReviews }) => {
             <h2> {productDetail.title} </h2>
             <p>Item Code:  {itemCode}</p>
             <div className={productCss.flex + " " + productCss.reviews}>
-              <span className={productCss.flex}>
-                <ReactStars {...options} />
-              </span>
+              <div className={productCss.flex}>
+                <ReactStars {...options}/>
+              </div>
               <p>{`${productReviews.length} Reviews`}</p>
             </div>
             <div className={productCss.flex + " " + productCss.price}>
               <h3>${selectedVariant.sale_price}</h3>
             </div>
-            {/* changes work  start*/}
             <div className={productCss.reatail_price}>
               <MdOutlinePhotoCameraBack className={productCss.icon} />
               <p>
@@ -251,7 +250,6 @@ const ProductDetail = ({ productDetail, productReviews }) => {
                 Save 5% with code : LDSAVINGS
               </span>
             </div>
-            {/* changes work end */}
           </div>
           <div style={{ width: "100%" }}>
             <Accordion>
@@ -259,43 +257,22 @@ const ProductDetail = ({ productDetail, productReviews }) => {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header">
-
                 <Typography sx={{ display: "flex", alignItems: "center" }}>
                   Color: {selectedFeature.color_id.title}
-                  {/* <span
-                    style={{
-                      backgroundImage: `url(${process.env.NEXT_PUBLIC_uploadURL}/colors/${selectedFeature.color_id.image})`,
-                      // backgroundImage: `url(${process.env.NEXT_PUBLIC_uploadURL}/colors/${colors.map((color) => color.image)})`,
-                      height: 24,
-                      width: 24,
-                      fontWeight: 600,
-                      borderRadius: "50%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      boxShadow: "0 0 2px grey",
-                      margin: "0 10px",
-                      backgroundPosition: "center",
-                      backgroundRepeat: "no-repeat",
-                      backgroundSize: "cover",
-                    }}
-                  ></span> */}
                 </Typography>
               </AccordionSummary>
               <AccordionDetails sx={{ display: "flex", cursor: "pointer" }}>
                 {colors && colors.map((color) => (
-                  <Typography
-                    sx={{
+                  <div
+                    style={{
                       display: "flex",
                       cursor: "pointer",
                       marginRight: "8px",
                       fontWeight: "500",
+                      display: "flex",
+                      justifyContent: "space-around"
                     }}
                     key={color.id}
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-around",
-                    }}
                   // onClick={() => colorChangeHandler(i)}
                   >
                     <div className="flex">
@@ -303,7 +280,7 @@ const ProductDetail = ({ productDetail, productReviews }) => {
                         src={`${process.env.NEXT_PUBLIC_uploadURL}/colors/${color.image}`} width={24} height={24} />
                       <span className="rounded-xl pl-2 pr-5">{color.title}</span>
                     </div>
-                  </Typography>
+                  </div>
                 ))}
               </AccordionDetails>
             </Accordion>
@@ -874,7 +851,7 @@ const ProductDetail = ({ productDetail, productReviews }) => {
           </div>
         </Slider>
       </div>
-      <ProductCarousal height={200} slider={selectedFeature.images} url={process.env.NEXT_PUBLIC_uploadURL} />
+      {/* <ProductCarousal height={200} slider={selectedFeature.images} url={process.env.NEXT_PUBLIC_uploadURL} /> */}
     </div >
   );
 };

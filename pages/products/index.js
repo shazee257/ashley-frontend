@@ -17,10 +17,11 @@ import iconotwo from "../assets/iconotwo.PNG";
 import iconthree from "../assets/iconthree.PNG";
 import iconfour from "../assets/iconfour.PNG";
 import Link from "next/link";
+import axios from "axios";
 
 const Products = () => {
   const router = useRouter();
-  const { categorySlug } = router.query;
+  const { categorySlug, discountedCategorySlug } = router.query;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -43,9 +44,15 @@ const Products = () => {
     parentCategory = categories?.find((cat) => cat._id == currentCategory?.parent_id);
     siblingCategories = categories?.filter((cat) => cat.parent_id === parentCategory._id);
     topCategoriesExceptOne = siblingCategories?.filter((cat) => cat.slug !== categorySlug);
-
+    filteredProducts = products?.filter((fp) => fp.category_id.slug === categorySlug);
+  } else if (discountedCategorySlug) {
+    currentCategory = categories?.find((cat) => cat.slug === discountedCategorySlug);
+    parentCategory = categories?.find((cat) => cat._id == currentCategory?.parent_id);
+    siblingCategories = categories?.filter((cat) => cat.parent_id === parentCategory._id);
+    topCategoriesExceptOne = siblingCategories?.filter((cat) => cat.slug !== discountedCategorySlug);
+    // get discounted products by slug
     filteredProducts = products?.filter((fp) => {
-      return fp.category_id.slug === categorySlug;
+      return (fp.category_id.slug === discountedCategorySlug) && (fp.discount > 0);
     });
   } else {
     filteredProducts = searchProducts;
@@ -58,6 +65,7 @@ const Products = () => {
         <div className={product.filters_wrapper}>
           <div className={product.filter_heading}>
             <h3>{categorySlug?.replace(/-/g, " ")}</h3>
+            <h3>{discountedCategorySlug?.replace(/-/g, " ")}</h3>
             <p>{filteredProducts?.length} of {products?.length} Products Showing</p>
           </div>
           <div className={product.filters_cat}>
@@ -77,7 +85,7 @@ const Products = () => {
         <div className={product.products_item_wrapper}>
           {/* new work start top sub categories */}
           <div className="flex cursor-pointer my-7 justify-evenly {product.images_fiter}">
-            {topCategoriesExceptOne?.slice(0, 5).map((siblingCategory) => (
+            {categorySlug && topCategoriesExceptOne?.slice(0, 5).map((siblingCategory) => (
               <div className="{product.images_fiter_wrapper}"
                 key={siblingCategory._id}>
                 <Link href={`/products?categorySlug=${siblingCategory.slug}`} key={siblingCategory._id}>
@@ -102,6 +110,15 @@ const Products = () => {
             ))}
           </div>
           {/* new work end  sub categories */}
+
+          {/* Adnan work discount image */}
+          {/* <div className="flex cursor-pointer my-7 justify-evenly {product.images_fiter}">
+            {discountedCategorySlug && (
+              <div>
+
+              </div>
+            )}
+          </div> */}
 
           <div className={product.products_cards_wrapper}>
             {

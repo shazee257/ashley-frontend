@@ -78,32 +78,15 @@ export default function Home({ categoriesData }) {
     dispatch(fetchProducts());
     dispatch(fetchCategory());
   }, [dispatch]);
-  // useEffect(() => {
-  //   dispatch(fetchCategory());
-  // }, []);
 
   const categories = useSelector(selectCategory);
   const products = useSelector(selectProducts);
 
-  const filteredProducts = products?.filter((fp) => {
-    return fp.category_id.slug === "sheet-sets";
-  });
-
-  const mainCategories = categories?.filter((cat) => {
-    return cat.parent_id === "";
-  });
-
-  const sliders = banner.filter((banner) => {
-    return banner.type === 'slider'
-  })
-
-  const featureBanner = banner.filter((banner) => {
-    return banner.type === 'custom'
-  })
-
-  const categoryBanner = banner.filter((banner) => {
-    return banner.type === 'category'
-  })
+  const filteredProducts = products?.filter((fp) => fp.category_id.slug === "sheet-sets");
+  const mainCategories = categories?.filter((cat) => cat.parent_id === "");
+  const sliders = banner.filter((banner) => banner.type === 'slider');
+  const featureBanner = banner.filter((banner) => banner.type === 'custom');
+  const categoryBanner = banner.filter((banner) => banner.type === 'category');
 
   useEffect(() => {
     const fetchLoginData = localStorage.getItem("user");
@@ -113,44 +96,27 @@ export default function Home({ categoriesData }) {
     }
   }, []);
 
+
+  const getDiscountedCategories = async () => {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_baseURL}/products/discount/categories`);
+    console.log(response.data, "discounted categories");
+    setDiscountCategories(response.data.categories);
+  }
+
+  async function getFeatureProducts() {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_baseURL}/products/featured`);
+    setFeatProducts(response.data.products);
+  }
+
+  const getBanners = async () => {
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_baseURL}/banners`);
+    setBanner(data.banners);
+  }
+
   useEffect(() => {
-    async function getDisProducts() {
-      try {
-        const response = await axios.get(
-          "https://ashley-api.herokuapp.com/products/discount/categories"
-        );
-        setDiscountCategories(response.data.categories);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    getDisProducts();
-  }, []);
-  useEffect(() => {
-    async function getFeatProducts() {
-      try {
-        const response = await axios.get(
-          "https://ashley-api.herokuapp.com/products/featured"
-        );
-        setFeatProducts(response.data.products);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    getFeatProducts();
-  }, []);
-  useEffect(() => {
-    async function getBanner() {
-      try {
-        const response = await axios.get(
-          "https://ashley-api.herokuapp.com/banners"
-        );
-        setBanner(response.data.banners);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    getBanner();
+    getDiscountedCategories();
+    getFeatureProducts();
+    getBanners();
   }, []);
 
   // useEffect(() => {
