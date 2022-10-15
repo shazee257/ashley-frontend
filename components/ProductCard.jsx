@@ -15,7 +15,7 @@ const ProductCard = ({ cardProduct }) => {
 
   // get image from variants array and features array
   const image = cardProduct.variants[0]?.features[0]?.images[0];
-  const imageHover = cardProduct.variants[0]?.features[0]?.images[2];
+  // const imageHover = cardProduct.variants[0]?.features[0]?.images[2];
 
   const options = {
     edit: false,
@@ -38,12 +38,12 @@ const ProductCard = ({ cardProduct }) => {
             src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${image}`}
             alt="bed" layout="fill" objectFit="cover"
           />
-          <div className={product.display}>
+          {/* <div className={product.display}>
             <Image
               src={`${process.env.NEXT_PUBLIC_uploadURL}products/${imageHover}`}
               alt="bed" layout="fill" objectFit="cover"
             />
-          </div>
+          </div> */}
         </div>
         <div className={product.card_info}>
           <h4>{cardProduct.title}</h4>

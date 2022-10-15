@@ -341,7 +341,7 @@ const NavbarAccordion = ({
                   className={styles.content_filter_wrapper}
                   key={subCats._id}
                 >
-                  <Link href={`/products/${subCats.slug}`}>
+                  <Link href={`/products?categorySlug=${subCats.slug}`}>
                     <h3 onClick={() => setshowhide(!showhide)}>
                       {subCats.title}
                     </h3>

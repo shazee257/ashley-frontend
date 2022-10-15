@@ -95,7 +95,7 @@ const Footer = () => {
 
       {/* logo_links */}
       <div className={footer.logo_links}>
-        <div className={footer.copywright}>
+        <div className="flex items-center {footer.copywright}">
           <AiOutlineCopyrightCircle className={footer.copywright_logo} />
           Furniture Mecca. All Rights Reserved. myfurnituremecca.com
         </div>

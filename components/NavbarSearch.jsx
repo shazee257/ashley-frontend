@@ -20,7 +20,8 @@ import NavbarLinksResponsive from "./NavbarLinksResponsive";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
+// import Modal from "@mui/material/Modal";
+import ZipCodeModal from "./ZipCodeModal";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
@@ -98,7 +99,8 @@ const NavbarSearch = () => {
             <p>Your closest Ashley</p>
             <h5>Please Enter Zip Code</h5>
           </div>
-          <Modal
+          <ZipCodeModal open={open} handleClose={handleClose} />
+          {/* <Modal
             open={open}
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
@@ -134,7 +136,7 @@ const NavbarSearch = () => {
                 Please try another location.
               </Typography>
             </Box>
-          </Modal>
+          </Modal> */}
         </div>
       </div>
       <div className={navsearch.navbar_search_input}>
