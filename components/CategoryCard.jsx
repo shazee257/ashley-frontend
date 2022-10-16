@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import category from "../styles/CategoryCard.module.scss";
+
 const CategoryCard = ({ products }) => {
   const imageURl = "https://ashley-api.herokuapp.com/uploads/";
 
@@ -33,7 +34,7 @@ const CategoryCard = ({ products }) => {
       </div>
       <div className={category.info}>
         <h6>{products && products.title}</h6>
-        <Link href={`products/productdetail/${products && products.slug}`}>
+        <Link href={`products/details/${products && products.slug}`}>
           <a>
             <button>Shop Now</button>
           </a>

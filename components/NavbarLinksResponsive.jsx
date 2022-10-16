@@ -62,51 +62,17 @@ const NavbarLinksResponsive = () => {
                       <GoLocation />
                     </a>
                   </Link>
-                  <span>
-                    Your Closet Ashley
+                  <span >
+                    Your Closest Ashley
                   </span>
 
-                  {/* <Link href="/location"> */}
-                  {/* <span onClick={() => setshowhide(!showhide)}>
-                    Please Enter Zip Code
-                  </span> */}
-                  {/* </Link> */}
-
-                  <span onClick={handleOpen}>
+                  <span onClick={handleOpen} className="font-bold underline ">
                     Please Enter Zip Code
                   </span>
-
                 </p>
 
                 {/* Zip modal */}
-                <div>
-                  <ZipCodeModal open={open} handleClose={handleClose} />
-                  {/* <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                    className={navbarlinkresponsive.moadal}
-                  >
-                    <Box sx={style}>
-                      <h6>Please Enter a Zip Code</h6>
-                      <input type="text"
-                        placeholder=" Enter Zip Code"
-                        style={{
-                          padding: " 2.5px 5px",
-                          width: 180,
-                          // borderRadius: "4px",
-                        }} />
-                      <Button
-                        variant="outlined"
-                        sx={{
-                          marginLeft: "8px",
-                          padding: " 3px 5px",
-                          width: 30,
-                        }}>Enter</Button>
-                    </Box>
-                  </Modal> */}
-                </div>
+                <ZipCodeModal open={open} handleClose={handleClose} />
               </div>
 
               {/* parent three */}

@@ -21,7 +21,7 @@ import axios from "axios";
 
 const Products = () => {
   const router = useRouter();
-  const { categorySlug, discountedCategorySlug } = router.query;
+  const { categorySlug, discountedCategorySlug, zipCode } = router.query;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -39,21 +39,28 @@ const Products = () => {
   let siblingCategories = [];
   let topCategoriesExceptOne = [];
 
-  if (categorySlug) {
-    currentCategory = categories?.find((cat) => cat.slug === categorySlug);
+  // function to set filtered products
+  const setCategoryVariables = (categories, slug) => {
+    currentCategory = categories?.find((cat) => cat.slug === slug);
     parentCategory = categories?.find((cat) => cat._id == currentCategory?.parent_id);
     siblingCategories = categories?.filter((cat) => cat.parent_id === parentCategory._id);
-    topCategoriesExceptOne = siblingCategories?.filter((cat) => cat.slug !== categorySlug);
+    topCategoriesExceptOne = siblingCategories?.filter((cat) => cat.slug !== slug);
+  };
+
+  // find products by store zip code
+  const findProductsByZipCode = (zipCode) => {
+    const productsByZipCode = products?.filter((product) => product.store_id.zip === Number(zipCode));
+    return productsByZipCode;
+  };
+
+  if (categorySlug) {
+    setCategoryVariables(categories, categorySlug);
     filteredProducts = products?.filter((fp) => fp.category_id.slug === categorySlug);
   } else if (discountedCategorySlug) {
-    currentCategory = categories?.find((cat) => cat.slug === discountedCategorySlug);
-    parentCategory = categories?.find((cat) => cat._id == currentCategory?.parent_id);
-    siblingCategories = categories?.filter((cat) => cat.parent_id === parentCategory._id);
-    topCategoriesExceptOne = siblingCategories?.filter((cat) => cat.slug !== discountedCategorySlug);
-    // get discounted products by slug
-    filteredProducts = products?.filter((fp) => {
-      return (fp.category_id.slug === discountedCategorySlug) && (fp.discount > 0);
-    });
+    setCategoryVariables(categories, discountedCategorySlug);
+    filteredProducts = products?.filter((fp) => (fp.category_id.slug === discountedCategorySlug) && (fp.discount > 0));
+  } else if (zipCode) {
+    filteredProducts = findProductsByZipCode(zipCode);
   } else {
     filteredProducts = searchProducts;
   }

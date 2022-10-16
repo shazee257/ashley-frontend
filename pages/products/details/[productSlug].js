@@ -76,18 +76,10 @@ function SamplePrevArrow(props) {
 }
 
 const ProductDetail = ({ productDetail, productReviews }) => {
-  // const [product, setProduct] = useState(productDetail);
   const [quantity, setQuantity] = useState(1);
-
   const [selectedVariant, setSelectedVariant] = useState(productDetail.variants[0]);
   const [selectedFeature, setSelectedFeature] = useState(productDetail.variants[0].features[0]);
-
-  const [selectedSize, setSelectedSize] = useState(productDetail.variants[0].size);
-  const [selectedColor, setSelectedColor] = useState(productDetail.variants[0].features[0].color_id.title);
-  const [itemCode, setItemCode] = useState(productDetail.variants[0].features[0].sku);
-  // const [price, setPrice] = useState(productDetail.variants[0].sale_price);
-
-
+  const [selectedImage, setSelectedImage] = useState(productDetail.variants[0].features[0].images[0]);
 
   // get colors
   const getColors = () => {
@@ -114,6 +106,24 @@ const ProductDetail = ({ productDetail, productReviews }) => {
   }
 
   const sizes = getSizes();
+
+  const sizeChangeHandler = (i) => {
+    const variant = productDetail.variants[i];
+    setSelectedVariant(variant);
+    setSelectedFeature(variant.features[0]);
+    setSelectedImage(variant.features[0].images[0]);
+  }
+
+  const colorChangeHandler = (i) => {
+    const feature = selectedVariant.features[i];
+    setSelectedFeature(feature);
+    setSelectedImage(feature.images[0]);
+  }
+
+  const imageChangeHandler = (i) => {
+    const image = selectedFeature.images[i];
+    setSelectedImage(image);
+  }
 
   // useEffect(() => {
   //   setCartDetail({
@@ -188,7 +198,7 @@ const ProductDetail = ({ productDetail, productReviews }) => {
           {/* Large Image */}
           <div className={productCss.large_img_div}>
             <Image
-              src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${selectedFeature.images[0]}`}
+              src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${selectedImage}`}
               alt="Picture of the author"
               layout="fill"
               className={productCss.img}
@@ -199,7 +209,9 @@ const ProductDetail = ({ productDetail, productReviews }) => {
           <div className={productCss.productslider_wrapper}>
             <Slider {...settings}>
               {selectedFeature.images.map((image, index) => (
-                <div className={productCss.imagediv} key={index}>
+                <div className={productCss.imagediv} key={index}
+                  onClick={() => imageChangeHandler(index)}
+                >
                   <Image
                     className="cursor-pointer  hover:opacity-70"
                     src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${image}`}
@@ -216,10 +228,10 @@ const ProductDetail = ({ productDetail, productReviews }) => {
         <div className={productCss.product_detail}>
           <div className={productCss.name_price}>
             <h2> {productDetail.title} </h2>
-            <p>Item Code:  {itemCode}</p>
+            <p>Item Code:  {selectedFeature.sku}</p>
             <div className={productCss.flex + " " + productCss.reviews}>
               <div className={productCss.flex}>
-                <ReactStars {...options}/>
+                <ReactStars {...options} />
               </div>
               <p>{`${productReviews.length} Reviews`}</p>
             </div>
@@ -257,12 +269,19 @@ const ProductDetail = ({ productDetail, productReviews }) => {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header">
-                <Typography sx={{ display: "flex", alignItems: "center" }}>
-                  Color: {selectedFeature.color_id.title}
-                </Typography>
+                <div className="flex items-center ">
+                  <Typography sx={{ marginRight: '5px' }}>
+                    Color: {" "}
+                  </Typography>
+                  <Image className="rounded-xl"
+                    src={`${process.env.NEXT_PUBLIC_uploadURL}/colors/${selectedFeature.color_id.image}`} width={20} height={20} />
+                  <Typography sx={{ display: "flex", alignItems: "center", marginLeft: '3px' }}>
+                    {selectedFeature.color_id.title}
+                  </Typography>
+                </div>
               </AccordionSummary>
               <AccordionDetails sx={{ display: "flex", cursor: "pointer" }}>
-                {colors && colors.map((color) => (
+                {colors && colors.map((color, i) => (
                   <div
                     style={{
                       display: "flex",
@@ -272,13 +291,13 @@ const ProductDetail = ({ productDetail, productReviews }) => {
                       display: "flex",
                       justifyContent: "space-around"
                     }}
-                    key={color.id}
-                  // onClick={() => colorChangeHandler(i)}
+                    key={i}
+                    onClick={() => colorChangeHandler(i)}
                   >
                     <div className="flex">
                       <Image className="rounded-xl"
                         src={`${process.env.NEXT_PUBLIC_uploadURL}/colors/${color.image}`} width={24} height={24} />
-                      <span className="rounded-xl pl-2 pr-5">{color.title}</span>
+                      <span className="pl-2 pr-5">{color.title}</span>
                     </div>
                   </div>
                 ))}
@@ -294,7 +313,7 @@ const ProductDetail = ({ productDetail, productReviews }) => {
               >
                 <Typography>Size: {selectedVariant.size}</Typography>
               </AccordionSummary>
-              <AccordionDetails sx={{ display: "flex", cursor: "pointer" }}>
+              <AccordionDetails sx={{ display: "flex" }}>
                 {sizes.map((size, i) => (
                   <Typography
                     sx={{
@@ -304,7 +323,7 @@ const ProductDetail = ({ productDetail, productReviews }) => {
                       fontWeight: "500",
                     }}
                     key={i}
-                    // onClick={() => sizeChangeHandler(i)}
+                    onClick={() => sizeChangeHandler(i)}
                     style={{
                       // height: 36,
                       // width: 36,
