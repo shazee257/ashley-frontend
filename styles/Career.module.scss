@@ -5,25 +5,29 @@
   padding-top: 10px;
 
   h1 {
-    font-size: 19px;
+    font-size: 20px;
     margin: 20px 0px;
     padding-left: 35px;
+    font-weight: 500;
     color: $red;
   }
 
   .carrer_detail {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+
+    // justify-content: center;
     align-items: center;
 
     h3 {
       font-size: 32px;
       font-weight: bold;
+      margin-right: 20px;
     }
 
     h4 {
       margin-top: 15px;
+      margin-right: 40px;
     }
 
     p {
@@ -41,6 +45,7 @@
     }
 
     .email {
+      margin-top: 40px;
       span {
         color: $red;
       }
@@ -55,14 +60,15 @@
 
 @media (max-width: $breakpoint-medium) {
   .carrer_wrapper {
-
     .carrer_detail {
-        
+      h3 {
+        margin-right: 0px;
+      }
       h4 {
-        margin-top: 15px;
         padding: 0px;
         padding-left: 10px;
         font-size: 17px;
+        margin-right: 0px;
       }
 
       p {
@@ -96,7 +102,6 @@
     }
 
     .carrer_detail {
-
       h4 {
         margin-top: 15px;
         font-size: 15px;

@@ -95,28 +95,29 @@ const Footer = () => {
 
       {/* logo_links */}
       <div className={footer.logo_links}>
-        <div className="flex items-center {footer.copywright}">
+        {/* <div className="flex items-center {footer.copywright}"> */}
+        <div className={footer.copywright}>
           <AiOutlineCopyrightCircle className={footer.copywright_logo} />
           Furniture Mecca. All Rights Reserved. myfurnituremecca.com
         </div>
-        <div className={footer.logo_div}>
-          {/* <Link href="/"> */}
+        {/* <div className={footer.logo_div}>
+          <Link href="/">
           <a>
             <GrFacebook className={footer.logo} />
           </a>
-          {/* </Link> */}
+          </Link>
 
-          {/* <Link href="/"> */}
+          <Link href="/">
           <a>
             <FaTwitterSquare className={footer.middle_logo} />
           </a>
-          {/* </Link> */}
-          {/* <Link href="/"> */}
+          </Link>
+          <Link href="/">
           <a>
             <BsLinkedin className={footer.logo} />
           </a>
-          {/* </Link> */}
-        </div>
+          </Link>
+        </div> */}
       </div>
     </div>
   );

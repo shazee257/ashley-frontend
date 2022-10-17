@@ -127,12 +127,15 @@
     margin-top: 30px;
 
     .copywright {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       font-size: 15px;
       .copywright_logo {
         cursor: pointer;
         font-size: 15px;
         margin-right: 5px;
-        margin-bottom: 2px;
+        margin-top: 2px;
       }
     }
     .logo_div {
