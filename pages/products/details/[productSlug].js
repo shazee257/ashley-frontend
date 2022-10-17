@@ -75,16 +75,17 @@ function SamplePrevArrow(props) {
   );
 }
 
-const ProductDetail = ({ productDetail, productReviews }) => {
+const ProductDetail = ({ product, reviews }) => {
   const [quantity, setQuantity] = useState(1);
-  const [selectedVariant, setSelectedVariant] = useState(productDetail.variants[0]);
-  const [selectedFeature, setSelectedFeature] = useState(productDetail.variants[0].features[0]);
-  const [selectedImage, setSelectedImage] = useState(productDetail.variants[0].features[0].images[0]);
+  const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
+  const [selectedFeature, setSelectedFeature] = useState(product.variants[0].features[0]);
+  const [selectedImage, setSelectedImage] = useState(product.variants[0].features[0].images[0]);
+  const [activeIndex, setActiveIndex] = useState(1);
 
   // get colors
   const getColors = () => {
     let colors = [];
-    productDetail.variants[0].features.map((f) => {
+    product.variants[0].features.map((f) => {
       colors.push({
         id: f.color_id.id,
         title: f.color_id.title,
@@ -99,7 +100,7 @@ const ProductDetail = ({ productDetail, productReviews }) => {
   // get sizes
   const getSizes = () => {
     let sizes = [];
-    productDetail.variants.map((v) => {
+    product.variants.map((v) => {
       sizes.push({ id: v._id, size: v.size });
     });
     return sizes;
@@ -108,7 +109,7 @@ const ProductDetail = ({ productDetail, productReviews }) => {
   const sizes = getSizes();
 
   const sizeChangeHandler = (i) => {
-    const variant = productDetail.variants[i];
+    const variant = product.variants[i];
     setSelectedVariant(variant);
     setSelectedFeature(variant.features[0]);
     setSelectedImage(variant.features[0].images[0]);
@@ -125,6 +126,19 @@ const ProductDetail = ({ productDetail, productReviews }) => {
     setSelectedImage(image);
   }
 
+  const quantityIncrementHandler = () => {
+    if (quantity < 10) {
+      setQuantity(quantity + 1);
+    }
+  }
+
+  const quantityDecrementHandler = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  }
+
+  console.log("reviews", reviews);
   // useEffect(() => {
   //   setCartDetail({
   //     ...cartDetail,
@@ -147,7 +161,7 @@ const ProductDetail = ({ productDetail, productReviews }) => {
     edit: false,
     color1: "rgb(20,20,20,0.1)",
     color2: "tomato",
-    value: productDetail.rating,
+    value: product.rating,
   };
 
   const settings = {
@@ -182,6 +196,8 @@ const ProductDetail = ({ productDetail, productReviews }) => {
     prevArrow: <SamplePrevArrow />,
   };
 
+  const activeLinkHandler = (i) => setActiveIndex(i);
+
   return (
     <div className={productCss.product_detail_wrapper}>
       <div className={productCss.bread_crumbs}>
@@ -193,7 +209,7 @@ const ProductDetail = ({ productDetail, productReviews }) => {
         <span className={productCss.last_span}>Maimz Sofa</span>
       </div>
 
-      <div className={productCss.img_and_detail} key={productDetail._id}>
+      <div className={productCss.img_and_detail} key={product._id}>
         <div className={productCss.image_detail}>
           {/* Large Image */}
           <div className={productCss.large_img_div}>
@@ -227,13 +243,13 @@ const ProductDetail = ({ productDetail, productReviews }) => {
 
         <div className={productCss.product_detail}>
           <div className={productCss.name_price}>
-            <h2> {productDetail.title} </h2>
+            <h2> {product.title} </h2>
             <p>Item Code:  {selectedFeature.sku}</p>
             <div className={productCss.flex + " " + productCss.reviews}>
               <div className={productCss.flex}>
                 <ReactStars {...options} />
               </div>
-              <p>{`${productReviews.length} Reviews`}</p>
+              <p>{`${reviews.length} Reviews`}</p>
             </div>
             <div className={productCss.flex + " " + productCss.price}>
               <h3>${selectedVariant.sale_price}</h3>
@@ -269,12 +285,12 @@ const ProductDetail = ({ productDetail, productReviews }) => {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header">
-                <div className="flex items-center ">
-                  <Typography sx={{ marginRight: '5px' }}>
+                <div className="flex items-center justify-center ">
+                  <Typography sx={{ marginRight: '10px' }}>
                     Color: {" "}
                   </Typography>
                   <Image className="rounded-xl"
-                    src={`${process.env.NEXT_PUBLIC_uploadURL}/colors/${selectedFeature.color_id.image}`} width={20} height={20} />
+                    src={`${process.env.NEXT_PUBLIC_uploadURL}/colors/${selectedFeature.color_id.image}`} width={22} height={22} />
                   <Typography sx={{ display: "flex", alignItems: "center", marginLeft: '3px' }}>
                     {selectedFeature.color_id.title}
                   </Typography>
@@ -353,63 +369,44 @@ const ProductDetail = ({ productDetail, productReviews }) => {
       <div className={productCss.product_features_and_subtotal}>
         {/* 4 Tabs Section */}
         <div className={productCss.features}>
+          {/* 4 Product Specs Tabs */}
           <div className={productCss.feature_heading}>
-            <h4
-              onClick={() => activeLinkHandler(1)}
-            // style={
-            //   activeIndex === 1
-            //     ? { color: "grey", borderBottom: "3px solid grey" }
-            //     : { color: "black" }
-            // }
-            >
-              Details and Overview
-            </h4>
-            <h4
-              onClick={() => activeLinkHandler(2)}
-            // style={
-            //   activeIndex === 2
-            //     ? { color: "grey", borderBottom: "3px solid grey" }
-            //     : { color: "black" }
-            // }
-            >
-              Products Reviews
-            </h4>
-            <h4
-              onClick={() => activeLinkHandler(3)}
-            // style={
-            //   activeIndex === 3
-            //     ? { color: "grey", borderBottom: "3px solid grey" }
-            //     : { color: "black" }
-            // }
-            >
-              Closest Stores
-            </h4>
+            <h4 onClick={() => activeLinkHandler(1)}
+              style={
+                activeIndex === 1
+                  ? { color: "grey", borderBottom: "3px solid grey" }
+                  : { color: "black" }
+              }>Details and Overview</h4>
+            <h4 onClick={() => activeLinkHandler(2)}
+              style={
+                activeIndex === 2
+                  ? { color: "grey", borderBottom: "3px solid grey" }
+                  : { color: "black" }
+              }>Products Reviews</h4>
+            <h4 onClick={() => activeLinkHandler(3)}
+              style={
+                activeIndex === 3
+                  ? { color: "grey", borderBottom: "3px solid grey" }
+                  : { color: "black" }
+              }>Closest Stores</h4>
             <h4
               onClick={() => activeLinkHandler(4)}
-              // style={
-              //   activeIndex === 4
-              //     ? { color: "grey", borderBottom: "3px solid grey" }
-              //     : { color: "black" }
-              // }
+              style={
+                activeIndex === 4
+                  ? { color: "grey", borderBottom: "3px solid grey" }
+                  : { color: "black" }
+              }
               className={productCss.last_line}
-            >
-              Product Video
-            </h4>
+            >Product Video</h4>
           </div>
-          {/* {activeIndex === 1 && (
+          {activeIndex === 1 && (
             <div className={productCss.overview}>
-              <div
-                className={productCss.description}
-                dangerouslySetInnerHTML={{
-                  __html: desc.slice(sizeID, sizeID + 1),
-                }}
-              ></div>
-              <div
-                className={productCss.dimenstion}
-                dangerouslySetInnerHTML={{
-                  __html: dimension.slice(sizeID, sizeID + 1),
-                }}
-              ></div>
+              <div className={productCss.description}
+                dangerouslySetInnerHTML={{ __html: selectedVariant.description }}>
+              </div>
+              <div className={productCss.dimenstion}
+                dangerouslySetInnerHTML={{ __html: selectedVariant.dimensions }}>
+              </div>
             </div>
           )}
 
@@ -421,11 +418,9 @@ const ProductDetail = ({ productDetail, productReviews }) => {
                   display: "flex",
                   justifyContent: "space-between",
                   borderBottom: "1px solid black",
-                }}
-              >
+                }}>
                 <div className={productCss.total_rating}>
-                  <h1>
-                    {productDetail.rating} <span>/5.0</span>
+                  <h1>{product.rating} <span>/5.0</span>
                   </h1>
                   <span
                     style={{
@@ -581,9 +576,10 @@ const ProductDetail = ({ productDetail, productReviews }) => {
                 controls={false}
               />
             </div>
-          )} */}
+          )}
         </div>
 
+        {/* Quantity */}
         {selectedFeature.quantity > 0 ? (
           <div className={productCss.subtotal}>
             <h3>Subtotal: $ {(quantity * selectedVariant.sale_price).toFixed(2)}</h3>
@@ -607,9 +603,9 @@ const ProductDetail = ({ productDetail, productReviews }) => {
             <div className={productCss.qty_wrapper}>
               <h3>Qty:</h3>
               <div className={productCss.qty}>
-                <p onClick={() => setQuantity(quantity - 1)}>-</p>
+                <p onClick={quantityDecrementHandler}>-</p>
                 <p>{quantity}</p>
-                <p onClick={() => setQuantity(quantity + 1)}>+</p>
+                <p onClick={quantityIncrementHandler}>+</p>
               </div>
               <button
               // onClick={addToCartHandler}
@@ -885,8 +881,8 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      productDetail: product,
-      productReviews: reviews,
+      product,
+      reviews,
     },
   };
 }
