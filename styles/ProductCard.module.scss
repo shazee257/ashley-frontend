@@ -32,66 +32,70 @@
       cursor: pointer;
     }
   }
+  .card_details {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .card_image {
+      width: 90%;
+      margin-left: 6px;
+      height: 140px;
+      position: relative;
+      transition: all 0.3s ease-in-out;
 
-  .card_image {
-     width: 90%;
-     height: 140px;
-    position: relative;
-    transition: all 0.3s ease-in-out;
-
-
-    &:hover {
-      transform: scale(1.1);
-      .display {
-        display: block;
+      &:hover {
+        transform: scale(1.1);
+        .display {
+          display: block;
+        }
       }
+      cursor: pointer;
 
-
+      .display {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: 160px;
+        img {
+          height: 140px;
+        }
+        p {
+          text-align: center;
+          background: $yellow;
+          color: white;
+        }
+      }
     }
-    cursor: pointer;
-
-    .display {
-      display: none;
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-      height: 160px;
-      img {
-        height: 140px;
+    .card_info {
+      margin-top: 15px;
+      width: 90%;
+      h4 {
+        font-size: 17px;
+        margin: 10px 0;
+        font-weight: 600;
+      }
+      .ratings {
+        // font-size: 16px;
+        color: $yellow;
+        // width: 70%;
+        margin: 10px 0;
+        // @include flex-center;
+        // justify-content: flex-start;
+        span {
+          margin: 0 15px 0 0;
+        }
       }
       p {
-        text-align: center;
-        background: $yellow;
-        color: white;
+        font-weight: 600;
+        margin: 10px 0;
       }
-    }
-  }
-  .card_info {
-    width: 90%;
-    h4 {
-      font-size: 17px;
-      margin: 10px 0;
-      font-weight: 600;
-    }
-    .ratings {
-      // font-size: 16px;
-      color: $yellow;
-      // width: 70%;
-      margin: 10px 0;
-      // @include flex-center;
-      // justify-content: flex-start;
-      span {
-        margin: 0 15px 0 0;
+      .delovery_detail {
+        font-size: 14px;
+        color: $light-grey;
       }
-    }
-    p {
-      font-weight: 600;
-      margin: 10px 0;
-    }
-    .delovery_detail {
-      font-size: 14px;
-      color: $light-grey;
     }
   }
 }
