@@ -4,7 +4,7 @@
   height: 100px;
   width: 95%;
   margin: auto;
-  padding: 0 50px;
+  padding:0px;
   font-family: $open-sans;
   display: flex;
   align-items: center;
@@ -17,22 +17,26 @@
   .logo {
     @include flex-center;
     height: 100%;
-    margin-left: 5px;
+    margin-left: 0px;
 
     a {
-      @include flex-center;
+      // @include flex-center;
       height: 100%;
-      width: 180px;
+      width: 160px;
       position: relative;
     }
   }
 
   .zip {
-    @include flex-column;
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    // @include flex-column;
     cursor: pointer;
     color: $light-grey;
-    // margin: 0 20px;
-    margin: 0 2px;
+    // margin: 0 2px;
+    
+    // background: #000;
 
     p {
       margin: 0;
@@ -41,13 +45,15 @@
 
     h5 {
       margin: 0;
-      font-size: 14px;
+      font-size: 13px;
+      font-weight: bold;
+      box-shadow: #000;
     }
   }
 
   .navbar_search_input {
     // flex: 1;
-    margin: 0 30px;
+    margin: 0 20px;
     margin-left: 10px;
     position: relative;
 
