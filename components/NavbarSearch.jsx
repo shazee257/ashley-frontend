@@ -88,7 +88,7 @@ const NavbarSearch = () => {
               className={navsearch.img}
               layout="fill"
               objectFit="contain"
-              priority
+              priority="low"
             />
           </a>
         </Link>
