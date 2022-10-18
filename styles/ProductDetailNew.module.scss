@@ -321,6 +321,112 @@
           border-right: none;
         }
       }
+
+      .reviews {
+        height: 500px;
+        overflow-y: scroll;
+        padding-left: 20px;
+        width: 98%;
+        padding: 15px 0px;
+        padding-bottom: 10px;
+        .overall_ratings {
+          padding: 20px 0px;
+          display: flex;
+          flex-direction: column;
+          border-bottom: 2px solid grey;
+          margin-bottom: 20px;
+
+          .total_rating {
+            display: flex;
+           
+            .rating {
+              margin-left: 20px;
+            }
+
+            .reiw {
+              margin-left: 15px;
+              padding-left: 15px;
+              border-left: 2px solid grey;
+            }
+          }
+
+          .total_star {
+            margin-top: 20px;
+            .star_lines {
+              height: 10px;
+              width: 100px;
+              background-color: gold;
+              margin: 10px;
+            }
+
+            .review_button {
+              margin-top: 20px;
+              button {
+                cursor: pointer;
+                font-size: 14px;
+                padding: 5px 15px;
+                color: #ffffff;
+                background-color: rgb(25, 118, 210);
+                // border: 1px solid black;
+              }
+            }
+          }
+        }
+
+        .review_heading {
+          margin: 20px 0px;
+          font-weight: 700;
+          padding: 10px 10px;
+          background-color: #ffffff;
+        }
+        .review_by_customer {
+          margin: 10px 0px;
+          padding: 30px;
+          padding-top: 20px;
+          background-color: #ffffff;
+
+          .rating_star {
+            display: flex;
+            color: gold;
+          }
+          .review_title {
+            margin-top: 10px;
+            font-weight: 700;
+          }
+          .review_discription {
+            margin-top: 10px;
+          }
+          .review_img_wrapper {
+            margin-top: 20px;
+            display: flex;
+            justify-content: left;
+            .review_img {
+              position: relative;
+              width: 100px;
+              height: 80px;
+              border-right: 2px solid $extra-light-grey;
+              .img {
+                width: 100%;
+                height: 100%;
+              }
+            }
+          }
+
+          .review_personal_info {
+            margin-top: 20px;
+            display: flex;
+            justify-content: left;
+
+            p {
+              font-size: 14px;
+              color: grey;
+            }
+            .margin_left {
+              margin-left: 20px;
+            }
+          }
+        }
+      }
       .overview {
         width: 100%;
         padding: 10px;

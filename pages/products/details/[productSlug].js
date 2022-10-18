@@ -2,10 +2,17 @@ import React, { useEffect, useState } from "react";
 import ReactStars from "react-stars";
 import Switch from "@mui/material/Switch";
 import Image from "next/image";
+import moment from "moment";
 import { addToCart } from "../../../app/features/cartSlice";
 import { useDispatch } from "react-redux";
-import { fetchProducts, selectProducts } from "../../../app/features/productSlice";
-import { fetchCategory, selectCategory } from "../../../app/features/categorySlice";
+import {
+  fetchProducts,
+  selectProducts,
+} from "../../../app/features/productSlice";
+import {
+  fetchCategory,
+  selectCategory,
+} from "../../../app/features/categorySlice";
 import { addToWishlist } from "../../../app/features/wishlistSlice";
 
 import Accordion from "@mui/material/Accordion";
@@ -37,6 +44,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import bed from "../../assets/bed.webp";
 import ReactPlayer from "react-player";
+import fur12 from "../../assets/fur12.jpg";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -78,8 +86,12 @@ function SamplePrevArrow(props) {
 const ProductDetail = ({ product, reviews }) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
-  const [selectedFeature, setSelectedFeature] = useState(product.variants[0].features[0]);
-  const [selectedImage, setSelectedImage] = useState(product.variants[0].features[0].images[0]);
+  const [selectedFeature, setSelectedFeature] = useState(
+    product.variants[0].features[0]
+  );
+  const [selectedImage, setSelectedImage] = useState(
+    product.variants[0].features[0].images[0]
+  );
   const [activeIndex, setActiveIndex] = useState(1);
 
   // get colors
@@ -93,7 +105,7 @@ const ProductDetail = ({ product, reviews }) => {
       });
     });
     return colors;
-  }
+  };
 
   const colors = getColors();
 
@@ -104,7 +116,7 @@ const ProductDetail = ({ product, reviews }) => {
       sizes.push({ id: v._id, size: v.size });
     });
     return sizes;
-  }
+  };
 
   const sizes = getSizes();
 
@@ -113,32 +125,33 @@ const ProductDetail = ({ product, reviews }) => {
     setSelectedVariant(variant);
     setSelectedFeature(variant.features[0]);
     setSelectedImage(variant.features[0].images[0]);
-  }
+  };
 
   const colorChangeHandler = (i) => {
     const feature = selectedVariant.features[i];
     setSelectedFeature(feature);
     setSelectedImage(feature.images[0]);
-  }
+  };
 
   const imageChangeHandler = (i) => {
     const image = selectedFeature.images[i];
     setSelectedImage(image);
-  }
+  };
 
   const quantityIncrementHandler = () => {
     if (quantity < 10) {
       setQuantity(quantity + 1);
     }
-  }
+  };
 
   const quantityDecrementHandler = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
     }
-  }
+  };
 
   console.log("reviews", reviews);
+
   // useEffect(() => {
   //   setCartDetail({
   //     ...cartDetail,
@@ -225,15 +238,19 @@ const ProductDetail = ({ product, reviews }) => {
           <div className={productCss.productslider_wrapper}>
             <Slider {...settings}>
               {selectedFeature.images.map((image, index) => (
-                <div className={productCss.imagediv} key={index}
+                <div
+                  className={productCss.imagediv}
+                  key={index}
                   onClick={() => imageChangeHandler(index)}
                 >
                   <Image
                     className="cursor-pointer  hover:opacity-70"
                     src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${image}`}
                     alt="Picture of the author"
-                    width={150} height={100} layout="fixed"
-                  // className={productCss.image}
+                    width={150}
+                    height={100}
+                    layout="fixed"
+                    // className={productCss.image}
                   />
                 </div>
               ))}
@@ -244,7 +261,7 @@ const ProductDetail = ({ product, reviews }) => {
         <div className={productCss.product_detail}>
           <div className={productCss.name_price}>
             <h2> {product.title} </h2>
-            <p>Item Code:  {selectedFeature.sku}</p>
+            <p>Item Code: {selectedFeature.sku}</p>
             <div className={productCss.flex + " " + productCss.reviews}>
               <div className={productCss.flex}>
                 <ReactStars {...options} />
@@ -284,39 +301,53 @@ const ProductDetail = ({ product, reviews }) => {
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
-                id="panel1a-header">
+                id="panel1a-header"
+              >
                 <div className="flex items-center justify-center ">
-                  <Typography sx={{ marginRight: '10px' }}>
-                    Color: {" "}
-                  </Typography>
-                  <Image className="rounded-xl"
-                    src={`${process.env.NEXT_PUBLIC_uploadURL}/colors/${selectedFeature.color_id.image}`} width={22} height={22} />
-                  <Typography sx={{ display: "flex", alignItems: "center", marginLeft: '3px' }}>
+                  <Typography sx={{ marginRight: "10px" }}>Color: </Typography>
+                  <Image
+                    className="rounded-xl"
+                    src={`${process.env.NEXT_PUBLIC_uploadURL}/colors/${selectedFeature.color_id.image}`}
+                    width={22}
+                    height={22}
+                  />
+                  <Typography
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginLeft: "3px",
+                    }}
+                  >
                     {selectedFeature.color_id.title}
                   </Typography>
                 </div>
               </AccordionSummary>
               <AccordionDetails sx={{ display: "flex", cursor: "pointer" }}>
-                {colors && colors.map((color, i) => (
-                  <div
-                    style={{
-                      display: "flex",
-                      cursor: "pointer",
-                      marginRight: "8px",
-                      fontWeight: "500",
-                      display: "flex",
-                      justifyContent: "space-around"
-                    }}
-                    key={i}
-                    onClick={() => colorChangeHandler(i)}
-                  >
-                    <div className="flex">
-                      <Image className="rounded-xl"
-                        src={`${process.env.NEXT_PUBLIC_uploadURL}/colors/${color.image}`} width={24} height={24} />
-                      <span className="pl-2 pr-5">{color.title}</span>
+                {colors &&
+                  colors.map((color, i) => (
+                    <div
+                      style={{
+                        display: "flex",
+                        cursor: "pointer",
+                        marginRight: "8px",
+                        fontWeight: "500",
+                        display: "flex",
+                        justifyContent: "space-around",
+                      }}
+                      key={i}
+                      onClick={() => colorChangeHandler(i)}
+                    >
+                      <div className="flex">
+                        <Image
+                          className="rounded-xl"
+                          src={`${process.env.NEXT_PUBLIC_uploadURL}/colors/${color.image}`}
+                          width={24}
+                          height={24}
+                        />
+                        <span className="pl-2 pr-5">{color.title}</span>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </AccordionDetails>
             </Accordion>
 
@@ -371,24 +402,36 @@ const ProductDetail = ({ product, reviews }) => {
         <div className={productCss.features}>
           {/* 4 Product Specs Tabs */}
           <div className={productCss.feature_heading}>
-            <h4 onClick={() => activeLinkHandler(1)}
+            <h4
+              onClick={() => activeLinkHandler(1)}
               style={
                 activeIndex === 1
                   ? { color: "grey", borderBottom: "3px solid grey" }
                   : { color: "black" }
-              }>Details and Overview</h4>
-            <h4 onClick={() => activeLinkHandler(2)}
+              }
+            >
+              Details and Overview
+            </h4>
+            <h4
+              onClick={() => activeLinkHandler(2)}
               style={
                 activeIndex === 2
                   ? { color: "grey", borderBottom: "3px solid grey" }
                   : { color: "black" }
-              }>Products Reviews</h4>
-            <h4 onClick={() => activeLinkHandler(3)}
+              }
+            >
+              Products Reviews
+            </h4>
+            <h4
+              onClick={() => activeLinkHandler(3)}
               style={
                 activeIndex === 3
                   ? { color: "grey", borderBottom: "3px solid grey" }
                   : { color: "black" }
-              }>Closest Stores</h4>
+              }
+            >
+              Closest Stores
+            </h4>
             <h4
               onClick={() => activeLinkHandler(4)}
               style={
@@ -397,65 +440,90 @@ const ProductDetail = ({ product, reviews }) => {
                   : { color: "black" }
               }
               className={productCss.last_line}
-            >Product Video</h4>
+            >
+              Product Video
+            </h4>
           </div>
           {activeIndex === 1 && (
             <div className={productCss.overview}>
-              <div className={productCss.description}
-                dangerouslySetInnerHTML={{ __html: selectedVariant.description }}>
-              </div>
-              <div className={productCss.dimenstion}
-                dangerouslySetInnerHTML={{ __html: selectedVariant.dimensions }}>
-              </div>
+              <div
+                className={productCss.description}
+                dangerouslySetInnerHTML={{
+                  __html: selectedVariant.description,
+                }}
+              ></div>
+              <div
+                className={productCss.dimenstion}
+                dangerouslySetInnerHTML={{ __html: selectedVariant.dimensions }}
+              ></div>
             </div>
           )}
 
           {activeIndex === 2 && (
             <div className={productCss.reviews}>
-              <div
-                className={productCss.overall_ratings}
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  borderBottom: "1px solid black",
-                }}>
+              <div className={productCss.overall_ratings}>
                 <div className={productCss.total_rating}>
-                  <h1>{product.rating} <span>/5.0</span>
-                  </h1>
-                  <span
-                    style={{
-                      fontSize: "30px",
-                      margin: "0 10px 0 0",
-                      color: "gold",
-                    }}
+                  <div
+                  // style={{
+                  //   fontSize: "30px",
+                  //   margin: "0 10px 0 0",
+                  //   color: "gold",
+                  // }}
                   >
                     <ReactStars {...options} />
-                  </span>
-                  <span>5 Ratings</span>
+                  </div>
+                  <p className={productCss.rating}>
+                    {product.rating.toFixed(1)} / 5.0
+                  </p>
+                  <p className={productCss.reiw}>
+                    {`${reviews.length}  Reviews`}
+                  </p>
                 </div>
-                <div>
+                <div className={productCss.total_star}>
                   <div
                     className={productCss.rating_by_stars}
                     style={{ display: "flex" }}
                   >
-                    <span style={{ margin: "", color: "gold" }}>
-                      <AiFillStar />
-                      <AiFillStar />
-                      <AiFillStar />
-                      <AiFillStar />
-                      <AiFillStar />
-                    </span>
-                    <div
-                      style={{
-                        height: 10,
-                        width: 100,
-                        backgroundColor: "gold",
-                        margin: "10px",
-                      }}
-                    ></div>
-                    <span>5</span>
+                    <div>5 stars</div>
+                    <div className={productCss.star_lines}></div>
+                    <p>5</p>
                   </div>
                   <div
+                    className={productCss.rating_by_stars}
+                    style={{ display: "flex" }}
+                  >
+                    <div>5 stars</div>
+                    <div className={productCss.star_lines}></div>
+                    <p>5</p>
+                  </div>
+                  <div
+                    className={productCss.rating_by_stars}
+                    style={{ display: "flex" }}
+                  >
+                    <div>5 stars</div>
+                    <div className={productCss.star_lines}></div>
+                    <p>5</p>
+                  </div>
+                  <div
+                    className={productCss.rating_by_stars}
+                    style={{ display: "flex" }}
+                  >
+                    <div>5 stars</div>
+                    <div className={productCss.star_lines}></div>
+                    <p>5</p>
+                  </div>
+                  <div
+                    className={productCss.rating_by_stars}
+                    style={{ display: "flex" }}
+                  >
+                    <div>5 stars</div>
+                    <div className={productCss.star_lines}></div>
+                    <p>5</p>
+                  </div>
+                  <div className={productCss.review_button}>
+                    <button>WRITE A REVIEW</button>
+                  </div>
+                  {/* <div
                     className={productCss.rating_by_stars}
                     style={{ display: "flex" }}
                   >
@@ -539,27 +607,135 @@ const ProductDetail = ({ product, reviews }) => {
                       }}
                     ></div>
                     <span>5</span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
-              <div className={productCss.review_by_customer}>
-                <h5>Reviews</h5>
-                <div>
-                  <span style={{ margin: "", color: "gold" }}>
-                    <AiFillStar />
-                    <AiFillStar />
-                    <AiFillStar />
-                    <AiFillStar />
-                    <AiFillStar />
-                  </span>
+              {/* <h5 className={productCss.review_heading}>
+                Reviews for Similar Products
+              </h5> */}
+
+              {reviews.length > 0 &&
+                reviews.map((review) => (
+                  <div
+                    className={productCss.review_by_customer}
+                    key={review._id}
+                  >
+                    <div>
+                      <ReactStars {...options} />
+                    </div>
+                    {/* <div className={productCss.rating_star}>
+                      <AiFillStar />
+                      <AiFillStar />
+                      <AiFillStar />
+                      <AiFillStar />
+                      <AiFillStar />
+                    </div> */}
+                    <h6 className={productCss.review_title}>
+                      {/* By Customer Name */}
+                      {review.title}
+                    </h6>
+                    <p className={productCss.review_discription}>
+                      {review.description}
+                      {/* Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Sint iusto quos quibusdam totam officiis, ipsa aliquid
+                      quas doloribus enim! Quidem. */}
+                    </p>
+                    <div className={productCss.review_discription}>
+                      <div className={productCss.review_img_wrapper}>
+                        {review.images.length > 0 &&
+                          review.images.map((image) => (
+                            // <div className={productCss.review_img_wrapper}>
+                            <div className={productCss.review_img}>
+                              <Image
+                                src={`${process.env.NEXT_PUBLIC_uploadURL}/reviews/${image}`}
+                                alt="revie wpicture"
+                                layout="fill"
+                                className={productCss.img}
+                              />
+                            </div>
+                            //     {/* <div className={productCss.review_img}>
+                            //   <Image
+                            //     src={fur12}
+                            //     alt="revie wpicture"
+                            //     layout="fill"
+                            //     className={productCss.img}
+                            //   />
+                            // </div>
+                            // <div className={productCss.review_img}>
+                            //   <Image
+                            //     src={fur12}
+                            //     alt="revie wpicture"
+                            //     layout="fill"
+                            //     className={productCss.img}
+                            //   />
+                            // </div> */}
+                            // </div>
+                          ))}
+                      </div>
+                    </div>
+                    <div className={productCss.review_personal_info}>
+                      <p
+                        className={productCss.para}
+                      >{`${review.user_id.first_name} ${review.user_id.last_name}`}</p>
+                      {/* <p className={productCss.margin_left}>
+                        {review.user_id.last_name}
+                      </p> */}
+                      <p className={productCss.margin_left}>
+                        {/* {review.createdAt} */}
+                        {moment(review.createdAt).format("YYYY/MM/DD")}
+                      </p>
+                      {/* <p className={productCss.margin_left}>{review.user_id.last_name}</p> */}
+                    </div>
+                  </div>
+                ))}
+
+              {/* <div className={productCss.review_by_customer}>
+                <div className={productCss.rating_star}>
+                  <AiFillStar />
+                  <AiFillStar />
+                  <AiFillStar />
+                  <AiFillStar />
+                  <AiFillStar />
                 </div>
-                <h6>By Customer Name</h6>
-                <p>
+                <h6 className={productCss.review_title}>By Customer Name</h6>
+                <p className={productCss.review_discription}>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint
                   iusto quos quibusdam totam officiis, ipsa aliquid quas
                   doloribus enim! Quidem.
                 </p>
-              </div>
+                <div className={productCss.review_img_wrapper}>
+                  <div className={productCss.review_img}>
+                    <Image
+                      src={fur12}
+                      alt="revie wpicture"
+                      layout="fill"
+                      className={productCss.img}
+                    />
+                  </div>
+                  <div className={productCss.review_img}>
+                    <Image
+                      src={fur12}
+                      alt="revie wpicture"
+                      layout="fill"
+                      className={productCss.img}
+                    />
+                  </div>
+                  <div className={productCss.review_img}>
+                    <Image
+                      src={fur12}
+                      alt="revie wpicture"
+                      layout="fill"
+                      className={productCss.img}
+                    />
+                  </div>
+                </div>
+                <div className={productCss.review_personal_info}>
+                  <p>firstname</p>
+                  <p className={productCss.margin_left}>last name</p>
+                  <p className={productCss.margin_left}>date</p>
+                  <p className={productCss.margin_left}>username</p>
+                </div>
+              </div> */}
             </div>
           )}
 
@@ -582,10 +758,12 @@ const ProductDetail = ({ product, reviews }) => {
         {/* Quantity */}
         {selectedFeature.quantity > 0 ? (
           <div className={productCss.subtotal}>
-            <h3>Subtotal: $ {(quantity * selectedVariant.sale_price).toFixed(2)}</h3>
+            <h3>
+              Subtotal: $ {(quantity * selectedVariant.sale_price).toFixed(2)}
+            </h3>
             {selectedFeature.quantity < 10 && (
-              <h3 style={{ color: "red", fontSize: '14px' }}>
-                {'Hurry Up! Only'}
+              <h3 style={{ color: "red", fontSize: "14px" }}>
+                {"Hurry Up! Only"}
                 <span
                   style={{
                     borderRadius: "50%",
@@ -595,7 +773,7 @@ const ProductDetail = ({ product, reviews }) => {
                   }}
                 >
                   {selectedFeature.quantity}
-                </span>{" "}
+                </span>
                 items left
               </h3>
             )}
@@ -609,7 +787,9 @@ const ProductDetail = ({ product, reviews }) => {
               </div>
               <button
               // onClick={addToCartHandler}
-              >Add Items to Cart</button>
+              >
+                Add Items to Cart
+              </button>
               <div
                 className={productCss.icon}
                 // onClick={addToWishHandler}
@@ -642,8 +822,9 @@ const ProductDetail = ({ product, reviews }) => {
                 </div>
               </div>
             </div>
-          </div>) :
-          (<div className={productCss.out_of_stock}>
+          </div>
+        ) : (
+          <div className={productCss.out_of_stock}>
             <h4>
               Subtotal: <span>${quantity * selectedVariant.sale_price}</span>
             </h4>
@@ -667,16 +848,14 @@ const ProductDetail = ({ product, reviews }) => {
                 __html: selectedFeature.zero_stock_msg,
               }}
               style={{ padding: 10 }}
-            >
-            </div>
+            ></div>
           </div>
-          )}
+        )}
       </div>
       {/* OK */}
 
       <div className={productCss.realted_product_wrapper}>
         <p className={productCss.realted_product_heading}>YOU MAY ALSO LIKE</p>
-
 
         <Slider {...siblingproductssettings}>
           {/* cardWrapper one */}
@@ -867,14 +1046,16 @@ const ProductDetail = ({ product, reviews }) => {
         </Slider>
       </div>
       {/* <ProductCarousal height={200} slider={selectedFeature.images} url={process.env.NEXT_PUBLIC_uploadURL} /> */}
-    </div >
+    </div>
   );
 };
 
 export async function getServerSideProps(context) {
   const { productSlug } = context.query;
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_baseURL}/products/${productSlug}`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_baseURL}/products/${productSlug}`
+  );
 
   const data = await res.json();
   const { product, reviews } = data;
