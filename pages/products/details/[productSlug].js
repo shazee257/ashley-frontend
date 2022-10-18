@@ -4,7 +4,7 @@ import Switch from "@mui/material/Switch";
 import Image from "next/image";
 import moment from "moment";
 import { addToCart } from "../../../app/features/cartSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   fetchProducts,
   selectProducts,
@@ -86,13 +86,31 @@ function SamplePrevArrow(props) {
 const ProductDetail = ({ product, reviews }) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
-  const [selectedFeature, setSelectedFeature] = useState(
-    product.variants[0].features[0]
-  );
-  const [selectedImage, setSelectedImage] = useState(
-    product.variants[0].features[0].images[0]
-  );
+  const [selectedFeature, setSelectedFeature] = useState(product.variants[0].features[0]);
+  const [selectedImage, setSelectedImage] = useState(product.variants[0].features[0].images[0]);
   const [activeIndex, setActiveIndex] = useState(1);
+
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   // dispatch(fetchCategory());
+  //   dispatch(fetchProducts());
+  // }, [dispatch]);
+
+  const products = useSelector(selectProducts);
+  // const category = useSelector(selectCategory);
+
+  // Fetching similar category productsw with Min and Max price
+  const filterSimilarProducts = products?.filter((p) => p.category_id._id === product.category_id._id);
+  const siblingProductsWithPrices = filterSimilarProducts.map((p) => {
+    const prices = p.variants.map((v) => v.sale_price);
+    const minPrice = Math.min(...prices);
+    const maxPrice = Math.max(...prices);
+    return { ...p, minPrice, maxPrice };
+  });
+
+  // siblingProducts
+  const siblingProductsExceptCurrent = siblingProductsWithPrices.filter((p) => p._id !== product._id);
 
   // get colors
   const getColors = () => {
@@ -149,8 +167,6 @@ const ProductDetail = ({ product, reviews }) => {
       setQuantity(quantity - 1);
     }
   };
-
-  console.log("reviews", reviews);
 
   // useEffect(() => {
   //   setCartDetail({
@@ -250,7 +266,7 @@ const ProductDetail = ({ product, reviews }) => {
                     width={150}
                     height={100}
                     layout="fixed"
-                    // className={productCss.image}
+                  // className={productCss.image}
                   />
                 </div>
               ))}
@@ -523,91 +539,6 @@ const ProductDetail = ({ product, reviews }) => {
                   <div className={productCss.review_button}>
                     <button>WRITE A REVIEW</button>
                   </div>
-                  {/* <div
-                    className={productCss.rating_by_stars}
-                    style={{ display: "flex" }}
-                  >
-                    <span style={{ margin: "", color: "gold" }}>
-                      <AiFillStar />
-                      <AiFillStar />
-                      <AiFillStar />
-                      <AiFillStar />
-                      <AiFillStar />
-                    </span>
-                    <div
-                      style={{
-                        height: 10,
-                        width: 100,
-                        backgroundColor: "gold",
-                        margin: "10px",
-                      }}
-                    ></div>
-                    <span>5</span>
-                  </div>
-                  <div
-                    className={productCss.rating_by_stars}
-                    style={{ display: "flex" }}
-                  >
-                    <span style={{ margin: "", color: "gold" }}>
-                      <AiFillStar />
-                      <AiFillStar />
-                      <AiFillStar />
-                      <AiFillStar />
-                      <AiFillStar />
-                    </span>
-                    <div
-                      style={{
-                        height: 10,
-                        width: 100,
-                        backgroundColor: "gold",
-                        margin: "10px",
-                      }}
-                    ></div>
-                    <span>5</span>
-                  </div>
-                  <div
-                    className={productCss.rating_by_stars}
-                    style={{ display: "flex" }}
-                  >
-                    <span style={{ margin: "", color: "gold" }}>
-                      <AiFillStar />
-                      <AiFillStar />
-                      <AiFillStar />
-                      <AiFillStar />
-
-                      <AiFillStar />
-                    </span>
-                    <div
-                      style={{
-                        height: 10,
-                        width: 100,
-                        backgroundColor: "gold",
-                        margin: "10px",
-                      }}
-                    ></div>
-                    <span>5</span>
-                  </div>
-                  <div
-                    className={productCss.rating_by_stars}
-                    style={{ display: "flex" }}
-                  >
-                    <span style={{ margin: "", color: "gold" }}>
-                      <AiFillStar />
-                      <AiFillStar />
-                      <AiFillStar />
-                      <AiFillStar />
-                      <AiFillStar />
-                    </span>
-                    <div
-                      style={{
-                        height: 10,
-                        width: 100,
-                        backgroundColor: "gold",
-                        margin: "10px",
-                      }}
-                    ></div>
-                    <span>5</span>
-                  </div> */}
                 </div>
               </div>
               {/* <h5 className={productCss.review_heading}>
@@ -852,45 +783,44 @@ const ProductDetail = ({ product, reviews }) => {
           </div>
         )}
       </div>
-      {/* OK */}
 
       <div className={productCss.realted_product_wrapper}>
         <p className={productCss.realted_product_heading}>YOU MAY ALSO LIKE</p>
 
         <Slider {...siblingproductssettings}>
           {/* cardWrapper one */}
-          <div className={productCss.realtedProduct_cardWrapper}>
-            <div className={productCss.heart}>
-              <h4 className={productCss.icon}>
-                <AiOutlineHeart />
-              </h4>
-              <h4 className={productCss.display}>Add to Wishlist</h4>
+          {siblingProductsExceptCurrent.map((p) => (
+
+            <div className={productCss.realtedProduct_cardWrapper}>
+              <div className={productCss.heart}>
+                <h4 className={productCss.icon}>
+                  <AiOutlineHeart />
+                </h4>
+                <h4 className={productCss.display}>Add to Wishlist</h4>
+              </div>
+              <Link href={`/products/${p.slug}`}>
+                <div className={productCss.realted_product_imagediv}>
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${p.variants[0].features[1].images[0]}`}
+                    alt="Picture of the author"
+                    layout="fill"
+                    className={productCss.realted_product_image} />
+                </div>
+                <h6>{p.title}</h6>
+                <div className={productCss.star}>
+                  <ReactStars value={p.rating} count={5} size={24} color2={"#ffd700"} edit={false} />
+                </div>
+                <h5>{`$${p.minPrice} - $${p.maxPrice}`}</h5>
+                {/* <p>or $49/mo w/6 mos special financing</p>
+                  <h4>Save 5% wid Code:LDSAVINGS</h4>
+                  <h3>Free Grounp Shipping</h3>
+                  <h2>More Products Options Available</h2> */}
+              </Link>
             </div>
-            <div className={productCss.realted_product_imagediv}>
-              <Image
-                src={bed}
-                alt="Picture of the author"
-                layout="fill"
-                className={productCss.realted_product_image}
-              />
-            </div>
-            <h6>chiming 12 inch Hybird Matters</h6>
-            <div className={productCss.star}>
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-            </div>
-            <h5>$289.99</h5>
-            <p>or $49/mo w/6 mos special financing</p>
-            <h4>Save 5% wid Code:LDSAVINGS</h4>
-            <h3>Free Grounp Shipping</h3>
-            <h2>More Products Options Available</h2>
-          </div>
+          ))}
 
           {/* cardWrapper two */}
-          <div className={productCss.realtedProduct_cardWrapper}>
+          {/* <div className={productCss.realtedProduct_cardWrapper}>
             <div className={productCss.heart}>
               <h4 className={productCss.icon}>
                 <AiOutlineHeart />
@@ -918,10 +848,10 @@ const ProductDetail = ({ product, reviews }) => {
             <h4>Save 5% wid Code:LDSAVINGS</h4>
             <h3>Free Grounp Shipping</h3>
             <h2>More Products Options Available</h2>
-          </div>
+          </div> */}
 
           {/* cardWrapper three */}
-          <div className={productCss.realtedProduct_cardWrapper}>
+          {/* <div className={productCss.realtedProduct_cardWrapper}>
             <div className={productCss.heart}>
               <h4 className={productCss.icon}>
                 <AiOutlineHeart />
@@ -949,10 +879,10 @@ const ProductDetail = ({ product, reviews }) => {
             <h4>Save 5% wid Code:LDSAVINGS</h4>
             <h3>Free Grounp Shipping</h3>
             <h2>More Products Options Available</h2>
-          </div>
+          </div> */}
 
           {/* cardWrapper four */}
-          <div className={productCss.realtedProduct_cardWrapper}>
+          {/* <div className={productCss.realtedProduct_cardWrapper}>
             <div className={productCss.heart}>
               <h4 className={productCss.icon}>
                 <AiOutlineHeart />
@@ -980,10 +910,10 @@ const ProductDetail = ({ product, reviews }) => {
             <h4>Save 5% wid Code:LDSAVINGS</h4>
             <h3>Free Grounp Shipping</h3>
             <h2>More Products Options Available</h2>
-          </div>
+          </div> */}
 
           {/* cardWrapper five*/}
-          <div className={productCss.realtedProduct_cardWrapper}>
+          {/* <div className={productCss.realtedProduct_cardWrapper}>
             <div className={productCss.heart}>
               <h4 className={productCss.icon}>
                 <AiOutlineHeart />
@@ -1011,10 +941,10 @@ const ProductDetail = ({ product, reviews }) => {
             <h4>Save 5% wid Code:LDSAVINGS</h4>
             <h3>Free Grounp Shipping</h3>
             <h2>More Products Options Available</h2>
-          </div>
+          </div> */}
 
           {/* cardWrapper six*/}
-          <div className={productCss.realtedProduct_cardWrapper}>
+          {/* <div className={productCss.realtedProduct_cardWrapper}>
             <div className={productCss.heart}>
               <h4 className={productCss.icon}>
                 <AiOutlineHeart />
@@ -1042,7 +972,7 @@ const ProductDetail = ({ product, reviews }) => {
             <h4>Save 5% wid Code:LDSAVINGS</h4>
             <h3>Free Grounp Shipping</h3>
             <h2>More Products Options Available</h2>
-          </div>
+          </div> */}
         </Slider>
       </div>
       {/* <ProductCarousal height={200} slider={selectedFeature.images} url={process.env.NEXT_PUBLIC_uploadURL} /> */}
