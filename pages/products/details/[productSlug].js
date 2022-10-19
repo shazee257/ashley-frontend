@@ -86,8 +86,12 @@ function SamplePrevArrow(props) {
 const ProductDetail = ({ product, reviews }) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
-  const [selectedFeature, setSelectedFeature] = useState(product.variants[0].features[0]);
-  const [selectedImage, setSelectedImage] = useState(product.variants[0].features[0].images[0]);
+  const [selectedFeature, setSelectedFeature] = useState(
+    product.variants[0].features[0]
+  );
+  const [selectedImage, setSelectedImage] = useState(
+    product.variants[0].features[0].images[0]
+  );
   const [activeIndex, setActiveIndex] = useState(1);
 
   // const dispatch = useDispatch();
@@ -101,7 +105,9 @@ const ProductDetail = ({ product, reviews }) => {
   // const category = useSelector(selectCategory);
 
   // Fetching similar category productsw with Min and Max price
-  const filterSimilarProducts = products?.filter((p) => p.category_id._id === product.category_id._id);
+  const filterSimilarProducts = products?.filter(
+    (p) => p.category_id._id === product.category_id._id
+  );
   const siblingProductsWithPrices = filterSimilarProducts.map((p) => {
     const prices = p.variants.map((v) => v.sale_price);
     const minPrice = Math.min(...prices);
@@ -110,7 +116,9 @@ const ProductDetail = ({ product, reviews }) => {
   });
 
   // siblingProducts
-  const siblingProductsExceptCurrent = siblingProductsWithPrices.filter((p) => p._id !== product._id);
+  const siblingProductsExceptCurrent = siblingProductsWithPrices.filter(
+    (p) => p._id !== product._id
+  );
 
   // get colors
   const getColors = () => {
@@ -266,7 +274,7 @@ const ProductDetail = ({ product, reviews }) => {
                     width={150}
                     height={100}
                     layout="fixed"
-                  // className={productCss.image}
+                    // className={productCss.image}
                   />
                 </div>
               ))}
@@ -790,7 +798,6 @@ const ProductDetail = ({ product, reviews }) => {
         <Slider {...siblingproductssettings}>
           {/* cardWrapper one */}
           {siblingProductsExceptCurrent.map((p) => (
-
             <div className={productCss.realtedProduct_cardWrapper}>
               <div className={productCss.heart}>
                 <h4 className={productCss.icon}>
@@ -804,18 +811,25 @@ const ProductDetail = ({ product, reviews }) => {
                     src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${p.variants[0].features[1].images[0]}`}
                     alt="Picture of the author"
                     layout="fill"
-                    className={productCss.realted_product_image} />
+                    className={productCss.realted_product_image}
+                  />
                 </div>
-                <h6>{p.title}</h6>
-                <div className={productCss.star}>
-                  <ReactStars value={p.rating} count={5} size={24} color2={"#ffd700"} edit={false} />
-                </div>
-                <h5>{`$${p.minPrice} - $${p.maxPrice}`}</h5>
-                {/* <p>or $49/mo w/6 mos special financing</p>
+              </Link>
+              <h6>{p.title}</h6>
+              <div className={productCss.star}>
+                <ReactStars
+                  value={p.rating}
+                  count={5}
+                  size={24}
+                  color2={"#ffd700"}
+                  edit={false}
+                />
+              </div>
+              <h5>{`$${p.minPrice} - $${p.maxPrice}`}</h5>
+              {/* <p>or $49/mo w/6 mos special financing</p>
                   <h4>Save 5% wid Code:LDSAVINGS</h4>
                   <h3>Free Grounp Shipping</h3>
                   <h2>More Products Options Available</h2> */}
-              </Link>
             </div>
           ))}
 
