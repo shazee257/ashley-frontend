@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ProgressBar from "../../../components/Progressbar";
 import ReactStars from "react-stars";
 import Switch from "@mui/material/Switch";
 import Image from "next/image";
@@ -84,6 +85,20 @@ function SamplePrevArrow(props) {
 }
 
 const ProductDetail = ({ product, reviews }) => {
+  console.log(reviews);
+  const totalstar = 25;
+  const obtainedstarData = [
+    { completed: 16 },
+    { completed: 7 },
+    { completed: 2 },
+    { completed: 0 },
+    { completed: 0 },
+  ];
+
+  const getRating = (obtainedValue) => {
+    return ((obtainedValue / totalstar) * 100);
+  };
+
   const [quantity, setQuantity] = useState(1);
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
   const [selectedFeature, setSelectedFeature] = useState(
@@ -503,8 +518,32 @@ const ProductDetail = ({ product, reviews }) => {
                     {`${reviews.length}  Reviews`}
                   </p>
                 </div>
-                <div className={productCss.total_star}>
-                  <div
+                <div className={productCss.total_star_wrapper}>
+                  {/* <div className={productCss.total_star}> */}
+                  {obtainedstarData.map((item, idx) => (
+                    <div
+                      // style={{
+                      //   display: "flex",
+                      //   alignItems: "center",
+                      //   marginBottom: "10px",
+                      // }}
+                      className={productCss.total_star}
+                    >
+                      <div>5 star</div>
+                      <div>
+                        <ProgressBar
+                          key={idx}
+                          //   bgcolor={item.bgcolor}
+                          //   bgcolor="blue"
+                          // completed={item.completed}
+                          completed={getRating(item.completed)}
+                        />
+                      </div>
+                      <div className={productCss.total_star_number}>5</div>
+                    </div>
+                  ))}
+                  {/* </div> */}
+                  {/* <div
                     className={productCss.rating_by_stars}
                     style={{ display: "flex" }}
                   >
@@ -543,7 +582,7 @@ const ProductDetail = ({ product, reviews }) => {
                     <div>5 stars</div>
                     <div className={productCss.star_lines}></div>
                     <p>5</p>
-                  </div>
+                  </div> */}
                   <div className={productCss.review_button}>
                     <button>WRITE A REVIEW</button>
                   </div>

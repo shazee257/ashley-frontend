@@ -354,14 +354,25 @@
               border-left: 2px solid grey;
             }
           }
+          .total_star_wrapper {
+            margin-top: 10px;
+            .total_star {
+              display: flex;
+              align-items: center;
+              margin-bottom: 10px;
+              font-size: 13px;
+              // margin-top: 20px;
+              // background: #000;
 
-          .total_star {
-            margin-top: 20px;
-            .star_lines {
-              height: 10px;
-              width: 100px;
-              background-color: gold;
-              margin: 10px;
+              .total_star_number {
+                margin-left: 8px;
+              }
+              // .star_lines {
+              //   height: 10px;
+              //   width: 100px;
+              //   background-color: gold;
+              //   margin: 10px;
+              // }
             }
 
             .review_button {
@@ -373,7 +384,6 @@
                 padding: 5px 15px;
                 color: #ffffff;
                 background-color: rgb(25, 118, 210);
-                // border: 1px solid black;
               }
             }
           }
@@ -1103,7 +1113,7 @@
         }
       }
 
-      h6{
+      h6 {
         margin-top: 30px;
         font-size: 15px;
         font-weight: bold;

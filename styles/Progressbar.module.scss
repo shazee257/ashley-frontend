@@ -1,0 +1,20 @@
+@import "./Variables.module.scss";
+
+.progressbar_wrapper {
+    height: 10px;
+    width: 100px;
+    margin-left: 10px;
+    background-color: #e0e0de;
+
+    .progressbar_line_div {
+        height: 100%;
+        background-color: $yellow;
+        border-radius: inherit;
+        text-align: right;
+        // .progressbar_line {
+        //     padding: 5px;
+        //     color: white;
+        //     font-weight: bold;
+        // }
+    }
+}
