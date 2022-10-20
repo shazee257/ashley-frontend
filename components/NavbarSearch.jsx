@@ -100,43 +100,6 @@ const NavbarSearch = () => {
             <h5>Please Enter Zip Code</h5>
           </div>
           <ZipCodeModal open={open} handleClose={handleClose} />
-          {/* <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Change Location
-              </Typography>
-              <Box
-                sx={{
-                  margin: "10px 0",
-                  display: "flex",
-                }}
-              >
-                <TextField
-                  fullWidth
-                  label="Enter Zip Code Here"
-                  id="fullWidth"
-                />
-                <Button
-                  variant="outlined"
-                  sx={{
-                    margin: "0 10px",
-                    width: 120,
-                  }}
-                >
-                  Update
-                </Button>
-              </Box>
-              <Typography id="modal-modal-description" sx={{ m: 2 }}>
-                Closest Store to {"text here"} <br /> No Store Found <br />{" "}
-                Please try another location.
-              </Typography>
-            </Box>
-          </Modal> */}
         </div>
       </div>
       <div className={navsearch.navbar_search_input}>
@@ -155,10 +118,8 @@ const NavbarSearch = () => {
             <div className={navsearch.links + " " + navsearch.links_account}>
               <Link href="/" className={navsearch.links}>
                 <a>
-                  <CgProfile
-                    style={{ fontSize: 20, color: "grey", margin: "auto" }}
-                  />
-                  <br /> {loginData.first_name}
+                  <CgProfile style={{ fontSize: 20, color: "grey", margin: "auto" }} />
+                  {loginData.first_name}
                 </a>
               </Link>
               <div className={navsearch.account}>

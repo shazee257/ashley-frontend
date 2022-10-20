@@ -77,6 +77,7 @@ export default function Home({ categoriesData }) {
   useEffect(() => {
     dispatch(fetchProducts());
     dispatch(fetchCategory());
+    // dispatch(setLogin());
   }, [dispatch]);
 
   const categories = useSelector(selectCategory);
@@ -88,13 +89,13 @@ export default function Home({ categoriesData }) {
   const featureBanner = banner.filter((banner) => banner.type === 'custom');
   const categoryBanner = banner.filter((banner) => banner.type === 'category');
 
-  useEffect(() => {
-    const fetchLoginData = localStorage.getItem("user");
-    if (fetchLoginData) {
-      const data = JSON.parse(localStorage.getItem("user"));
-      dispatch(setLogin(data));
-    }
-  }, []);
+  // useEffect(() => {
+  //   const fetchLoginData = localStorage.getItem("user");
+  //   if (fetchLoginData) {
+  //     const data = JSON.parse(localStorage.getItem("user"));
+  //     dispatch(setLogin(data));
+  //   }
+  // }, []);
 
 
   const getDiscountedCategories = async () => {
@@ -103,7 +104,7 @@ export default function Home({ categoriesData }) {
     setDiscountCategories(response.data.categories);
   }
 
-  async function getFeatureProducts() {
+  const getFeatureProducts = async () => {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_baseURL}/products/featured`);
     setFeatProducts(response.data.products);
   }

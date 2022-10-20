@@ -7,6 +7,7 @@ import {
 } from "../../app/features/categorySlice";
 import { fetchProducts, selectProducts } from "../../app/features/productSlice";
 import { selectSearchProducts } from "../../app/features/searchSlice";
+import { selectLoginData } from "../../app/features/loginSlice";
 
 import FilterAccordion from "../../components/FilterAccordion";
 import ProductCard from "../../components/ProductCard";
@@ -20,7 +21,6 @@ import iconotwo from "../assets/iconotwo.PNG";
 import iconthree from "../assets/iconthree.PNG";
 import iconfour from "../assets/iconfour.PNG";
 import Link from "next/link";
-import axios from "axios";
 
 const Products = () => {
   const router = useRouter();
@@ -35,6 +35,7 @@ const Products = () => {
   const products = useSelector(selectProducts);
   const categories = useSelector(selectCategory);
   const searchProducts = useSelector(selectSearchProducts);
+  // const loginData = useSelector(selectLoginData);
 
   let filteredProducts = [];
   let currentCategory = {};

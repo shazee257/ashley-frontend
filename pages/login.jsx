@@ -1,17 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
+import { setLogin, selectLoginData } from "../app/features/loginSlice";
+import { useDispatch, useSelector } from "react-redux";
+
 import Tracking from "../components/Tracking";
 
 import login from "../styles/Login.module.scss";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  const router = useRouter();
   const data = { email: "", password: "", remember: false };
   const [loginData, setLoginData] = useState(data);
 
-  const router = useRouter();
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(setLogin());
+  // }, [dispatch]);
 
   const loginChangeHandler = (e) => {
     const { name, value, checked } = e.target;
@@ -23,41 +32,21 @@ const Login = () => {
       setLoginData({ ...loginData, remember: checked });
     }
   };
-  const loginClickHandler = async () => {
-    if (!loginData.email || !loginData.password) {
-      alert("please type email and password correctly");
-    } else {
-      const config = {
-        url: "https://ashley-api.herokuapp.com/users/login",
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        data: {
-          email: loginData.email,
-          password: loginData.password,
-        },
-      };
-      const response = await axios(config);
-      console.log(response);
-      console.log(response.data.message);
-      // console.log(loginData);
-      setLoginData(data);
-      response.data.success &&
-        localStorage.setItem(
-          "user",
-          JSON.stringify({
-            user_id: response.data.user._id,
-            first_name: response.data.user.first_name,
-            last_name: response.data.user.last_name,
-            email: response.data.user.email,
-          })
-        );
-      localStorage.setItem("token", response.data.session.token);
-    }
 
+  const loginClickHandler = async () => {
+    if (!loginData.email || !loginData.password) toast.error("Please enter email and password");
+
+    const { data } = await axios.post(`${process.env.NEXT_PUBLIC_baseURL}/users/login`, {
+      email: loginData.email,
+      password: loginData.password,
+    });
+
+    const authUser = data.authData;
+    console.log(authUser, "authUser");
+    dispatch(setLogin(authUser));
     router.push("/");
   };
+
   return (
     <div className={login.login_wrapper}>
       <div className={login.login_form_wrapper}>

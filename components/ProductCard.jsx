@@ -2,12 +2,19 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ReactStars from "react-stars";
+import axios from "axios";
+import { push } from "next/router";
 
 import { AiOutlineHeart, AiFillStar } from "react-icons/ai";
 
 import product from "../styles/ProductCard.module.scss";
 
+import { useDispatch, useSelector } from "react-redux";
+import { selectLoginData } from "../app/features/loginSlice";
+
 const ProductCard = ({ cardProduct }) => {
+  const loginData = useSelector(selectLoginData);
+  console.log(loginData, "loginData");
   // get min & max price from variants
   const prices = cardProduct?.variants.map((variant) => variant.sale_price);
   const minPrice = Math.min(...prices);
@@ -16,6 +23,16 @@ const ProductCard = ({ cardProduct }) => {
   // get image from variants array and features array
   const image = cardProduct.variants[0]?.features[0]?.images[0];
   // const imageHover = cardProduct.variants[0]?.features[0]?.images[2];
+
+  const addToWishlistHandler = async () => {
+    if (loginData?.data) {
+      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_baseURL}/wishlist/${loginData.data.user_id}/${cardProduct._id}`);
+      data.success && toast.info(data.message);
+    } else {
+      push('/login');
+    }
+  }
+
 
   const options = {
     edit: false,
@@ -26,7 +43,7 @@ const ProductCard = ({ cardProduct }) => {
 
   return (
     <div className={product.products_card}>
-      <div className={product.heart}>
+      <div className={product.heart} onClick={addToWishlistHandler}>
         <h4 className={product.icon}>
           <AiOutlineHeart />
         </h4>
