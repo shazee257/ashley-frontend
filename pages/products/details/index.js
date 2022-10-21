@@ -6,14 +6,8 @@ import Image from "next/image";
 import moment from "moment";
 import { addToCart } from "../../../app/features/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchProducts,
-  selectProducts,
-} from "../../../app/features/productSlice";
-import {
-  fetchCategory,
-  selectCategory,
-} from "../../../app/features/categorySlice";
+import { fetchProducts, selectProducts } from "../../../app/features/productSlice";
+import { fetchCategory, selectCategory } from "../../../app/features/categorySlice";
 import { addToWishlist } from "../../../app/features/wishlistSlice";
 
 import Accordion from "@mui/material/Accordion";
@@ -84,8 +78,16 @@ function SamplePrevArrow(props) {
   );
 }
 
-const ProductDetail = ({ product, reviews }) => {
-  console.log(reviews);
+function ProductDetail({ product, reviews }) {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCategory());
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  const products = useSelector(selectProducts);
+
   const totalstar = 25;
   const obtainedstarData = [
     { completed: 16 },
@@ -109,21 +111,13 @@ const ProductDetail = ({ product, reviews }) => {
   );
   const [activeIndex, setActiveIndex] = useState(1);
 
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   // dispatch(fetchCategory());
-  //   dispatch(fetchProducts());
-  // }, [dispatch]);
-
-  const products = useSelector(selectProducts);
-  // const category = useSelector(selectCategory);
 
   // Fetching similar category productsw with Min and Max price
   const filterSimilarProducts = products?.filter(
     (p) => p.category_id._id === product.category_id._id
   );
-  const siblingProductsWithPrices = filterSimilarProducts.map((p) => {
+
+  const siblingProductsWithPrices = filterSimilarProducts?.map((p) => {
     const prices = p.variants.map((v) => v.sale_price);
     const minPrice = Math.min(...prices);
     const maxPrice = Math.max(...prices);
@@ -131,7 +125,7 @@ const ProductDetail = ({ product, reviews }) => {
   });
 
   // siblingProducts
-  const siblingProductsExceptCurrent = siblingProductsWithPrices.filter(
+  const siblingProductsExceptCurrent = siblingProductsWithPrices?.filter(
     (p) => p._id !== product._id
   );
 
@@ -289,7 +283,7 @@ const ProductDetail = ({ product, reviews }) => {
                     width={150}
                     height={100}
                     layout="fixed"
-                    // className={productCss.image}
+                  // className={productCss.image}
                   />
                 </div>
               ))}
@@ -836,7 +830,7 @@ const ProductDetail = ({ product, reviews }) => {
 
         <Slider {...siblingproductssettings}>
           {/* cardWrapper one */}
-          {siblingProductsExceptCurrent.map((p) => (
+          {siblingProductsExceptCurrent?.map((p) => (
             <div className={productCss.realtedProduct_cardWrapper}>
               <div className={productCss.heart}>
                 <h4 className={productCss.icon}>
@@ -844,7 +838,7 @@ const ProductDetail = ({ product, reviews }) => {
                 </h4>
                 <h4 className={productCss.display}>Add to Wishlist</h4>
               </div>
-              <Link href={`/products/${p.slug}`}>
+              <Link href={`/products/details?slug=${p.slug}`}>
                 <div className={productCss.realted_product_imagediv}>
                   <Image
                     src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${p.variants[0].features[1].images[0]}`}
@@ -1033,12 +1027,10 @@ const ProductDetail = ({ product, reviews }) => {
   );
 };
 
-export async function getServerSideProps(context) {
-  const { productSlug } = context.query;
+export const getServerSideProps = async (context) => {
+  const { slug } = context.query;
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_baseURL}/products/${productSlug}`
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_baseURL}/products/${slug}`);
 
   const data = await res.json();
   const { product, reviews } = data;

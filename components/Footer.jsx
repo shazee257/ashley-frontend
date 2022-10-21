@@ -10,6 +10,8 @@ import { GrFacebook } from "react-icons/gr";
 import { FaTwitterSquare } from "react-icons/fa";
 import { BsLinkedin } from "react-icons/bs";
 import { AiOutlineCopyrightCircle } from "react-icons/ai";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { GoLocation } from "react-icons/go";
 import { BsTelephone } from "react-icons/bs";
@@ -119,6 +121,7 @@ const Footer = () => {
           </Link>
         </div> */}
       </div>
+      <ToastContainer />
     </div>
   );
 };

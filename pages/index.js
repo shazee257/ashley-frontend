@@ -10,7 +10,7 @@ import { AiOutlineDown } from "react-icons/ai";
 import Slider from "react-slick";
 
 // from redux slices
-
+import { wrapper } from "../app/store/store";
 import { fetchProducts, selectProducts } from "../app/features/productSlice";
 import { fetchCategory, selectCategory } from "../app/features/categorySlice";
 import { setLogin, selectLoginData } from "../app/features/loginSlice";
@@ -34,7 +34,7 @@ import ThinBannerCard from "../components/ThinBannerCard";
 import ShopByCategories from "../components/ShopByCategories";
 import ChatBot from "../components/ChatBot";
 
-export default function Home({ categoriesData }) {
+function Home({ categoriesData }) {
   // const [slider, setSlider] = useState([]);
   const [botShow, setBotShow] = useState(false);
   const [discountCategories, setDiscountCategories] = useState([]);
@@ -97,7 +97,6 @@ export default function Home({ categoriesData }) {
   //   }
   // }, []);
 
-
   const getDiscountedCategories = async () => {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_baseURL}/products/discount/categories`);
     console.log(response.data, "discounted categories");
@@ -147,9 +146,7 @@ export default function Home({ categoriesData }) {
             textAlign: "center",
             marginTop: "100px",
             marginBottom: "100px",
-          }}
-        >
-          {" "}
+          }}>{" "}
           <Image src={loader} alt="Loading..." height={100} width={100} />
         </h1>
       ) : (
@@ -211,10 +208,8 @@ export default function Home({ categoriesData }) {
           </div> */}
           <div className={styles.chatbot_wrapper}>
             <div className={styles.chatbot}>{botShow && <ChatBot />}</div>
-            <div
-              className={styles.chatbot_icon}
-              onClick={() => setBotShow(!botShow)}
-            >
+            <div className={styles.chatbot_icon}
+              onClick={() => setBotShow(!botShow)}>
               {botShow ? <AiOutlineDown /> : <BsChatDots />}
             </div>
           </div>
@@ -224,16 +219,25 @@ export default function Home({ categoriesData }) {
   );
 }
 
-export async function getServerSideProps() {
-  // const { productdetailslug } = context.query;
-
-  const categoriesRes = await fetch(
-    `https://ashley-api.herokuapp.com/categories/fetch/categories`
-  );
+export const getServerSideProps = async () => {
+  const categoriesRes = await fetch(`${process.env.NEXT_PUBLIC_baseURL}/categories/fetch/categories`);
   const catData = await categoriesRes.json();
   const categoriesData = catData.categories;
+
   return {
     props: { categoriesData },
-    // will be passed to the page component as props
   };
-}
+};
+
+// export const getServerSideProps = wrapper.getServerSideProps(
+//   (store) => async () => {
+//     const categoriesRes = await fetch(`https://ashley-api.herokuapp.com/categories/fetch/categories`);
+//     const catData = await categoriesRes.json();
+//     const categoriesData = catData.categories;
+//     store.dispatch(fetchCategory(categoriesData));
+//     return {
+//       props: { categoriesData },
+//     };
+//   })
+
+export default Home;

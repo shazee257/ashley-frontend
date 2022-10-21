@@ -1,8 +1,7 @@
 import { Provider } from "react-redux";
 import { useEffect } from "react";
-import store from "../app/store/store";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { wrapper } from "../app/store/store";
+
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 
@@ -12,22 +11,19 @@ import "../styles/globals.scss";
 
 // let persistor = persistStore(store);
 
-function MyApp({ Component, pageProps }) {
-  let persistor = persistStore(store);
+function App({ Component, pageProps }) {
+  // let persistor = persistStore(store);
   return (
     <>
-      <Provider store={store}>
-        {/* <PersistGate loading={null} persistor={persistor}> */}
-        <PersistGate loading={null} persistor={persistor}>
-          <ToastContainer autoClose={3000} />
-          <Navbar />
-          <Component {...pageProps} />
-          <Footer />
-        </PersistGate>
-        {/* </PersistGate> */}
-      </Provider>
+      {/* <Provider store={store}> */}
+      {/* <PersistGate persistor={persistor}> */}
+      <Navbar />
+      <Component {...pageProps} />
+      <Footer />
+      {/* </PersistGate> */}
+      {/* </Provider> */}
     </>
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(App);

@@ -43,7 +43,7 @@ const ShopByCategories = ({ categoriesData }) => {
 
   return (
     <div className={styles.categories_wrapper}>
-      <h3  onClick={toggleClass}>Shop By Categories
+      <h3 onClick={toggleClass}>Shop By Categories
         {showCategories ? (
           <span><MdKeyboardArrowDown /></span>
         ) : (
@@ -88,7 +88,7 @@ const ShopByCategories = ({ categoriesData }) => {
         </div>
         <div className={styles.shopby_categories_small_cards}>
           {selectedSubCategories?.slice(0, 6).map((item) => (
-            <Link href={`/products/${item.slug}`} key={item._id}>
+            <Link href={`/products?categorySlug=${item.slug}`} key={item._id}>
               <div className={styles.shopby_categories_small_card}>
                 <div className={styles.shopby_categories_card_image}>
                   <Image

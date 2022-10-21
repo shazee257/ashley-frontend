@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchCategory,
-  selectCategory,
-} from "../../app/features/categorySlice";
+import { fetchCategory, selectCategory } from "../../app/features/categorySlice";
 import { fetchProducts, selectProducts } from "../../app/features/productSlice";
 import { selectSearchProducts } from "../../app/features/searchSlice";
 import { selectLoginData } from "../../app/features/loginSlice";
@@ -22,7 +19,7 @@ import iconthree from "../assets/iconthree.PNG";
 import iconfour from "../assets/iconfour.PNG";
 import Link from "next/link";
 
-const Products = () => {
+function Products() {
   const router = useRouter();
   const { categorySlug, discountedCategorySlug, zipCode } = router.query;
   const dispatch = useDispatch();
@@ -35,6 +32,7 @@ const Products = () => {
   const products = useSelector(selectProducts);
   const categories = useSelector(selectCategory);
   const searchProducts = useSelector(selectSearchProducts);
+
   // const loginData = useSelector(selectLoginData);
 
   let filteredProducts = [];

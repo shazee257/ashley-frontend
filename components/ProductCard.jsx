@@ -3,9 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import ReactStars from "react-stars";
 import axios from "axios";
+import { toast } from "react-toastify";
 import { push } from "next/router";
-
-import { AiOutlineHeart, AiFillStar } from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart, AiFillStar } from "react-icons/ai";
 
 import product from "../styles/ProductCard.module.scss";
 
@@ -14,6 +14,7 @@ import { selectLoginData } from "../app/features/loginSlice";
 
 const ProductCard = ({ cardProduct }) => {
   const loginData = useSelector(selectLoginData);
+
   console.log(loginData, "loginData");
   // get min & max price from variants
   const prices = cardProduct?.variants.map((variant) => variant.sale_price);
@@ -24,15 +25,14 @@ const ProductCard = ({ cardProduct }) => {
   const image = cardProduct.variants[0]?.features[0]?.images[0];
   // const imageHover = cardProduct.variants[0]?.features[0]?.images[2];
 
-  const addToWishlistHandler = async () => {
-    if (loginData?.data) {
-      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_baseURL}/wishlist/${loginData.data.user_id}/${cardProduct._id}`);
-      data.success && toast.info(data.message);
+  const addToWishlistHandler = async (productId) => {
+    if (loginData) {
+      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_baseURL}/wishlist/${loginData.user_id}/${productId}`);
+      data.success && toast.success(data.message);
     } else {
       push('/login');
     }
   }
-
 
   const options = {
     edit: false,
@@ -43,13 +43,13 @@ const ProductCard = ({ cardProduct }) => {
 
   return (
     <div className={product.products_card}>
-      <div className={product.heart} onClick={addToWishlistHandler}>
+      <div className={product.heart} onClick={() => addToWishlistHandler(cardProduct._id)}>
         <h4 className={product.icon}>
           <AiOutlineHeart />
         </h4>
         <h4 className={product.display}>Add to Wishlist</h4>
       </div>
-      <Link href={`/products/details/${cardProduct.slug}`}>
+      <Link href={`/products/details?slug=${cardProduct.slug}`}>
         <a className={product.card_details}>
           <div className={product.card_image}>
             <Image

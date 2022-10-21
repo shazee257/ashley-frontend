@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { STATUSES } from "./categorySlice";
 
-const initialState = { data: null, status: STATUSES.IDLE };
+const initialState = {
+  data: null,
+  status: STATUSES.IDLE
+};
 
 const searchSlice = createSlice({
   name: "searchProducts",
