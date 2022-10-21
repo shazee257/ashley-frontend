@@ -45,7 +45,10 @@ const ProductCard = ({ cardProduct }) => {
     <div className={product.products_card}>
       <div className={product.heart} onClick={() => addToWishlistHandler(cardProduct._id)}>
         <h4 className={product.icon}>
-          <AiOutlineHeart />
+          {true
+            ? <AiOutlineHeart />
+            : <AiFillHeart />
+          }
         </h4>
         <h4 className={product.display}>Add to Wishlist</h4>
       </div>
