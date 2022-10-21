@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore ,  } from "@reduxjs/toolkit";
 
 // import {
 //   persistReducer,
@@ -10,6 +10,16 @@ import { configureStore } from "@reduxjs/toolkit";
 //   REGISTER,
 // } from "redux-persist";
 // import storage from "redux-persist/lib/storage";
+import {
+  persistStore,
+  // persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
 
 import cartReducer from "../features/cartSlice";
 import wishlistReducer from "../features/wishlistSlice";
@@ -19,27 +29,45 @@ import checkoutReducer from "../features/checkoutSlice";
 import stepReducer from "../features/stepSlice";
 import searchReducer from "../features/searchSlice";
 import loginReducer from "../features/loginSlice";
+import storage from "redux-persist/lib/storage";
+import { persistReducer } from "redux-persist";
+import { combineReducers } from "@reduxjs/toolkit";
 
-// const persistConfig = {
-//   key: "root",
-//   version: 1,
-//   storage,
-// };
+const persistConfig = {
+  key: "root",
+  // version: 1,
+  storage,
+};
+
+const reducer = combineReducers({
+  cart: cartReducer,
+  product: productReducer,
+  category: categoryReducer,
+  checkout: checkoutReducer,
+  activeStep: stepReducer,
+  wishlist: wishlistReducer,
+  searchProducts: searchReducer,
+  login: loginReducer,
+});
+
+const persistedReducer = persistReducer(persistConfig, reducer);
+
 
 // const persistedReducer = persistReducer(persistConfig, cartReducer);
 
 const store = configureStore({
-  reducer: {
-    // cart: persistedReducer,
-    cart: cartReducer,
-    product: productReducer,
-    category: categoryReducer,
-    checkout: checkoutReducer,
-    activeStep: stepReducer,
-    wishlist: wishlistReducer,
-    searchProducts: searchReducer,
-    login: loginReducer,
-  },
+  reducer : persistedReducer ,
+
+  middleware: (getDefaultMiddleware) =>
+  getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    },
+  }),
+  // reducer: {
+  //   // cart: persistedReducer,
+
+  // },
   // middleware: (getDefaultMiddleware) =>
   //   getDefaultMiddleware({
   //     serializableCheck: {
