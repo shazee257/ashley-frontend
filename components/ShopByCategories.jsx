@@ -72,6 +72,7 @@ const ShopByCategories = ({ categoriesData }) => {
         <div className={styles.shopby_categories_bigcard}>
           <div className={styles.shopby_categories_card_image}>
             <Image
+              className="cursor-default"
               src={`${imgURL}categories/${newselectedCategory.image}`}
               alt="sofa"
               layout="fill"

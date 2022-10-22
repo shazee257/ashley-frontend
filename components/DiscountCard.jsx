@@ -15,7 +15,7 @@ const DiscountCard = ({ products }) => {
   // });
   return (
     <div className={cardStyles.discount_card}>
-      <Link href={`/discountedproducts/${products.slug}`}>
+      <Link href={`/products?discountedCategorySlug=${products.slug}`}>
         <div className={cardStyles.img}>
           <Image
             src={`${imageURl}categories/${products.discount_image}`}
