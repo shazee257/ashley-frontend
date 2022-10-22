@@ -36,10 +36,11 @@ const Login = () => {
   const loginClickHandler = async () => {
     if (!loginData.email || !loginData.password) toast.error("Please enter email and password");
 
-    const { data } = await axios.post(`${process.env.NEXT_PUBLIC_baseURL}/users/login`, {
-      email: loginData.email,
-      password: loginData.password,
-    });
+    const { data } = await axios.post(`${process.env.NEXT_PUBLIC_baseURL}/users/login`,
+      {
+        email: loginData.email,
+        password: loginData.password,
+      }, { withCredentials: true });
 
     const authUser = data.authData;
     console.log(authUser, "authUser");
