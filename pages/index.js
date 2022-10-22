@@ -77,7 +77,7 @@ function Home({ categoriesData }) {
   useEffect(() => {
     dispatch(fetchProducts());
     dispatch(fetchCategory());
-    // dispatch(setLogin());
+    dispatch(setLogin());
   }, [dispatch]);
 
   const categories = useSelector(selectCategory);
@@ -220,12 +220,23 @@ function Home({ categoriesData }) {
 }
 
 export const getServerSideProps = async () => {
-  const categoriesRes = await fetch(`${process.env.NEXT_PUBLIC_baseURL}/categories/fetch/categories`);
-  const catData = await categoriesRes.json();
-  const categoriesData = catData.categories;
+  const { data } = await axios(`${process.env.NEXT_PUBLIC_baseURL}/categories/fetch/categories`);
+  const categoriesData = data.categories;
+
+
+  // const productsData = await axios(`https://ashley-api.herokuapp.com/products`);
+  // const { products } = productsData.data;
+
+  // const categoriesObj = await axios(`https://ashley-api.herokuapp.com/categories`);
+  // const { categories } = categoriesObj.data;
+
 
   return {
-    props: { categoriesData },
+    props: {
+      // products,
+      // categories,
+      categoriesData
+    },
   };
 };
 
