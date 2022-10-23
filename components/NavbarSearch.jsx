@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { selectCart } from "../app/features/cartSlice";
-import { setLogout } from "../app/features/loginSlice";
+import { selectLoginData, setLogin, setLogout } from "../app/features/loginSlice";
 
 import { toast } from 'react-toastify';
 import axios from "axios";
@@ -25,17 +25,21 @@ const NavbarSearch = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
 
-  const dispatch = useDispatch();
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  let loginData = useSelector(selectLoginData);
 
   useEffect(() => {
-    if (!user && localStorage.getItem("user")) {
-      setUser(JSON.parse(localStorage.getItem("user")));
+    if (!loginData) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (user) {
+        dispatch(setLogin(user));
+      }
     }
-    console.log(user, "user >>");
-  }, [user]);
+  }, []);
 
 
   const searchClickHandler = () =>
@@ -96,12 +100,12 @@ const NavbarSearch = () => {
       </div>
 
       <div className={navsearch.navbar_links_wrapper}>
-        {user ? (
+        {loginData ? (
           <div className={navsearch.links + " " + navsearch.links_account}>
             <Link href="/" className={navsearch.links}>
               <a>
                 <CgProfile style={{ fontSize: 20, color: "grey", margin: "auto" }} />
-                {user.first_name}
+                {loginData.first_name}
               </a>
             </Link>
             <div className={navsearch.account}>

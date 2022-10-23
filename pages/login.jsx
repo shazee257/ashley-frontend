@@ -27,10 +27,10 @@ const Login = () => {
         { withCredentials: true }
       ).then(({ data }) => {
         if (data.status === 200) {
-          // dispatch(setLogin(data.authData));
-          // localStorage.setItem("user", JSON.stringify(data.authData));
+          dispatch(setLogin(data.authData));
+          localStorage.setItem("user", JSON.stringify(data.authData));
           toast.success(data.message);
-          // router.push("/");
+          router.push("/");
         } else {
           toast.error(data.message);
         }
