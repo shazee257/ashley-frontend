@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectCart } from "../app/features/cartSlice";
+import { setLogout } from "../app/features/loginSlice";
 
+import { toast } from 'react-toastify';
+import axios from "axios";
 import navsearch from "../styles/NavbarSearch.module.scss";
 import logo from "../components/assets/m_logo_360.png";
 import { AiOutlineShoppingCart, AiOutlineHeart } from "react-icons/ai";
@@ -24,6 +27,7 @@ const NavbarSearch = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [user, setUser] = useState(null);
 
+  const dispatch = useDispatch();
   const router = useRouter();
 
   useEffect(() => {
@@ -38,8 +42,15 @@ const NavbarSearch = () => {
     searchTerm && router.push('/products?searchTerm=' + searchTerm);
 
   const logoutHandler = () => {
-    localStorage.removeItem("user");
-    router.push("/");
+    axios.post(`${process.env.NEXT_PUBLIC_baseURL}/users/logout`, {}, { withCredentials: true })
+      .then(({ data }) => {
+        if (data.status === 200) {
+          toast.success(data.message);
+          dispatch(setLogout());
+          localStorage.removeItem("user");
+          router.push("/login");
+        }
+      }).catch(err => console.log("err: ", err));
   };
 
   return (

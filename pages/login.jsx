@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { setLogin, selectLoginData } from "../app/features/loginSlice";
+import { setLogin } from "../app/features/loginSlice";
 
 import Tracking from "../components/Tracking";
 
@@ -13,22 +13,24 @@ import login from "../styles/Login.module.scss";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
   const router = useRouter();
 
-  const loginClickHandler = async (e) => {
+  const loginClickHandler = (e) => {
     e.preventDefault();
 
     const userObj = { email, password };
 
-    await axios
+    axios
       .post(`${process.env.NEXT_PUBLIC_baseURL}/users/login`, userObj,
         { withCredentials: true }
       ).then(({ data }) => {
         if (data.status === 200) {
-          localStorage.setItem("user", JSON.stringify(data.authData));
+          // dispatch(setLogin(data.authData));
+          // localStorage.setItem("user", JSON.stringify(data.authData));
           toast.success(data.message);
-          router.push("/");
+          // router.push("/");
         } else {
           toast.error(data.message);
         }
