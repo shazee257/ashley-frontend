@@ -2,11 +2,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectCart } from "../app/features/cartSlice";
-import { setSearchProducts } from "../app/features/searchSlice";
-import { selectProducts } from "../app/features/productSlice";
-import { selectLoginData, setLogout } from "../app/features/loginSlice";
 
 import navsearch from "../styles/NavbarSearch.module.scss";
 import logo from "../components/assets/m_logo_360.png";
@@ -15,29 +12,7 @@ import { CgProfile } from "react-icons/cg";
 import { FiSearch } from "react-icons/fi";
 import HoverCart from "./HoverCart";
 import NavbarLinksResponsive from "./NavbarLinksResponsive";
-
-// from mui
-
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-// import Modal from "@mui/material/Modal";
 import ZipCodeModal from "./ZipCodeModal";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  // border: "2px solid #000",
-  boxShadow: 24,
-  outline: 0,
-  py: 2,
-  px: 4,
-};
 
 const NavbarSearch = () => {
   const selectCartDetail = useSelector(selectCart);
@@ -47,30 +22,23 @@ const NavbarSearch = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchedProducts, setSearchedProducts] = useState([]);
+  const [user, setUser] = useState(null);
 
-  const dispatch = useDispatch();
   const router = useRouter();
 
-  const products = useSelector(selectProducts);
-  const loginData = useSelector(selectLoginData);
-
   useEffect(() => {
-    const filteredData = products?.filter((product) =>
-      product.title.toLowerCase().includes(searchTerm.toLocaleLowerCase())
-    );
-    setSearchedProducts(filteredData);
-  }, [searchTerm]);
-
-  const searchClickHandler = () => {
-    if (searchTerm) {
-      dispatch(setSearchProducts(searchedProducts));
-      router.push('/products');
+    if (!user && localStorage.getItem("user")) {
+      setUser(JSON.parse(localStorage.getItem("user")));
     }
-  };
+    console.log(user, "user >>");
+  }, [user]);
+
+
+  const searchClickHandler = () =>
+    searchTerm && router.push('/products?searchTerm=' + searchTerm);
 
   const logoutHandler = () => {
-    dispatch(setLogout());
+    localStorage.removeItem("user");
     router.push("/");
   };
 
@@ -79,6 +47,7 @@ const NavbarSearch = () => {
       <div className={navsearch.navbar_toggle_menu_wrapper}>
         <NavbarLinksResponsive />
       </div>
+
       <div className={navsearch.logo}>
         <Link href="/">
           <a>
@@ -93,6 +62,7 @@ const NavbarSearch = () => {
           </a>
         </Link>
       </div>
+
       <div className={navsearch.zip}>
         <div>
           <div onClick={handleOpen}>
@@ -102,6 +72,7 @@ const NavbarSearch = () => {
           <ZipCodeModal open={open} handleClose={handleClose} />
         </div>
       </div>
+
       <div className={navsearch.navbar_search_input}>
         <input
           type="text"
@@ -112,29 +83,28 @@ const NavbarSearch = () => {
           <FiSearch />
         </div>
       </div>
+
       <div className={navsearch.navbar_links_wrapper}>
-        {loginData ? (
-          <>
-            <div className={navsearch.links + " " + navsearch.links_account}>
-              <Link href="/" className={navsearch.links}>
-                <a>
-                  <CgProfile style={{ fontSize: 20, color: "grey", margin: "auto" }} />
-                  {loginData.first_name}
-                </a>
+        {user ? (
+          <div className={navsearch.links + " " + navsearch.links_account}>
+            <Link href="/" className={navsearch.links}>
+              <a>
+                <CgProfile style={{ fontSize: 20, color: "grey", margin: "auto" }} />
+                {user.first_name}
+              </a>
+            </Link>
+            <div className={navsearch.account}>
+              <Link href={"/orders"}>
+                <p style={{ cursor: "pointer" }}>Orders</p>
               </Link>
-              <div className={navsearch.account}>
-                <Link href={"/orders"}>
-                  <p style={{ cursor: "pointer" }}>Orders</p>
-                </Link>
-                <Link href={"/wishlist"}>
-                  <p style={{ cursor: "pointer" }}>Wish List</p>
-                </Link>
-                <p style={{ cursor: "pointer" }} onClick={logoutHandler}>
-                  Logout
-                </p>
-              </div>
+              <Link href={"/wishlist"}>
+                <p style={{ cursor: "pointer" }}>Wish List</p>
+              </Link>
+              <p style={{ cursor: "pointer" }} onClick={logoutHandler}>
+                Logout
+              </p>
             </div>
-          </>
+          </div>
         ) : (
           <p className={navsearch.links}>
             <Link href="/login" className={navsearch.links}>

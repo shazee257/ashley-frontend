@@ -3,8 +3,6 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategory, selectCategory } from "../../app/features/categorySlice";
 import { fetchProducts, selectProducts } from "../../app/features/productSlice";
-import { selectSearchProducts } from "../../app/features/searchSlice";
-import { selectLoginData } from "../../app/features/loginSlice";
 
 import FilterAccordion from "../../components/FilterAccordion";
 import ProductCard from "../../components/ProductCard";
@@ -14,26 +12,20 @@ import product from "../../styles/ProductsNew.module.scss";
 import bed from "../assets/bed.webp";
 import Image from "next/image";
 import iconone from "../assets/iconone.PNG";
-import iconotwo from "../assets/iconotwo.PNG";
-import iconthree from "../assets/iconthree.PNG";
-import iconfour from "../assets/iconfour.PNG";
 import Link from "next/link";
 
 function Products() {
   const router = useRouter();
-  const { categorySlug, discountedCategorySlug, zipCode } = router.query;
+  const { categorySlug, discountedCategorySlug, zipCode, searchTerm } = router.query;
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchCategory());
-    dispatch(fetchProducts());
-  }, [dispatch]);
 
   const products = useSelector(selectProducts);
   const categories = useSelector(selectCategory);
-  const searchProducts = useSelector(selectSearchProducts);
 
-  // const loginData = useSelector(selectLoginData);
+  useEffect(() => {
+    !products.length && dispatch(fetchProducts());
+    !categories.length && dispatch(fetchCategory());
+  }, [dispatch]);
 
   let filteredProducts = [];
   let currentCategory = {};
@@ -50,22 +42,25 @@ function Products() {
   };
 
   // find products by store zip code
-  const findProductsByZipCode = (zipCode) => {
-    const productsByZipCode = products?.filter((product) => product.store_id.zip === Number(zipCode));
-    return productsByZipCode;
-  };
+  const findProductsByZipCode = (zipCode) =>
+    products?.filter((product) => product.store_id.zip === Number(zipCode));
 
   if (categorySlug) {
     setCategoryVariables(categories, categorySlug);
     filteredProducts = products?.filter((fp) => fp.category_id.slug === categorySlug);
-  } else if (discountedCategorySlug) {
-    setCategoryVariables(categories, discountedCategorySlug);
-    filteredProducts = products?.filter((fp) => fp.category_id.slug === discountedCategorySlug && fp.discount > 0);
-  } else if (zipCode) {
-    filteredProducts = findProductsByZipCode(zipCode);
-  } else {
-    filteredProducts = searchProducts;
   }
+
+  if (discountedCategorySlug) {
+    setCategoryVariables(categories, discountedCategorySlug);
+    filteredProducts = products?.filter((fp) =>
+      fp.category_id.slug === discountedCategorySlug && fp.discount > 0);
+  }
+
+  zipCode && (filteredProducts = findProductsByZipCode(zipCode));
+
+  searchTerm &&
+    (filteredProducts = products?.filter((product) =>
+      product.title.toLowerCase().includes(searchTerm.toLowerCase())));
 
   return (
     <div className={product.products_wrapper}>

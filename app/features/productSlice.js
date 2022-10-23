@@ -10,7 +10,7 @@ import { STATUSES } from "./categorySlice";
 const productSlice = createSlice({
   name: "product",
   initialState: {
-    data: null,
+    data: [],
     status: STATUSES.IDLE,
   },
   reducers: {

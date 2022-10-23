@@ -109,12 +109,12 @@ const combinedReducer = combineReducers({
   login: loginReducer,
 });
 
-export const makeStore = () => 
+export const makeStore = () =>
   configureStore({
     reducer: combinedReducer,
   });
 
-export const wrapper = createWrapper(makeStore);
+export const wrapper = createWrapper(makeStore, { debug: true });
 
 
 

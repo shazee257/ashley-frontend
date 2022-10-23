@@ -9,7 +9,7 @@ export const STATUSES = Object.freeze({
 const categorySlice = createSlice({
   name: "category",
   initialState: {
-    data: null,
+    data: [],
     status: STATUSES.IDLE,
   },
   reducers: {

@@ -11,46 +11,24 @@ import Tracking from "../components/Tracking";
 import login from "../styles/Login.module.scss";
 
 const Login = () => {
-  const data = { email: "", password: "" };
-  const [loginData, setLoginData] = useState(data);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const router = useRouter();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(setLogin(null));
-  }, [dispatch]);
-
-
-
-  const loginChangeHandler = (e) => {
-    const { name, value, checked } = e.target;
-    if (name === "email") {
-      setLoginData({ ...loginData, email: value });
-    } else if (name === "password") {
-      setLoginData({ ...loginData, password: value });
-    } else if (name === "remember") {
-      setLoginData({ ...loginData, remember: checked });
-    }
-  };
 
   const loginClickHandler = async (e) => {
     e.preventDefault();
 
-    const user = {
-      email: loginData.email,
-      password: loginData.password
-    };
+    const userObj = { email, password };
 
     await axios
-      .post(`${process.env.NEXT_PUBLIC_baseURL}/users/login`, user,
+      .post(`${process.env.NEXT_PUBLIC_baseURL}/users/login`, userObj,
         { withCredentials: true }
       ).then(({ data }) => {
         if (data.status === 200) {
-          dispatch(setLogin(data.authData));
           localStorage.setItem("user", JSON.stringify(data.authData));
           toast.success(data.message);
-          // router.push("/");
+          router.push("/");
         } else {
           toast.error(data.message);
         }
@@ -80,8 +58,8 @@ const Login = () => {
                   type="email"
                   id="email"
                   name="email"
-                  value={loginData.email}
-                  onChange={loginChangeHandler}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className={login.password + " " + login.input_wrapper}>
@@ -90,8 +68,8 @@ const Login = () => {
                   type="password"
                   id="password"
                   name="password"
-                  value={loginData.password}
-                  onChange={loginChangeHandler}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div className={login.button}>
@@ -106,8 +84,8 @@ const Login = () => {
                     type="checkbox"
                     id="remember"
                     name="remember"
-                    onChange={loginChangeHandler}
-                    checked={loginData.remember}
+                  // onChange={loginChangeHandler}
+                  // checked={loginData.remember}
                   />
                   <label htmlFor="offers">Remember me</label>
                 </div>

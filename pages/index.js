@@ -64,6 +64,7 @@ function Home({ categoriesData }) {
     setSize({
       x: window.innerWidth,
     });
+
   useEffect(() => (window.onresize = updateSize), []);
 
   // console.log(size.x);
@@ -73,15 +74,15 @@ function Home({ categoriesData }) {
   if (size.x < 769) {
     settings.slidesToShow = 2;
   }
-  // new_work_width
-  useEffect(() => {
-    dispatch(fetchProducts());
-    dispatch(fetchCategory());
-    dispatch(setLogin());
-  }, [dispatch]);
 
   const categories = useSelector(selectCategory);
   const products = useSelector(selectProducts);
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+    dispatch(fetchCategory());
+  }, []);
+
 
   const filteredProducts = products?.filter((fp) => fp.category_id.slug === "sheet-sets");
   const mainCategories = categories?.filter((cat) => cat.parent_id === "");
