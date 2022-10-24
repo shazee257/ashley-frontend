@@ -13,7 +13,7 @@ import Slider from "react-slick";
 import { wrapper } from "../app/store/store";
 import { fetchProducts, selectProducts } from "../app/features/productSlice";
 import { fetchCategory, selectCategory } from "../app/features/categorySlice";
-
+import { addToWishlist } from "../app/features/wishlistSlice";
 //from assets and styles
 import styles from "../styles/Home.module.scss";
 import loader from "../components/assets/loader.gif";
@@ -72,6 +72,7 @@ function Home({ categoriesData }) {
 
   const categories = useSelector(selectCategory);
   const products = useSelector(selectProducts);
+  // const wishlist = useSelector(selectWishlist);
 
   useEffect(() => {
     dispatch(fetchProducts());

@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { selectCart } from "../app/features/cartSlice";
 import { selectLoginData, setLogin, setLogout } from "../app/features/loginSlice";
+import { clearWishlist, fetchWishlist } from "../app/features/wishlistSlice";
 
 import { toast } from 'react-toastify';
 import axios from "axios";
@@ -37,6 +38,7 @@ const NavbarSearch = () => {
       const user = JSON.parse(localStorage.getItem("user"));
       if (user) {
         dispatch(setLogin(user));
+        dispatch(fetchWishlist(user.user_id));
       }
     }
   }, []);
@@ -50,7 +52,10 @@ const NavbarSearch = () => {
       .then(({ data }) => {
         if (data.status === 200) {
           toast.success(data.message);
+          // remove all removable data from redux store on logout
+          dispatch(clearWishlist());
           dispatch(setLogout());
+
           localStorage.removeItem("user");
           router.push("/");
         }

@@ -23,8 +23,10 @@ function Products() {
   const categories = useSelector(selectCategory);
 
   useEffect(() => {
-    !products.length && dispatch(fetchProducts());
-    !categories.length && dispatch(fetchCategory());
+    // products.length === 0 && 
+    dispatch(fetchProducts());
+    // categories.length === 0 && 
+    dispatch(fetchCategory());
   }, [dispatch]);
 
   let filteredProducts = [];

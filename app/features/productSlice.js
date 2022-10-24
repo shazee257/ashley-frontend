@@ -1,18 +1,14 @@
-const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
-import { STATUSES } from "./categorySlice";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { STATUSES } from "../../constants";
 
-// export const STATUSES = Object.freeze({
-//   IDLE: "idle",
-//   ERROR: "error",
-//   LOADING: "loading",
-// });
+const initialState = {
+  data: null,
+  status: STATUSES.IDLE
+};
 
 const productSlice = createSlice({
   name: "product",
-  initialState: {
-    data: [],
-    status: STATUSES.IDLE,
-  },
+  initialState,
   reducers: {
     // setProducts(state, action) {
     //     state.data = action.payload;

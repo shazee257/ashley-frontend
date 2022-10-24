@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../app/features/loginSlice";
+import { fetchWishlist } from "../app/features/wishlistSlice";
 
 import Tracking from "../components/Tracking";
 
@@ -26,8 +27,10 @@ const Login = () => {
       .post(`${process.env.NEXT_PUBLIC_baseURL}/users/login`, userObj,
         { withCredentials: true }
       ).then(({ data }) => {
+        console.log(data, ">>>>>>>>>>>>>>>>>>>");
         if (data.status === 200) {
           dispatch(setLogin(data.authData));
+          dispatch(fetchWishlist(data.authData.user_id));
           localStorage.setItem("user", JSON.stringify(data.authData));
           toast.success(data.message);
           router.push("/");
