@@ -79,7 +79,6 @@ function Home({ categoriesData }) {
     dispatch(fetchCategory());
   }, []);
 
-
   const filteredProducts = products?.filter((fp) => fp.category_id.slug === "sheet-sets");
   const mainCategories = categories?.filter((cat) => cat.parent_id === "");
   const sliders = banner.filter((banner) => banner.type === 'slider');
