@@ -115,20 +115,6 @@ function Home({ categoriesData }) {
     getBanners();
   }, []);
 
-  // useEffect(() => {
-  //   async function getSLider() {
-  //     try {
-  //       const response = await axios.get(
-  //         "https://ashley-api.herokuapp.com/sliders"
-  //       );
-  //       setSlider(response.data.sliders);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }
-  //   getSLider();
-  // }, []);
-
   return (
     <div className="index_wrapper">
       <Head>
@@ -217,18 +203,8 @@ export const getServerSideProps = async () => {
   const { data } = await axios(`${process.env.NEXT_PUBLIC_baseURL}/categories/fetch/categories`);
   const categoriesData = data.categories;
 
-
-  // const productsData = await axios(`https://ashley-api.herokuapp.com/products`);
-  // const { products } = productsData.data;
-
-  // const categoriesObj = await axios(`https://ashley-api.herokuapp.com/categories`);
-  // const { categories } = categoriesObj.data;
-
-
   return {
     props: {
-      // products,
-      // categories,
       categoriesData
     },
   };
@@ -236,7 +212,7 @@ export const getServerSideProps = async () => {
 
 // export const getServerSideProps = wrapper.getServerSideProps(
 //   (store) => async () => {
-//     const categoriesRes = await fetch(`https://ashley-api.herokuapp.com/categories/fetch/categories`);
+//     const categoriesRes = await fetch(`${process.env.NEXT_PUBLIC_baseURL}/categories/fetch/categories`);
 //     const catData = await categoriesRes.json();
 //     const categoriesData = catData.categories;
 //     store.dispatch(fetchCategory(categoriesData));

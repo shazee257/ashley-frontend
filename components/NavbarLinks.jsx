@@ -12,7 +12,8 @@ const NavbarLinks = () => {
   const [discountCategories, setDiscountCategories] = useState([]);
 
   const getDiscountedCategories = async () => {
-    const { data } = await axios.get("https://ashley-api.herokuapp.com/products/discount/categories");
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_baseURL}/products/discount/categories`);
     setDiscountCategories(data.categories);
   }
 

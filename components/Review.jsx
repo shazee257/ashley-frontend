@@ -81,7 +81,7 @@ export default function Review() {
     dispatch(next());
 
     if (activeStep === 2) {
-      fetch("https://ashley-api.herokuapp.com/orders", {
+      fetch(`${process.env.NEXT_PUBLIC_baseURL}/orders`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {

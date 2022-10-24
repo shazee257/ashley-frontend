@@ -40,7 +40,7 @@ const Signup = () => {
       alert("please fill all mandatory fields first");
     } else {
       const config = {
-        url: "https://ashley-api.herokuapp.com/users/register",
+        url: `${process.env.NEXT_PUBLIC_baseURL}/users/register`,
         method: "POST",
         headers: {
           "content-type": "application/json",

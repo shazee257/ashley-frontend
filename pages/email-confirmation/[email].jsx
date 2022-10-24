@@ -13,7 +13,7 @@ const Email = ({ email }) => {
 
     async function verifyEmail() {
       const config = {
-        url: `https://ashley-api.herokuapp.com/users/email-confirmation/${token}`,
+        url: `${process.env.NEXT_PUBLIC_baseURL}/users/email-confirmation/${token}`,
         method: "PUT",
         // headers: {
         //   "content-type": "application/json",
@@ -40,19 +40,6 @@ const Email = ({ email }) => {
 
 export async function getServerSideProps(context) {
   const { email } = context.query;
-
-  // const config = {
-  //   url: `https://ashley-api.herokuapp.com/users/email-confirmation/${token}`,
-  //   method: "PUT",
-  // };
-  // const response = await axios(config);
-  // console.log(response);
-
-  // const res = await fetch(
-  //   `https://ashley-api.herokuapp.com/products/${productdetailslug}`
-  // );
-  // const data = await res.json();
-  // const productDetail = data.product;
 
   return {
     props: { email }, // will be passed to the page component as props

@@ -295,7 +295,7 @@ const NavbarAccordion = ({
     async function getDisCats() {
       try {
         const response = await axios.get(
-          "https://ashley-api.herokuapp.com/products/discount/categories"
+          `${process.env.NEXT_PUBLIC_baseURL}/products/discount/categories`
         );
         setDiscountCategories(response.data.categories);
       } catch (error) {
