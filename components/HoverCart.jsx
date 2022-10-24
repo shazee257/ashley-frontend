@@ -26,11 +26,9 @@ const HoverCart = () => {
     dispatch(removeFromCart(id));
   };
 
-  const imageURL = "https://ashley-api.herokuapp.com/uploads/products/";
-
   return (
     <div className={cart.main}>
-      {selectCartDetail.length < 1 ? (
+      {selectCartDetail.length === 0 ? (
         <h3>Cart is Empty</h3>
       ) : (
         selectCartDetail?.map((cartDetail) => (
@@ -38,7 +36,7 @@ const HoverCart = () => {
             <div className={cart.card_img_info}>
               <div className={cart.pic}>
                 <Image
-                  src={`${imageURL}${cartDetail.image}`}
+                  src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${cartDetail.image}`}
                   alt={cartDetail.title}
                   layout="fill"
                   objectFit="cover"

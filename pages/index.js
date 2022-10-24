@@ -13,10 +13,8 @@ import Slider from "react-slick";
 import { wrapper } from "../app/store/store";
 import { fetchProducts, selectProducts } from "../app/features/productSlice";
 import { fetchCategory, selectCategory } from "../app/features/categorySlice";
-import { setLogin, selectLoginData } from "../app/features/loginSlice";
 
 //from assets and styles
-
 import styles from "../styles/Home.module.scss";
 import loader from "../components/assets/loader.gif";
 
@@ -41,9 +39,6 @@ function Home({ categoriesData }) {
   const [featProducts, setFeatProducts] = useState([]);
   const [banner, setBanner] = useState([]);
   const dispatch = useDispatch();
-  const loginData = useSelector(selectLoginData);
-
-  const imgURL = "https://ashley-api.herokuapp.com/uploads/";
 
   const settings = {
     dots: true,
@@ -155,8 +150,9 @@ function Home({ categoriesData }) {
           <Carousal
             height={460}
             slider={sliders}
-            url="https://ashley-api.herokuapp.com/uploads/banners/"
+            url={`${process.env.NEXT_PUBLIC_uploadURL}/banners/`}
           />
+
           <ShopByCategories categoriesData={categoriesData} />
           <div className={styles.discount_cards_wrapper}>
             <div className={styles.discount_cards_heading}>
@@ -168,11 +164,6 @@ function Home({ categoriesData }) {
                 <DiscountCard products={disproduct} key={disproduct._id} />
               ))}
             </div>
-            {/* <div className={styles.discount_cards}>
-              {discountProducts?.slice(3, 6).map((disproduct) => (
-                <DiscountCard products={disproduct} key={disproduct._id} />
-              ))}
-            </div> */}
           </div>
 
           <div className={styles.banner_card_wrapper}>
@@ -180,14 +171,14 @@ function Home({ categoriesData }) {
               <BannerCard key={item._id} banner={item} />
             ))}
           </div>
-          
+
           <div className={styles.free_shipping}>
             <h4>Swith it up</h4>
             <h2>Update your happy Place</h2>
             {/* <div className={styles.category_cards}> */}
             <Slider {...settings}>
               {featProducts?.map((item) => (
-                <CategoryCard products={item} key={item._id} />
+                <CategoryCard product={item} key={item._id} />
               ))}
             </Slider>
             {/* </div> */}
@@ -200,7 +191,7 @@ function Home({ categoriesData }) {
             <h2>Update your happy Place</h2>
             <Slider {...settings}>
               {filteredProducts?.map((item) => (
-                <CategoryCard products={item} key={item._id} />
+                <CategoryCard product={item} key={item._id} />
               ))}
             </Slider>
             {/* </div> */}

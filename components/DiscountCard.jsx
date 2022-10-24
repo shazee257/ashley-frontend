@@ -4,21 +4,12 @@ import cardStyles from "../styles/DiscountCard.module.scss";
 import Link from "next/link";
 
 const DiscountCard = ({ products }) => {
-  const imageURl = "https://ashley-api.herokuapp.com/uploads/";
-
-  // const images = products.variants.slice(1, 2).map((variant) => {
-  //   return variant.features.slice(0, 1).map((feature) => {
-  //     return feature.images.slice(0, 1).map((images) => {
-  //       return images;
-  //     });
-  //   });
-  // });
   return (
     <div className={cardStyles.discount_card}>
       <Link href={`/products?discountedCategorySlug=${products.slug}`}>
         <div className={cardStyles.img}>
           <Image
-            src={`${imageURl}categories/${products.discount_image}`}
+            src={`${process.env.NEXT_PUBLIC_uploadURL}/categories/${products.discount_image}`}
             alt={products.title}
             layout="fill"
             objectFit="fill"

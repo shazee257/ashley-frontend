@@ -52,7 +52,7 @@ const NavbarSearch = () => {
           toast.success(data.message);
           dispatch(setLogout());
           localStorage.removeItem("user");
-          router.push("/login");
+          router.push("/");
         }
       }).catch(err => console.log("err: ", err));
   };

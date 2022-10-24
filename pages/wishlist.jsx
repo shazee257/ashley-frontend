@@ -11,10 +11,6 @@ import styles from "../styles/Wishlist.module.scss";
 import wishlistimg from "./assets/fur12.jpg";
 import { AiOutlineDelete, AiOutlineHeart } from "react-icons/ai";
 
-const imageURL = process.env.NEXT_PUBLIC_IMAGE_URL
-  ? process.env.NEXT_PUBLIC_IMAGE_URL
-  : "https://ashley-api.herokuapp.com/uploads/";
-
 const Wishlist = () => {
   const wishList = useSelector(selectWishlist);
   const dispatch = useDispatch();
@@ -34,14 +30,14 @@ const Wishlist = () => {
           <div className={styles.wishlist_card} key={item._id}>
             <div className={styles.wishlist_card_img}>
               <Image
-                src={`${imageURL}products/${item.image}`}
+                src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${item.image}`}
                 alt="wishlist-img"
                 layout="fill"
                 objectFit="contain"
               />
             </div>
             <div className={styles.wishlist_card_info}>
-              {console.log(`/${imageURL}products/${item.image}`)}
+              {console.log(`/${process.env.NEXT_PUBLIC_uploadURL}/products/${item.image}`)}
               <h3> {item.title} </h3>
               <h6>{item.size}</h6>
               <h6>{item.color} </h6>

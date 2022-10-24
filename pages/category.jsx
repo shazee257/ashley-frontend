@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { fetchProducts } from "../app/features/productSlice";
 import { fetchCategory } from "../app/features/categorySlice";
 
-import CategoryCard from "../components/CategoryCard";
+// import CategoryCard from "../components/CategoryCard";
 
 import sofa from "./assets/fur12.jpg";
 import model from "./assets/model.jpg";

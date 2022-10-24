@@ -4,11 +4,8 @@ import banner from "../styles/ThinBannerCard.module.scss";
 import bg from "../components/assets/fur16.jpg";
 
 const ThinBannerCard = ({ data }) => {
-  // const featCat = data?.filter((item) => {
-  //   return item.slug === "bedding";
-  // });
 
-  const imgURL = "https://ashley-api.herokuapp.com/uploads/";
+  const imgURL = `${process.env.NEXT_PUBLIC_uploadURL}/`;
   return (
     <div
       className={banner.thin_banner_card}
@@ -20,7 +17,7 @@ const ThinBannerCard = ({ data }) => {
         <p>{data[0]?.description} </p>
         <h4>{data[0]?.title}</h4>
       </div>
-      <Link href={`/products/${data[0]?.category_id.slug}`}>
+      <Link href={`/products/${data [0]?.category_id.slug}`}>
         <a>
           <button>Shop Now</button>
         </a>

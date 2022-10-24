@@ -10,7 +10,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 const ShopByCategories = ({ categoriesData }) => {
   const [catIndex, setCatIndex] = useState(0);
 
-  const imgURL = "https://ashley-api.herokuapp.com/uploads/";
+  const imgURL = `${process.env.NEXT_PUBLIC_uploadURL}/`;
 
   const catClickHandler = (index) => {
     setCatIndex(index);

@@ -3,9 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import categories from "../styles/CategoriesCard.module.scss";
 const CategoriesCard = ({ img, title, slug }) => {
-  const imageURL = "https://ashley-api.herokuapp.com/uploads/categories/";
-
-  const src = imageURL + img;
 
   return (
     <div className={categories.category_wrapper}>
@@ -14,7 +11,7 @@ const CategoriesCard = ({ img, title, slug }) => {
           <a>
             <Image
               // loader={() => src}
-              src={src}
+              src={`${process.env.NEXT_PUBLIC_uploadURL}/categories/${img}`}
               alt={title}
               layout="fill"
               objectFit="fill"
