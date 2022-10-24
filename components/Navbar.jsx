@@ -4,7 +4,7 @@ import { AiOutlineMobile } from "react-icons/ai";
 import { FaComment } from "react-icons/fa";
 import NavbarSearch from "./NavbarSearch";
 import NavbarLinks from "./NavbarLinks";
-import NavbarSearchResponsive from "./NavbarSearchResponsive"
+// import NavbarSearchResponsive from "./NavbarSearchResponsive"
 
 import navbar from "../styles/Navbar.module.scss";
 

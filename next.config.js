@@ -3,6 +3,9 @@ module.exports = {
   reactStrictMode: true,
   // swcMinify: true,
   images: {
-    domains: ["ashley-api.herokuapp.com"],
+    domains: [
+      "localhost",
+      "ashley-api.herokuapp.com"
+    ],
   },
 };

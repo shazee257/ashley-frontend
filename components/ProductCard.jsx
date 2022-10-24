@@ -59,12 +59,6 @@ const ProductCard = ({ cardProduct }) => {
               src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${image}`}
               alt="bed" layout="fill" objectFit="cover"
             />
-            {/* <div className={product.display}>
-            <Image
-              src={`${process.env.NEXT_PUBLIC_uploadURL}products/${imageHover}`}
-              alt="bed" layout="fill" objectFit="cover"
-            />
-          </div> */}
           </div>
           <div className={product.card_info}>
             <h4>{cardProduct.title}</h4>

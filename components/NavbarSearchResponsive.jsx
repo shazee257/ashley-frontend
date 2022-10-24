@@ -16,17 +16,11 @@ import { selectCart } from "../app/features/cartSlice";
 
 import { useRouter } from "next/router";
 import { selectProducts } from "../app/features/productSlice";
-import { setSearchProducts } from "../app/features/searchSlice";
+// import { setSearchProducts } from "../app/features/searchSlice";
 
 const NavbarSearchResponsive = () => {
   const selectCartDetail = useSelector(selectCart);
   const cartCount = selectCartDetail.length;
-
-  // const [serchbar, setSearchbar] = useState(false);
-
-  // const toggleClass = () => {
-  //   setSearchbar(!serchbar);
-  // };
 
   const [searchedProducts, setSearchedProducts] = useState([]);
   const selectProductDetail = useSelector(selectProducts);
@@ -35,18 +29,6 @@ const NavbarSearchResponsive = () => {
 
   const dispatch = useDispatch();
   const router = useRouter();
-
-  useEffect(() => {
-    const filteredData = products?.filter((item) =>
-      item.title.toLowerCase().includes(searchTerm.toLocaleLowerCase())
-    );
-    setSearchedProducts(filteredData);
-  }, [products, searchTerm]);
-
-  const searchClickHandler = () => {
-    dispatch(setSearchProducts(searchedProducts));
-    router.push("/search/searchedproducts");
-  };
 
   return (
     <div className={responsivenavsearch.responsive_navbar_search_wrapper}>
@@ -71,9 +53,9 @@ const NavbarSearchResponsive = () => {
       <div className={responsivenavsearch.search_box}>
         <button className={responsivenavsearch.btn_search}>
           <BiSearchAlt2
-          //  onClick={toggleClass}
-          onClick={searchClickHandler}
-            />
+            //  onClick={toggleClass}
+            onClick={searchClickHandler}
+          />
         </button>
         <input
           type="text"

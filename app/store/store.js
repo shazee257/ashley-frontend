@@ -27,7 +27,6 @@
 // import categoryReducer from "../features/categorySlice";
 // import checkoutReducer from "../features/checkoutSlice";
 // import stepReducer from "../features/stepSlice";
-// import searchReducer from "../features/searchSlice";
 // import loginReducer from "../features/loginSlice";
 // import storage from "redux-persist/lib/storage";
 // import { persistReducer } from "redux-persist";
@@ -46,7 +45,6 @@
 //   checkout: checkoutReducer,
 //   activeStep: stepReducer,
 //   wishlist: wishlistReducer,
-//   searchProducts: searchReducer,
 //   login: loginReducer,
 // });
 
@@ -95,7 +93,6 @@ import productReducer from "../features/productSlice";
 import categoryReducer from "../features/categorySlice";
 import checkoutReducer from "../features/checkoutSlice";
 import stepReducer from "../features/stepSlice";
-import searchReducer from "../features/searchSlice";
 import loginReducer from "../features/loginSlice";
 
 const combinedReducer = combineReducers({
@@ -105,7 +102,6 @@ const combinedReducer = combineReducers({
   checkout: checkoutReducer,
   activeStep: stepReducer,
   wishlist: wishlistReducer,
-  searchProducts: searchReducer,
   login: loginReducer,
 });
 

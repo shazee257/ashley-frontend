@@ -31,8 +31,6 @@ const CartItems = () => {
     dispatch(removeFromCart(id));
   };
 
-  const imageURL = "https://ashley-api.herokuapp.com/uploads/products/";
-
   return (
     <div className={cart.cratitems_wrapper}>
       {selectCartDetail.length < 1 ? (
@@ -44,7 +42,7 @@ const CartItems = () => {
             <div className={cart.mycartimgdiv_wrapper}>
               <div className={cart.mycartimgdiv}>
                 <Image
-                  src={`${imageURL}${cartDetail.image}`}
+                  src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${cartDetail.image}`}
                   alt="Loading..."
                   layout="fill"
                   className={cart.mycartimgdiv_img}
@@ -143,7 +141,7 @@ const CartItems = () => {
                   />
                 </div> */}
               </div>
-              
+
               {/* expert_services */}
               <div className={cart.expert_services}>
                 <p className={cart.expert_heading}> Add Expert Services</p>
