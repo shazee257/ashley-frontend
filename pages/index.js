@@ -174,11 +174,13 @@ function Home({ categoriesData }) {
               ))}
             </div> */}
           </div>
+
           <div className={styles.banner_card_wrapper}>
             {featureBanner?.slice(0, 1).map((item) => (
               <BannerCard key={item._id} banner={item} />
             ))}
           </div>
+          
           <div className={styles.free_shipping}>
             <h4>Swith it up</h4>
             <h2>Update your happy Place</h2>
