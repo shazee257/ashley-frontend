@@ -1,4 +1,3 @@
-// const { createSlice } = require("@reduxjs/toolkit");
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { STATUSES } from "../../constants";
 import axios from "axios";

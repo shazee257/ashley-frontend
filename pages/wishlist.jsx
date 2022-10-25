@@ -27,17 +27,12 @@ const Wishlist = () => {
       const maxPrice = Math.max(...prices);
       return { ...product, minPrice, maxPrice }
     })
-    // return data;
     setWishlistData(data);
   }
-  console.log(wishlistData, "!!!!!!!");
 
   useEffect(() => {
     setWishlistPrices(wishList.data);
   }, [])
-
-
-  // console.log(wishlistData, "!!!!!!!!!!!!!!!");
 
   return (
     <div className={styles.wishlist_wrapper}>
@@ -53,16 +48,14 @@ const Wishlist = () => {
             <div className={styles.wishlist_card_img_wrapper}>
               <div className={styles.wishlist_card_img}>
                 <Image
-                  // src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${item.image}`}
                   src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${item.variants[0].features[0].images[0]}`}
                   alt="wishlist-img"
                   layout="fill"
-                // objectFit="contain"
                 />
               </div>
               <div className={styles.wishlist_prices}>
                 <h3>$ {item.maxPrice} </h3>
-                 <h3>-</h3>
+                <h3>-</h3>
                 <h3>$ {item.minPrice} </h3>
               </div>
             </div>
