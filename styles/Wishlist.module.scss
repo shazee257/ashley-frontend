@@ -13,35 +13,53 @@
     h1 {
       color: $light-grey;
       text-align: center;
+      margin-top: 20px;
+      font-size: 25px;
+      font-weight: bold;
     }
   }
   .wishlist_cards_wrapper {
     width: 100%;
     .wishlist_card {
+      padding: 15px 0px;
       width: 100%;
-      @include flex-start;
+      display: flex;
+      justify-content: space-evenly;
       align-items: center;
       border-bottom: 1px solid $extra-light-grey;
+      .wishlist_card_img_wrapper {
+        .wishlist_card_img {
+          position: relative;
+          height: 110px;
+          width: 200px;
+        }
 
-      .wishlist_card_img {
-        position: relative;
-        height: 180px;
-        width: 40%;
+        .wishlist_prices {
+          display: flex;
+          justify-content: center;
+          font-size: 17px;
+          h3 {
+            margin: 13px 10px 0px 10px;
+          }
+        }
       }
+
       .wishlist_card_info {
-        flex: 1;
-        height: 200px;
-        padding: 10px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         color: $light-grey;
-        margin: 0 20px;
+        padding: 0 10px;
         h3 {
-          font-size: 20px;
+          font-size: 18px;
           margin: 10px 0;
+          text-align: center;
         }
         h6 {
           margin: 10px 0;
         }
         .btn {
+          margin-top: 10px;
           .dlt {
             &:hover {
               color: $red;
