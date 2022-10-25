@@ -3,7 +3,7 @@ import { STATUSES } from "../../constants";
 import axios from "axios";
 
 const initialState = {
-  data: null,
+  data: [],
   status: STATUSES.IDLE,
   count: 0
 };
@@ -20,7 +20,7 @@ const wishlistSlice = createSlice({
     //   return state.data.filter((item) => item._id !== action.payload._id);
     // },
     clearWishlist(state) {
-      state.data = null;
+      state.data = [];
       state.count = 0;
     }
   },

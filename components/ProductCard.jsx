@@ -31,13 +31,7 @@ const ProductCard = ({ cardProduct }) => {
     return getWishlistIds().includes(id);
   };
 
-  useEffect(() => {
-    getWishlistIds();
-  }, [wishlist]);
-
-  // get image from variants array and features array
   const image = cardProduct.variants[0]?.features[0]?.images[0];
-  // const imageHover = cardProduct.variants[0]?.features[0]?.images[2];
 
   const addToWishlistHandler = async (productId) => {
     if (loginData) {
@@ -48,7 +42,6 @@ const ProductCard = ({ cardProduct }) => {
         const { data } = await axios.post(`${process.env.NEXT_PUBLIC_baseURL}/wishlist/${loginData.user_id}/${productId}`);
         data.success && toast.success(data.message);
       }
-
       dispatch(fetchWishlist(loginData.user_id));
     } else {
       push('/login');

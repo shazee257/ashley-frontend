@@ -4,11 +4,12 @@ import ReactStars from "react-stars";
 import Switch from "@mui/material/Switch";
 import Image from "next/image";
 import moment from "moment";
-import { addToCart } from "../../../app/features/cartSlice";
+import axios from "axios";
+import { toast } from "react-toastify";
+// import { addToCart } from "../../../app/features/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts, selectProducts } from "../../../app/features/productSlice";
 import { fetchCategory, selectCategory } from "../../../app/features/categorySlice";
-import { addToWishlist } from "../../../app/features/wishlistSlice";
 
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -16,7 +17,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-import { AiFillStar } from "react-icons/ai";
+import { AiFillHeart, AiFillStar } from "react-icons/ai";
 import { AiOutlineHeart } from "react-icons/ai";
 
 import ProductCarousal from "../../../components/productCarousal.jsx";
@@ -32,6 +33,8 @@ import { MdOutlinePhotoCameraBack } from "react-icons/md";
 import { IoChatbubblesOutline } from "react-icons/io";
 // import Slider from "react-slick";
 // import bed from "../../../pages/assets/bed.webp";
+import { selectLoginData, setLogin } from "../../../app/features/loginSlice";
+import { fetchWishlist, selectWishlist } from "../../../app/features/wishlistSlice";
 
 import Slider from "react-slick";
 // import styles from "../styles/Practiceslider.module.scss";
@@ -40,6 +43,7 @@ import "slick-carousel/slick/slick-theme.css";
 import bed from "../../assets/bed.webp";
 import ReactPlayer from "react-player";
 import fur12 from "../../assets/fur12.jpg";
+
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -79,14 +83,71 @@ function SamplePrevArrow(props) {
 }
 
 function ProductDetail({ product, reviews }) {
+  const [wishlistIds, setWishlistIds] = useState([]);
+  const loginData = useSelector(selectLoginData);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchCategory());
     dispatch(fetchProducts());
+
+    const user = JSON.parse(localStorage.getItem("user"));
+    // if (user) {
+    // dispatch(setLogin(user));
+    dispatch(fetchWishlist(user.user_id));
+    // }
+    // }
+
   }, [dispatch]);
 
   const products = useSelector(selectProducts);
+  const wishlist = useSelector(selectWishlist);
+
+  // const getWishlistIds = () => {
+  //   const data = wishlist.data.map((product) => product._id);
+  //   setWishlistIds([...data]);
+  //   console.log("wishlistIds>", data);
+  // };
+
+  // function isProductIdInWishlist(id) {
+  //   console.log(wishlistIds.includes(id), "wishlistIds include");
+  //   return wishlistIds.includes(id);
+  // };
+
+  const getWishlistIds = () => {
+    return wishlist?.data.map((product) => product._id);
+  };
+
+  const isProductIdInWishlist = (id) => {
+    return getWishlistIds().includes(id);
+  };
+
+  useEffect(() => {
+    if (!loginData) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (user) {
+        dispatch(setLogin(user));
+        dispatch(fetchWishlist(user?.user_id));
+      }
+    }
+    console.log("getWishlistIds: ", getWishlistIds());
+  }, []);
+
+  const addToWishlistHandler = async (productId) => {
+    if (loginData) {
+      if (isProductIdInWishlist(productId)) {
+        const { data } = await axios.put(`${process.env.NEXT_PUBLIC_baseURL}/wishlist/${loginData.user_id}/${productId}`);
+        data.success && toast.success(data.message);
+      } else {
+        const { data } = await axios.post(`${process.env.NEXT_PUBLIC_baseURL}/wishlist/${loginData.user_id}/${productId}`);
+        data.success && toast.success(data.message);
+      }
+      dispatch(fetchWishlist(loginData.user_id));
+    } else {
+      push('/login');
+    }
+  };
+
 
   const totalstar = 25;
   const obtainedstarData = [
@@ -764,7 +825,7 @@ function ProductDetail({ product, reviews }) {
               </button>
               <div
                 className={productCss.icon}
-                // onClick={addToWishHandler}
+                onClick={() => addToWishlistHandler(product._id)}
                 style={{
                   height: 50,
                   width: 50,
@@ -772,7 +833,10 @@ function ProductDetail({ product, reviews }) {
                   boxShadow: "0 0 2px grey",
                 }}
               >
-                <AiOutlineHeart className={productCss.heart} />
+                {isProductIdInWishlist(product._id) ?
+                  <AiFillHeart className={productCss.heart} /> :
+                  <AiOutlineHeart className={productCss.heart} />
+                }
               </div>
             </div>
             <div className={productCss.delivery}>
@@ -812,7 +876,12 @@ function ProductDetail({ product, reviews }) {
                   boxShadow: "0 0 2px grey",
                 }}
               >
-                <AiOutlineHeart className={productCss.heart} />
+                {isProductIdInWishlist(product._id) ?
+                  <AiFillHeart className={productCss.heart}
+                    onClick={() => addToWishlistHandler(product._id)} /> :
+                  <AiOutlineHeart className={productCss.heart}
+                    onClick={() => addToWishlistHandler(product._id)} />
+                }
               </div>
             </div>
             <div
@@ -834,9 +903,12 @@ function ProductDetail({ product, reviews }) {
             <div className={productCss.realtedProduct_cardWrapper}>
               <div className={productCss.heart}>
                 <h4 className={productCss.icon}>
-                  <AiOutlineHeart />
+                  {isProductIdInWishlist(p._id) ?
+                    <AiFillHeart /> : <AiOutlineHeart />}
                 </h4>
-                <h4 className={productCss.display}>Add to Wishlist</h4>
+                <h4 className={productCss.display}
+                  onClick={() => addToWishlistHandler(p._id)}
+                >Add to Wishlist</h4>
               </div>
               <Link href={`/products/details?slug=${p.slug}`}>
                 <div className={productCss.realted_product_imagediv}>
@@ -865,161 +937,6 @@ function ProductDetail({ product, reviews }) {
                   <h2>More Products Options Available</h2> */}
             </div>
           ))}
-
-          {/* cardWrapper two */}
-          {/* <div className={productCss.realtedProduct_cardWrapper}>
-            <div className={productCss.heart}>
-              <h4 className={productCss.icon}>
-                <AiOutlineHeart />
-              </h4>
-              <h4 className={productCss.display}>Add to Wishlist</h4>
-            </div>
-            <div className={productCss.realted_product_imagediv}>
-              <Image
-                src={bed}
-                alt="Picture of the author"
-                layout="fill"
-                className={productCss.realted_product_image}
-              />
-            </div>
-            <h6>chiming 12 inch Hybird Matters</h6>
-            <div className={productCss.star}>
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-            </div>
-            <h5>$289.99</h5>
-            <p>or $49/mo w/6 mos special financing</p>
-            <h4>Save 5% wid Code:LDSAVINGS</h4>
-            <h3>Free Grounp Shipping</h3>
-            <h2>More Products Options Available</h2>
-          </div> */}
-
-          {/* cardWrapper three */}
-          {/* <div className={productCss.realtedProduct_cardWrapper}>
-            <div className={productCss.heart}>
-              <h4 className={productCss.icon}>
-                <AiOutlineHeart />
-              </h4>
-              <h4 className={productCss.display}>Add to Wishlist</h4>
-            </div>
-            <div className={productCss.realted_product_imagediv}>
-              <Image
-                src={bed}
-                alt="Picture of the author"
-                layout="fill"
-                className={productCss.realted_product_image}
-              />
-            </div>
-            <h6>chiming 12 inch Hybird Matters</h6>
-            <div className={productCss.star}>
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-            </div>
-            <h5>$289.99</h5>
-            <p>or $49/mo w/6 mos special financing</p>
-            <h4>Save 5% wid Code:LDSAVINGS</h4>
-            <h3>Free Grounp Shipping</h3>
-            <h2>More Products Options Available</h2>
-          </div> */}
-
-          {/* cardWrapper four */}
-          {/* <div className={productCss.realtedProduct_cardWrapper}>
-            <div className={productCss.heart}>
-              <h4 className={productCss.icon}>
-                <AiOutlineHeart />
-              </h4>
-              <h4 className={productCss.display}>Add to Wishlist</h4>
-            </div>
-            <div className={productCss.realted_product_imagediv}>
-              <Image
-                src={bed}
-                alt="Picture of the author"
-                layout="fill"
-                className={productCss.realted_product_image}
-              />
-            </div>
-            <h6>chiming 12 inch Hybird Matters</h6>
-            <div className={productCss.star}>
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-            </div>
-            <h5>$289.99</h5>
-            <p>or $49/mo w/6 mos special financing</p>
-            <h4>Save 5% wid Code:LDSAVINGS</h4>
-            <h3>Free Grounp Shipping</h3>
-            <h2>More Products Options Available</h2>
-          </div> */}
-
-          {/* cardWrapper five*/}
-          {/* <div className={productCss.realtedProduct_cardWrapper}>
-            <div className={productCss.heart}>
-              <h4 className={productCss.icon}>
-                <AiOutlineHeart />
-              </h4>
-              <h4 className={productCss.display}>Add to Wishlist</h4>
-            </div>
-            <div className={productCss.realted_product_imagediv}>
-              <Image
-                src={bed}
-                alt="Picture of the author"
-                layout="fill"
-                className={productCss.realted_product_image}
-              />
-            </div>
-            <h6>chiming 12 inch Hybird Matters</h6>
-            <div className={productCss.star}>
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-            </div>
-            <h5>$289.99</h5>
-            <p>or $49/mo w/6 mos special financing</p>
-            <h4>Save 5% wid Code:LDSAVINGS</h4>
-            <h3>Free Grounp Shipping</h3>
-            <h2>More Products Options Available</h2>
-          </div> */}
-
-          {/* cardWrapper six*/}
-          {/* <div className={productCss.realtedProduct_cardWrapper}>
-            <div className={productCss.heart}>
-              <h4 className={productCss.icon}>
-                <AiOutlineHeart />
-              </h4>
-              <h4 className={productCss.display}>Add to Wishlist</h4>
-            </div>
-            <div className={productCss.realted_product_imagediv}>
-              <Image
-                src={bed}
-                alt="Picture of the author"
-                layout="fill"
-                className={productCss.realted_product_image}
-              />
-            </div>
-            <h6>chiming 12 inch Hybird Matters</h6>
-            <div className={productCss.star}>
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-              <AiFillStar className={productCss.icon} />
-            </div>
-            <h5>$289.99</h5>
-            <p>or $49/mo w/6 mos special financing</p>
-            <h4>Save 5% wid Code:LDSAVINGS</h4>
-            <h3>Free Grounp Shipping</h3>
-            <h2>More Products Options Available</h2>
-          </div> */}
         </Slider>
       </div>
       {/* <ProductCarousal height={200} slider={selectedFeature.images} url={process.env.NEXT_PUBLIC_uploadURL} /> */}
