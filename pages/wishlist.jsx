@@ -10,6 +10,7 @@ import {
 import styles from "../styles/Wishlist.module.scss";
 import wishlistimg from "./assets/fur12.jpg";
 import { AiOutlineDelete, AiOutlineHeart } from "react-icons/ai";
+import { MdOutlineClose } from "react-icons/md";
 
 const Wishlist = () => {
 
@@ -45,7 +46,9 @@ const Wishlist = () => {
       <div className={styles.wishlist_cards_wrapper}>
         {wishlistData?.map((item) => (
           <div className={styles.wishlist_card}>
-            <div className={styles.wishlist_card_img_wrapper}>
+            <div className={styles.wishlist_card_crossIcon_div}> <MdOutlineClose className={styles.wishlist_card_crossIcon} /></div>
+            <div className={styles.wishlist_card_info}>
+              {/* IMAGE */}
               <div className={styles.wishlist_card_img}>
                 <Image
                   src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${item.variants[0].features[0].images[0]}`}
@@ -53,43 +56,37 @@ const Wishlist = () => {
                   layout="fill"
                 />
               </div>
-              <div className={styles.wishlist_prices}>
-                <h3>$ {item.maxPrice} </h3>
-                <h3>-</h3>
-                <h3>$ {item.minPrice} </h3>
+
+              {/* TITLE */}
+              <div className={styles.wishlist_card_title}>
+                {item.title}
               </div>
-            </div>
-            {/* <div className={styles.wishlist_card_img}>
-              <Image
-                // src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${item.image}`}
-                src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${item.variants[0].features[0].images[0]}`}
-                alt="wishlist-img"
-                layout="fill"
-                objectFit="contain"
-              />
 
-            </div> */}
-
-
-            <div className={styles.wishlist_card_info}>
-              {console.log(`/${process.env.NEXT_PUBLIC_uploadURL}/products/${item.variants[0].features[0].images[0]}`)}
-              <h3> {item.title} </h3>
-              {/* <h6>{item.variants[0].size}</h6> */}
-              {/* <h6>{item.color} </h6> */}
-              <h6>In Stock</h6>
-              <div className={styles.btn}>
-                <button
-                  className={styles.dlt}
-                  title="Delete"
-                  onClick={() => deleteHandler(item.sku)}
-                >
-                  <AiOutlineDelete />
+              {/* MIN MAX DETAISL VIEW  BUTTON */}
+              <div className={styles.wishlist_card_view_details}>
+                <p className={styles.wishlist_prices}>
+                  $ {item.minPrice} - $ {item.maxPrice}
+                </p>
+                <button className={styles.wishlis_viewdetails_btn}>
+                  View Detail
                 </button>
-                {/* <button className={styles.add} title="Add to Cart">
-                  <BsCartPlus />
-                </button> */}
               </div>
+
+              {/* delete */}
+              {/* <div className={styles.deleteBtn_div}>
+                <div className={styles.btn}>
+                  <button
+                    className={styles.dlt}
+                    title="Delete"
+                    onClick={() => deleteHandler(item.sku)}
+                  >
+                    <AiOutlineDelete className={styles.dlt_icon} />
+                  </button>
+                </div>
+              </div> */}
+
             </div>
+
           </div>
         ))}
       </div>
