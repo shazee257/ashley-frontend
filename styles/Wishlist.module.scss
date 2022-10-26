@@ -91,7 +91,7 @@
   // }
 
   .wishlist_cards_wrapper {
-    width: 100%;
+    width: 80%;
     margin-top: 20px;
 
     .wishlist_card {
@@ -114,7 +114,7 @@
       }
 
       .wishlist_card_info {
-        width: 100%;
+        width: 90%;
         display: flex;
         // justify-content: space-;
         justify-content: space-around;
@@ -123,14 +123,14 @@
         .wishlist_card_img {
           width: 30%;
           position: relative;
-          height: 130px;
-          width: 230px;
+          height: 100px;
+          width: 150px;
         }
 
         .wishlist_card_title {
           text-align: center;
           text-align: left;
-          font-size: 21px;
+          font-size: 18px;
           text-transform: uppercase;
           width: 35%;
           font-weight: 700;

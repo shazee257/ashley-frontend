@@ -9,7 +9,7 @@ import {
 
 import styles from "../styles/Wishlist.module.scss";
 import wishlistimg from "./assets/fur12.jpg";
-import { AiOutlineDelete, AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineDelete, AiOutlineHeart } from "react-icons/ai";
 import { MdOutlineClose } from "react-icons/md";
 
 const Wishlist = () => {
@@ -37,11 +37,9 @@ const Wishlist = () => {
 
   return (
     <div className={styles.wishlist_wrapper}>
-      <div className={styles.wishlist_heading}>
+      <div className={`${styles.wishlist_heading} flex items-center justify-center h-20`}>
+        <h1 className="px-3 "><AiFillHeart /></h1>
         <h2>My Wish List</h2>
-        <h1>
-          <AiOutlineHeart />
-        </h1>
       </div>
       <div className={styles.wishlist_cards_wrapper}>
         {wishlistData?.map((item) => (

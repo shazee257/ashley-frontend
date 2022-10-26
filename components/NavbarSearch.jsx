@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { selectCart } from "../app/features/cartSlice";
 import { selectLoginData, setLogin, setLogout } from "../app/features/loginSlice";
-import { clearWishlist, fetchWishlist } from "../app/features/wishlistSlice";
+import { clearWishlist, fetchWishlist, selectWishlist } from "../app/features/wishlistSlice";
 
 import { toast } from 'react-toastify';
 import axios from "axios";
@@ -32,6 +32,7 @@ const NavbarSearch = () => {
   const dispatch = useDispatch();
 
   let loginData = useSelector(selectLoginData);
+  const wishlist = useSelector(selectWishlist);
 
   useEffect(() => {
     if (!loginData) {
@@ -164,7 +165,7 @@ const NavbarSearch = () => {
             <a>
               <span className={navsearch.cart_icon}>
                 <AiOutlineHeart className={navsearch.icon} />
-                {/* <span className={navsearch.badge}>{cartCount}</span> */}
+                <span className={navsearch.badge}>{wishlist.count}</span>
               </span>
             </a>
           </Link>
