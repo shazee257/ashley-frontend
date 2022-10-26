@@ -597,55 +597,12 @@ function ProductDetail({ product, reviews }) {
                       <div className={productCss.total_star_number}>5</div>
                     </div>
                   ))}
-                  {/* </div> */}
-                  {/* <div
-                    className={productCss.rating_by_stars}
-                    style={{ display: "flex" }}
-                  >
-                    <div>5 stars</div>
-                    <div className={productCss.star_lines}></div>
-                    <p>5</p>
-                  </div>
-                  <div
-                    className={productCss.rating_by_stars}
-                    style={{ display: "flex" }}
-                  >
-                    <div>5 stars</div>
-                    <div className={productCss.star_lines}></div>
-                    <p>5</p>
-                  </div>
-                  <div
-                    className={productCss.rating_by_stars}
-                    style={{ display: "flex" }}
-                  >
-                    <div>5 stars</div>
-                    <div className={productCss.star_lines}></div>
-                    <p>5</p>
-                  </div>
-                  <div
-                    className={productCss.rating_by_stars}
-                    style={{ display: "flex" }}
-                  >
-                    <div>5 stars</div>
-                    <div className={productCss.star_lines}></div>
-                    <p>5</p>
-                  </div>
-                  <div
-                    className={productCss.rating_by_stars}
-                    style={{ display: "flex" }}
-                  >
-                    <div>5 stars</div>
-                    <div className={productCss.star_lines}></div>
-                    <p>5</p>
-                  </div> */}
+
                   <div className={productCss.review_button}>
                     <button>WRITE A REVIEW</button>
                   </div>
                 </div>
               </div>
-              {/* <h5 className={productCss.review_heading}>
-                Reviews for Similar Products
-              </h5> */}
 
               {reviews.length > 0 &&
                 reviews.map((review) => (
@@ -656,28 +613,12 @@ function ProductDetail({ product, reviews }) {
                     <div>
                       <ReactStars {...options} />
                     </div>
-                    {/* <div className={productCss.rating_star}>
-                      <AiFillStar />
-                      <AiFillStar />
-                      <AiFillStar />
-                      <AiFillStar />
-                      <AiFillStar />
-                    </div> */}
-                    <h6 className={productCss.review_title}>
-                      {/* By Customer Name */}
-                      {review.title}
-                    </h6>
-                    <p className={productCss.review_discription}>
-                      {review.description}
-                      {/* Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Sint iusto quos quibusdam totam officiis, ipsa aliquid
-                      quas doloribus enim! Quidem. */}
-                    </p>
+                    <h6 className={productCss.review_title}>{review.title}</h6>
+                    <p className={productCss.review_discription}>{review.description}</p>
                     <div className={productCss.review_discription}>
                       <div className={productCss.review_img_wrapper}>
                         {review.images.length > 0 &&
                           review.images.map((image) => (
-                            // <div className={productCss.review_img_wrapper}>
                             <div className={productCss.review_img}>
                               <Image
                                 src={`${process.env.NEXT_PUBLIC_uploadURL}/reviews/${image}`}
@@ -686,89 +627,19 @@ function ProductDetail({ product, reviews }) {
                                 className={productCss.img}
                               />
                             </div>
-                            //     {/* <div className={productCss.review_img}>
-                            //   <Image
-                            //     src={fur12}
-                            //     alt="revie wpicture"
-                            //     layout="fill"
-                            //     className={productCss.img}
-                            //   />
-                            // </div>
-                            // <div className={productCss.review_img}>
-                            //   <Image
-                            //     src={fur12}
-                            //     alt="revie wpicture"
-                            //     layout="fill"
-                            //     className={productCss.img}
-                            //   />
-                            // </div> */}
-                            // </div>
                           ))}
                       </div>
                     </div>
                     <div className={productCss.review_personal_info}>
-                      <p
-                        className={productCss.para}
-                      >{`${review.user_id.first_name} ${review.user_id.last_name}`}</p>
-                      {/* <p className={productCss.margin_left}>
-                        {review.user_id.last_name}
-                      </p> */}
+                      <p className={productCss.para}>
+                        {`${review.user_id.first_name} ${review.user_id.last_name}`}
+                      </p>
                       <p className={productCss.margin_left}>
-                        {/* {review.createdAt} */}
                         {moment(review.createdAt).format("YYYY/MM/DD")}
                       </p>
-                      {/* <p className={productCss.margin_left}>{review.user_id.last_name}</p> */}
                     </div>
                   </div>
                 ))}
-
-              {/* <div className={productCss.review_by_customer}>
-                <div className={productCss.rating_star}>
-                  <AiFillStar />
-                  <AiFillStar />
-                  <AiFillStar />
-                  <AiFillStar />
-                  <AiFillStar />
-                </div>
-                <h6 className={productCss.review_title}>By Customer Name</h6>
-                <p className={productCss.review_discription}>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint
-                  iusto quos quibusdam totam officiis, ipsa aliquid quas
-                  doloribus enim! Quidem.
-                </p>
-                <div className={productCss.review_img_wrapper}>
-                  <div className={productCss.review_img}>
-                    <Image
-                      src={fur12}
-                      alt="revie wpicture"
-                      layout="fill"
-                      className={productCss.img}
-                    />
-                  </div>
-                  <div className={productCss.review_img}>
-                    <Image
-                      src={fur12}
-                      alt="revie wpicture"
-                      layout="fill"
-                      className={productCss.img}
-                    />
-                  </div>
-                  <div className={productCss.review_img}>
-                    <Image
-                      src={fur12}
-                      alt="revie wpicture"
-                      layout="fill"
-                      className={productCss.img}
-                    />
-                  </div>
-                </div>
-                <div className={productCss.review_personal_info}>
-                  <p>firstname</p>
-                  <p className={productCss.margin_left}>last name</p>
-                  <p className={productCss.margin_left}>date</p>
-                  <p className={productCss.margin_left}>username</p>
-                </div>
-              </div> */}
             </div>
           )}
 

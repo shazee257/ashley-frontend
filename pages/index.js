@@ -1,5 +1,3 @@
-// from installed libraries
-
 import Head from "next/head";
 import Image from "next/image";
 import axios from "axios";
@@ -10,10 +8,8 @@ import { AiOutlineDown } from "react-icons/ai";
 import Slider from "react-slick";
 
 // from redux slices
-import { wrapper } from "../app/store/store";
 import { fetchProducts, selectProducts } from "../app/features/productSlice";
 import { fetchCategory, selectCategory } from "../app/features/categorySlice";
-import { addToWishlist } from "../app/features/wishlistSlice";
 //from assets and styles
 import styles from "../styles/Home.module.scss";
 import loader from "../components/assets/loader.gif";
@@ -22,7 +18,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 //from components
-
 import Carousal from "../components/Carousal";
 import CategoriesCard from "../components/CategoriesCard";
 import DiscountCard from "../components/DiscountCard";
@@ -72,26 +67,17 @@ function Home({ categoriesData }) {
 
   const categories = useSelector(selectCategory);
   const products = useSelector(selectProducts);
-  // const wishlist = useSelector(selectWishlist);
 
   useEffect(() => {
     dispatch(fetchProducts());
     dispatch(fetchCategory());
   }, []);
 
-  const filteredProducts = products?.filter((fp) => fp.category_id.slug === "sheet-sets");
   const mainCategories = categories?.filter((cat) => cat.parent_id === "");
   const sliders = banner.filter((banner) => banner.type === 'slider');
   const featureBanner = banner.filter((banner) => banner.type === 'custom');
-  const categoryBanner = banner.filter((banner) => banner.type === 'category');
-
-  // useEffect(() => {
-  //   const fetchLoginData = localStorage.getItem("user");
-  //   if (fetchLoginData) {
-  //     const data = JSON.parse(localStorage.getItem("user"));
-  //     dispatch(setLogin(data));
-  //   }
-  // }, []);
+  const categoryBanner = banner.find((banner) => banner.type === 'category');
+  const bannerCategoryProducts = products?.filter((fp) => fp.category_id._id === categoryBanner.category_id._id);
 
   const getDiscountedCategories = async () => {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_baseURL}/products/discount/categories`);
@@ -167,25 +153,23 @@ function Home({ categoriesData }) {
                 <CategoryCard product={item} key={item._id} />
               ))}
             </Slider>
-            {/* </div> */}
           </div>
+
+          {/* Category Banner */}
           <div className={styles.thin_banner_wrapper}>
-            <ThinBannerCard data={categoryBanner} />
+            <ThinBannerCard categoryBanner={categoryBanner} />
           </div>
+          {/* Relevant Products of Category Banner Above */}
           <div className={styles.free_shipping}>
             <h4>Swith it up</h4>
             <h2>Update your happy Place</h2>
             <Slider {...settings}>
-              {filteredProducts?.map((item) => (
+              {bannerCategoryProducts?.map((item) => (
                 <CategoryCard product={item} key={item._id} />
               ))}
             </Slider>
-            {/* </div> */}
           </div>
 
-          {/* <div className={styles.thin_banner_wrapper}>
-            <ThinBannerCard title="outdoor" feature="reintroducing" />
-          </div> */}
           <div className={styles.chatbot_wrapper}>
             <div className={styles.chatbot}>{botShow && <ChatBot />}</div>
             <div className={styles.chatbot_icon}
