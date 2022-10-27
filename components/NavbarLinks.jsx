@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { selectCategory } from "../app/features/categorySlice";
+import { useSelector, useDispatch } from "react-redux";
+import { selectCategory, fetchCategory } from "../app/features/categorySlice";
 import axios from "axios";
 
 import Link from "next/link";
@@ -10,12 +10,18 @@ import navbar from "../styles/NavbarLinks.module.scss";
 const NavbarLinks = () => {
   const categories = useSelector(selectCategory);
   const [discountCategories, setDiscountCategories] = useState([]);
+  const dispatch = useDispatch();
 
   const getDiscountedCategories = async () => {
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_baseURL}/products/discount/categories`);
     setDiscountCategories(data.categories);
   }
+
+  useEffect(() => {
+    dispatch(fetchCategory());
+  }, [dispatch]);
+
 
   useEffect(() => {
     getDiscountedCategories();

@@ -32,8 +32,8 @@ const Wishlist = () => {
   }
 
   useEffect(() => {
-    setWishlistPrices(wishList.data);
-  }, [])
+    setWishlistPrices(wishList?.data);
+  }, [wishlistData])
 
   return (
     <div className={styles.wishlist_wrapper}>

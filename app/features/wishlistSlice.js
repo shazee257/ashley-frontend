@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { HYDRATE } from 'next-redux-wrapper';
 import { STATUSES } from "../../constants";
 import axios from "axios";
 
@@ -12,6 +13,18 @@ const wishlistSlice = createSlice({
   name: "wishlist",
   initialState,
   reducers: {
+
+    // This special action type will be dispatched by `next-redux-wrapper` and will
+    // merge the server state with the client state. This is useful for cases where
+    // the server state may be out of date, such as when a user logs in on the
+    // client. In this case, we want to merge the server state with the client state
+    // to ensure that the client state is up to date.
+    [HYDRATE]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload.wishlist
+      };
+    },
     // addToWishlist(state, action) {
     //   state.data = action.payload.wishlist;
     //   state.count = action.payload.wishlistCount;

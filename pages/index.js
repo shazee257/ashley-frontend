@@ -77,7 +77,7 @@ function Home({ categoriesData }) {
   const sliders = banner.filter((banner) => banner.type === 'slider');
   const featureBanner = banner.filter((banner) => banner.type === 'custom');
   const categoryBanner = banner.find((banner) => banner.type === 'category');
-  const bannerCategoryProducts = products?.filter((fp) => fp.category_id._id === categoryBanner.category_id._id);
+  const bannerCategoryProducts = products?.filter((fp) => fp.category_id._id === categoryBanner?.category_id._id);
 
   const getDiscountedCategories = async () => {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_baseURL}/products/discount/categories`);

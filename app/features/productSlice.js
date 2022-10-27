@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { STATUSES } from "../../constants";
 
 const initialState = {
-  data: null,
+  data: [],
   status: STATUSES.IDLE
 };
 

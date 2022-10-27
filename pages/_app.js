@@ -1,29 +1,43 @@
 import { Provider } from "react-redux";
-import { useEffect } from "react";
 import { wrapper } from "../app/store/store";
-
-import { persistStore } from "redux-persist";
-import { PersistGate } from "redux-persist/integration/react";
-
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "../styles/globals.scss";
 
-// let persistor = persistStore(store);
+const MyApp = ({ Component, ...rest }) => {
 
-function App({ Component, pageProps }) {
-  // let persistor = persistStore(store);
+  const { store, props } = wrapper.useWrappedStore(rest);
+  const { pageProps } = props;
+
   return (
-    <>
-      {/* <Provider store={store}> */}
-      {/* <PersistGate persistor={persistor}> */}
+    <Provider store={store}>
       <Navbar />
       <Component {...pageProps} />
       <Footer />
-      {/* </PersistGate> */}
-      {/* </Provider> */}
-    </>
+    </Provider>
   );
-}
+};
 
-export default wrapper.withRedux(App);
+export default wrapper.withRedux(MyApp);
+
+
+
+
+
+
+
+
+
+
+
+// function App({ Component, pageProps }) {
+//   return (
+//     <>
+//       <Navbar />
+//       <Component {...pageProps} />
+//       <Footer />
+//     </>
+//   );
+// }
+
+// export default wrapper.withRedux(App);

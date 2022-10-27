@@ -136,10 +136,10 @@ function ProductDetail({ product, reviews }) {
   const addToWishlistHandler = async (productId) => {
     if (loginData) {
       if (isProductIdInWishlist(productId)) {
-        const { data } = await axios.put(`${process.env.NEXT_PUBLIC_baseURL}/wishlist/${loginData.user_id}/${productId}`);
+        const { data } = await axios.put(`${process.env.NEXT_PUBLIC_baseURL}/wishlist/${loginData.user_id}`, { productId });
         data.success && toast.success(data.message);
       } else {
-        const { data } = await axios.post(`${process.env.NEXT_PUBLIC_baseURL}/wishlist/${loginData.user_id}/${productId}`);
+        const { data } = await axios.post(`${process.env.NEXT_PUBLIC_baseURL}/wishlist/${loginData.user_id}`, { productId });
         data.success && toast.success(data.message);
       }
       dispatch(fetchWishlist(loginData.user_id));
