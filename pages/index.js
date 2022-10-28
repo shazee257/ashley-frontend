@@ -81,7 +81,6 @@ function Home({ categoriesData }) {
 
   const getDiscountedCategories = async () => {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_baseURL}/products/discount/categories`);
-    console.log(response.data, "discounted categories");
     setDiscountCategories(response.data.categories);
   }
 
@@ -147,7 +146,6 @@ function Home({ categoriesData }) {
           <div className={styles.free_shipping}>
             <h4>Swith it up</h4>
             <h2>Update your happy Place</h2>
-            {/* <div className={styles.category_cards}> */}
             <Slider {...settings}>
               {featProducts?.map((item) => (
                 <CategoryCard product={item} key={item._id} />
@@ -159,10 +157,14 @@ function Home({ categoriesData }) {
           <div className={styles.thin_banner_wrapper}>
             <ThinBannerCard categoryBanner={categoryBanner} />
           </div>
-          {/* Relevant Products of Category Banner Above */}
+
           <div className={styles.free_shipping}>
-            <h4>Swith it up</h4>
-            <h2>Update your happy Place</h2>
+            {bannerCategoryProducts &&
+              <>
+                <h4>Swith it up</h4>
+                <h2>Update your happy Place</h2>
+              </>
+            }
             <Slider {...settings}>
               {bannerCategoryProducts?.map((item) => (
                 <CategoryCard product={item} key={item._id} />
