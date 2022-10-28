@@ -17,15 +17,15 @@ import Link from "next/link";
 function Products() {
   const router = useRouter();
   const { categorySlug, discountedCategorySlug, zipCode, searchTerm } = router.query;
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const products = useSelector(selectProducts);
   const categories = useSelector(selectCategory);
 
-  useEffect(() => {
-    dispatch(fetchProducts());
-    dispatch(fetchCategory());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchProducts());
+  //   dispatch(fetchCategory());
+  // }, [dispatch]);
 
   let filteredProducts = [];
   let currentCategory = {};

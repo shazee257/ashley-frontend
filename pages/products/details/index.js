@@ -85,20 +85,20 @@ function SamplePrevArrow(props) {
 function ProductDetail({ product, reviews }) {
   const [wishlistIds, setWishlistIds] = useState([]);
   const loginData = useSelector(selectLoginData);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchCategory());
-    dispatch(fetchProducts());
+  // useEffect(() => {
+  //   dispatch(fetchCategory());
+  //   dispatch(fetchProducts());
 
-    const user = JSON.parse(localStorage.getItem("user"));
-    // if (user) {
-    // dispatch(setLogin(user));
-    dispatch(fetchWishlist(user.user_id));
-    // }
-    // }
+  //   const user = JSON.parse(localStorage.getItem("user"));
+  //   // if (user) {
+  //   // dispatch(setLogin(user));
+  //   dispatch(fetchWishlist(user.user_id));
+  //   // }
+  //   // }
 
-  }, [dispatch]);
+  // }, [dispatch]);
 
   const products = useSelector(selectProducts);
   const wishlist = useSelector(selectWishlist);

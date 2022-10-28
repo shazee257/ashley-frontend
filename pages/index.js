@@ -10,6 +10,7 @@ import Slider from "react-slick";
 // from redux slices
 import { fetchProducts, selectProducts } from "../app/features/productSlice";
 import { fetchCategory, selectCategory } from "../app/features/categorySlice";
+import { fetchBanners, selectBanners } from "../app/features/bannerSlice";
 //from assets and styles
 import styles from "../styles/Home.module.scss";
 import loader from "../components/assets/loader.gif";
@@ -31,7 +32,7 @@ function Home({ categoriesData }) {
   // const [slider, setSlider] = useState([]);
   const [botShow, setBotShow] = useState(false);
   const [discountCategories, setDiscountCategories] = useState([]);
-  const [featProducts, setFeatProducts] = useState([]);
+  const [featureProducts, setFeatureProducts] = useState([]);
   const [banner, setBanner] = useState([]);
   const dispatch = useDispatch();
 
@@ -67,16 +68,18 @@ function Home({ categoriesData }) {
 
   const categories = useSelector(selectCategory);
   const products = useSelector(selectProducts);
+  const banners = useSelector(selectBanners);
 
   useEffect(() => {
     dispatch(fetchProducts());
     dispatch(fetchCategory());
-  }, []);
+    dispatch(fetchBanners());
+  }, [dispatch]);
 
   const mainCategories = categories?.filter((cat) => cat.parent_id === "");
-  const sliders = banner.filter((banner) => banner.type === 'slider');
-  const featureBanner = banner.filter((banner) => banner.type === 'custom');
-  const categoryBanner = banner.find((banner) => banner.type === 'category');
+  const sliders = banners.filter((banner) => banner.type === 'slider');
+  const featureBanner = banners.filter((banner) => banner.type === 'custom');
+  const categoryBanner = banners.find((banner) => banner.type === 'category');
   const bannerCategoryProducts = products?.filter((fp) => fp.category_id._id === categoryBanner?.category_id._id);
 
   const getDiscountedCategories = async () => {
@@ -85,19 +88,20 @@ function Home({ categoriesData }) {
   }
 
   const getFeatureProducts = async () => {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_baseURL}/products/featured`);
-    setFeatProducts(response.data.products);
+    const featuredProducts = products?.filter((fp) => fp.is_featured === true);
+    // // const response = await axios.get(`${process.env.NEXT_PUBLIC_baseURL}/products/featured`);
+    setFeatureProducts(featuredProducts);
   }
 
-  const getBanners = async () => {
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_baseURL}/banners`);
-    setBanner(data.banners);
-  }
+  // const getBanners = async () => {
+  //   const { data } = await axios.get(`${process.env.NEXT_PUBLIC_baseURL}/banners`);
+  //   setBanner(data.banners);
+  // }
 
   useEffect(() => {
     getDiscountedCategories();
     getFeatureProducts();
-    getBanners();
+    // getBanners();
   }, []);
 
   return (
@@ -143,11 +147,12 @@ function Home({ categoriesData }) {
             ))}
           </div>
 
+          {/* Featured Products */}
           <div className={styles.free_shipping}>
             <h4>Swith it up</h4>
             <h2>Update your happy Place</h2>
             <Slider {...settings}>
-              {featProducts?.map((item) => (
+              {featureProducts?.map((item) => (
                 <CategoryCard product={item} key={item._id} />
               ))}
             </Slider>
