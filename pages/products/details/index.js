@@ -10,6 +10,8 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts, selectProducts } from "../../../app/features/productSlice";
 import { fetchCategory, selectCategory } from "../../../app/features/categorySlice";
+import { selectLoginData, setLogin } from "../../../app/features/loginSlice";
+import { fetchWishlist, selectWishlist } from "../../../app/features/wishlistSlice";
 
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -33,8 +35,7 @@ import { MdOutlinePhotoCameraBack } from "react-icons/md";
 import { IoChatbubblesOutline } from "react-icons/io";
 // import Slider from "react-slick";
 // import bed from "../../../pages/assets/bed.webp";
-import { selectLoginData, setLogin } from "../../../app/features/loginSlice";
-import { fetchWishlist, selectWishlist } from "../../../app/features/wishlistSlice";
+
 import { useRouter } from "next/router";
 
 import Slider from "react-slick";
@@ -44,6 +45,7 @@ import "slick-carousel/slick/slick-theme.css";
 import bed from "../../assets/bed.webp";
 import ReactPlayer from "react-player";
 import fur12 from "../../assets/fur12.jpg";
+import BreadCrumbs from "../../../components/BreadCrumbs";
 
 
 function SampleNextArrow(props) {
@@ -84,7 +86,6 @@ function SamplePrevArrow(props) {
 }
 
 function ProductDetail({ product, reviews }) {
-  const [wishlistIds, setWishlistIds] = useState([]);
   const loginData = useSelector(selectLoginData);
   const { push } = useRouter();
   // const dispatch = useDispatch();
@@ -104,17 +105,11 @@ function ProductDetail({ product, reviews }) {
 
   const products = useSelector(selectProducts);
   const wishlist = useSelector(selectWishlist);
+  const categories = useSelector(selectCategory);
 
-  // const getWishlistIds = () => {
-  //   const data = wishlist.data.map((product) => product._id);
-  //   setWishlistIds([...data]);
-  //   console.log("wishlistIds>", data);
-  // };
 
-  // function isProductIdInWishlist(id) {
-  //   console.log(wishlistIds.includes(id), "wishlistIds include");
-  //   return wishlistIds.includes(id);
-  // };
+  const currentCategory = categories.find((cat) => cat._id === product.category_id._id);
+  const parentCategory = categories.find((cat) => cat._id == currentCategory.parent_id);
 
   const getWishlistIds = () => {
     return wishlist?.data.map((product) => product._id);
@@ -132,7 +127,6 @@ function ProductDetail({ product, reviews }) {
         dispatch(fetchWishlist(user?.user_id));
       }
     }
-    console.log("getWishlistIds: ", getWishlistIds());
   }, []);
 
   const addToWishlistHandler = async (productId) => {
@@ -309,14 +303,23 @@ function ProductDetail({ product, reviews }) {
 
   return (
     <div className={productCss.product_detail_wrapper}>
-      <div className={productCss.bread_crumbs}>
+
+
+      <BreadCrumbs
+        parentCategoryTitle={parentCategory.title}
+        categoryTitle={currentCategory.title}
+        categorySlug={currentCategory.slug}
+        productTitle={product.title}
+      />
+
+      {/* <div className={productCss.bread_crumbs}>
         <Link href="/">
           <span>Home </span>
         </Link>
         /<span>Furniture </span> /<span>Living Room Furniture</span> /
         <span>Sofa & Couches</span> /
         <span className={productCss.last_span}>Maimz Sofa</span>
-      </div>
+      </div> */}
 
       <div className={productCss.img_and_detail} key={product._id}>
         <div className={productCss.image_detail}>

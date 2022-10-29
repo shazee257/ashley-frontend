@@ -1,0 +1,22 @@
+@import "./Variables.module.scss";
+
+
+.bread_crumbs {
+    width: 95%;
+    font-size: 14px;
+    margin: 10px 0px;
+    margin-top: 20px;
+
+    span {
+      cursor: pointer;
+      color: black;
+      text-decoration: underline;
+      font-size: 14px;
+      font-variant: normal;
+      margin-left: 2px;
+    }
+    .last_span {
+      font-weight: 700;
+      text-decoration: none;
+    }
+  }
