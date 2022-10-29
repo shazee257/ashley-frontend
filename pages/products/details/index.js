@@ -35,6 +35,7 @@ import { IoChatbubblesOutline } from "react-icons/io";
 // import bed from "../../../pages/assets/bed.webp";
 import { selectLoginData, setLogin } from "../../../app/features/loginSlice";
 import { fetchWishlist, selectWishlist } from "../../../app/features/wishlistSlice";
+import { useRouter } from "next/router";
 
 import Slider from "react-slick";
 // import styles from "../styles/Practiceslider.module.scss";
@@ -85,6 +86,7 @@ function SamplePrevArrow(props) {
 function ProductDetail({ product, reviews }) {
   const [wishlistIds, setWishlistIds] = useState([]);
   const loginData = useSelector(selectLoginData);
+  const { push } = useRouter();
   // const dispatch = useDispatch();
 
   // useEffect(() => {
@@ -784,7 +786,7 @@ function ProductDetail({ product, reviews }) {
               <Link href={`/products/details?slug=${p.slug}`}>
                 <div className={productCss.realted_product_imagediv}>
                   <Image
-                    src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${p.variants[0].features[1].images[0]}`}
+                    src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${p.variants[0].features[0].images[0]}`}
                     alt="Picture of the author"
                     layout="fill"
                     className={productCss.realted_product_image}

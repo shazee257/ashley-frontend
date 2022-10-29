@@ -89,7 +89,7 @@ function Home({ categoriesData }) {
 
   const getFeatureProducts = async () => {
     const featuredProducts = products?.filter((fp) => fp.is_featured === true);
-    // // const response = await axios.get(`${process.env.NEXT_PUBLIC_baseURL}/products/featured`);
+    // const response = await axios.get(`${process.env.NEXT_PUBLIC_baseURL}/products/featured`);
     setFeatureProducts(featuredProducts);
   }
 
