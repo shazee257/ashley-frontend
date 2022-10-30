@@ -2,26 +2,30 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 import { useSelector, useDispatch } from "react-redux";
-import {
-  selectWishlist,
-  fetchWishlist
-} from "../app/features/wishlistSlice";
+import { selectWishlistData, removeItemFromWishlist } from "../app/features/wishlistSlice";
 import { selectLoginData } from "../app/features/loginSlice";
+import { selectProducts } from "../app/features/productSlice";
 
 import styles from "../styles/Wishlist.module.scss";
 import wishlistimg from "./assets/fur12.jpg";
 import { AiFillHeart, AiOutlineDelete, AiOutlineHeart } from "react-icons/ai";
 import { MdOutlineClose } from "react-icons/md";
 import { toast } from "react-toastify";
-import { useRouter } from "next/router";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const Wishlist = () => {
-  const [wishlistData, setWishlistData] = useState([]);
-  const wishlist = useSelector(selectWishlist);
+  const [wishlistProducts, setWishlistProducts] = useState([]);
+  const wishlistIds = useSelector(selectWishlistData);
   const loginData = useSelector(selectLoginData);
+  const products = useSelector(selectProducts);
   const dispatch = useDispatch();
   const { push } = useRouter();
+
+  useEffect(() => {
+    const wishlistProducts = products.filter((product) => wishlistIds.includes(product._id));
+    setWishlistPrices(wishlistProducts);
+  }, [wishlistIds]);
 
 
   // wishlist with max and min prices
@@ -32,32 +36,21 @@ const Wishlist = () => {
       const maxPrice = Math.max(...prices);
       return { ...product, minPrice, maxPrice }
     })
-    setWishlistData(data);
+    setWishlistProducts(data);
   }
 
-  const removeItemFromWishlistHandler = async (productId) => {
+  const deleteHandler = async (productId) => {
     if (loginData) {
-      const { data } = await axios.put(`${process.env.NEXT_PUBLIC_baseURL}/wishlist/${loginData.user_id}`,
-        { productId });
-      dispatch(fetchWishlist(loginData.user_id));
+      const { data } = await axios
+        .put(`${process.env.NEXT_PUBLIC_baseURL}/wishlist/${loginData.user_id}`, { productId });
       if (data.success) {
+        dispatch(removeItemFromWishlist(productId));
         toast.success(data.message);
-        setWishlistData(wishlistData.filter((product) => product._id !== productId));
+      } else {
+        toast.error(data.message);
       }
-    } else {
-      push('/login');
     }
   };
-
-  useEffect(() => {
-    (loginData) && dispatch(fetchWishlist(loginData.user_id));
-  }, [dispatch]);
-
-
-  useEffect(() => {
-    setWishlistPrices(wishlist.data);
-  }, [wishlist.data]);
-
 
   return (
     <div className={styles.wishlist_wrapper}>
@@ -66,11 +59,11 @@ const Wishlist = () => {
         <h2>My Wish List</h2>
       </div>
       <div className={styles.wishlist_cards_wrapper}>
-        {wishlistData?.map((item) => (
-          <div className={styles.wishlist_card}>
+        {wishlistProducts?.map((item) => (
+          <div className={styles.wishlist_card} key={item._id} >
             <div className={styles.wishlist_card_crossIcon_div}>
               <MdOutlineClose className={styles.wishlist_card_crossIcon}
-                onClick={() => removeItemFromWishlistHandler(item._id)} />
+                onClick={() => deleteHandler(item._id)} />
             </div>
             <div className={styles.wishlist_card_info}>
               {/* IMAGE */}
@@ -92,26 +85,12 @@ const Wishlist = () => {
                 <p className={styles.wishlist_prices}>
                   $ {item.minPrice} - $ {item.maxPrice}
                 </p>
-                <button className={styles.wishlis_viewdetails_btn}>
+                <button className={styles.wishlis_viewdetails_btn}
+                  onClick={() => push(`/products/details?slug=${item.slug}`)}>
                   View Detail
                 </button>
               </div>
-
-              {/* delete */}
-              {/* <div className={styles.deleteBtn_div}>
-                <div className={styles.btn}>
-                  <button
-                    className={styles.dlt}
-                    title="Delete"
-                    onClick={() => deleteHandler(item.sku)}
-                  >
-                    <AiOutlineDelete className={styles.dlt_icon} />
-                  </button>
-                </div>
-              </div> */}
-
             </div>
-
           </div>
         ))}
       </div>

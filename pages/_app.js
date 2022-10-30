@@ -1,5 +1,5 @@
 import { Provider } from "react-redux";
-import { wrapper, makeStore } from "../app/store/store";
+import { wrapper } from "../app/store/store";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "../styles/globals.scss";
@@ -20,26 +20,5 @@ const MyApp = ({ Component, ...rest }) => {
   );
 };
 
-export default wrapper.withRedux(MyApp);
 
-
-
-
-
-
-
-
-
-
-
-// function App({ Component, pageProps }) {
-//   return (
-//     <>
-//       <Navbar />
-//       <Component {...pageProps} />
-//       <Footer />
-//     </>
-//   );
-// }
-
-// export default wrapper.withRedux(App);
+export default MyApp;

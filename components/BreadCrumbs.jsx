@@ -9,9 +9,12 @@ const BreadCrumbs = ({ parentCategoryTitle, categoryTitle, categorySlug, product
             <Link href="#"><span> {parentCategoryTitle} </span></Link>
             /
             <Link href={`/products?categorySlug=${categorySlug}`}><span> {categoryTitle} </span></Link>
-            /
+
             {productTitle &&
-                <span className='font-semibold '> {productTitle} </span>
+                <>
+                    /
+                    <span className='font-semibold '> {productTitle} </span>
+                </>
             }
         </div>
     )

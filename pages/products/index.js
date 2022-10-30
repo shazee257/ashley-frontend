@@ -13,6 +13,7 @@ import bed from "../assets/bed.webp";
 import Image from "next/image";
 import iconone from "../assets/iconone.PNG";
 import Link from "next/link";
+import BreadCrumbs from "../../components/BreadCrumbs";
 
 function Products() {
   const router = useRouter();
@@ -64,6 +65,13 @@ function Products() {
 
   return (
     <div className={product.products_wrapper}>
+      <BreadCrumbs
+        parentCategoryTitle={parentCategory.title}
+        categoryTitle={currentCategory.title}
+        categorySlug={currentCategory.slug}
+        productTitle={product?.title}
+      />
+
       <div className={product.filter_products_wrapper}>
         <div className={product.filters_wrapper}>
           <div className={product.filter_heading}>

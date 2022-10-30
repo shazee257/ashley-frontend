@@ -8,10 +8,14 @@ import axios from "axios";
 import { toast } from "react-toastify";
 // import { addToCart } from "../../../app/features/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts, selectProducts } from "../../../app/features/productSlice";
-import { fetchCategory, selectCategory } from "../../../app/features/categorySlice";
+import { selectProducts } from "../../../app/features/productSlice";
+import { selectCategory } from "../../../app/features/categorySlice";
 import { selectLoginData, setLogin } from "../../../app/features/loginSlice";
-import { fetchWishlist, selectWishlist } from "../../../app/features/wishlistSlice";
+import {
+  addItemToWishlist,
+  removeItemFromWishlist,
+  selectWishlistData,
+} from "../../../app/features/wishlistSlice";
 
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -86,59 +90,38 @@ function SamplePrevArrow(props) {
 }
 
 function ProductDetail({ product, reviews }) {
-  const loginData = useSelector(selectLoginData);
   const { push } = useRouter();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(fetchCategory());
-  //   dispatch(fetchProducts());
-
-  //   const user = JSON.parse(localStorage.getItem("user"));
-  //   // if (user) {
-  //   // dispatch(setLogin(user));
-  //   dispatch(fetchWishlist(user.user_id));
-  //   // }
-  //   // }
-
-  // }, [dispatch]);
-
+  const loginData = useSelector(selectLoginData);
   const products = useSelector(selectProducts);
-  const wishlist = useSelector(selectWishlist);
+  const wishlistData = useSelector(selectWishlistData);
   const categories = useSelector(selectCategory);
-
 
   const currentCategory = categories.find((cat) => cat._id === product.category_id._id);
   const parentCategory = categories.find((cat) => cat._id == currentCategory.parent_id);
 
-  const getWishlistIds = () => {
-    return wishlist?.data.map((product) => product._id);
-  };
+  const isProductIdInWishlist = (id) => wishlistData.includes(id);
 
-  const isProductIdInWishlist = (id) => {
-    return getWishlistIds().includes(id);
-  };
-
-  useEffect(() => {
-    if (!loginData) {
-      const user = JSON.parse(localStorage.getItem("user"));
-      if (user) {
-        dispatch(setLogin(user));
-        dispatch(fetchWishlist(user?.user_id));
-      }
-    }
-  }, []);
-
-  const addToWishlistHandler = async (productId) => {
+  const wishlistHandler = async (productId) => {
     if (loginData) {
       if (isProductIdInWishlist(productId)) {
         const { data } = await axios.put(`${process.env.NEXT_PUBLIC_baseURL}/wishlist/${loginData.user_id}`, { productId });
-        data.success && toast.success(data.message);
+        if (data.success) {
+          dispatch(removeItemFromWishlist(productId));
+          toast.success(data.message);
+        } else {
+          toast.error(data.message);
+        }
       } else {
         const { data } = await axios.post(`${process.env.NEXT_PUBLIC_baseURL}/wishlist/${loginData.user_id}`, { productId });
-        data.success && toast.success(data.message);
+        if (data.success) {
+          dispatch(addItemToWishlist(productId));
+          toast.success(data.message);
+        } else {
+          toast.error(data.message);
+        }
       }
-      dispatch(fetchWishlist(loginData.user_id));
     } else {
       push('/login');
     }
@@ -303,23 +286,12 @@ function ProductDetail({ product, reviews }) {
 
   return (
     <div className={productCss.product_detail_wrapper}>
-
-
       <BreadCrumbs
         parentCategoryTitle={parentCategory.title}
         categoryTitle={currentCategory.title}
         categorySlug={currentCategory.slug}
         productTitle={product.title}
       />
-
-      {/* <div className={productCss.bread_crumbs}>
-        <Link href="/">
-          <span>Home </span>
-        </Link>
-        /<span>Furniture </span> /<span>Living Room Furniture</span> /
-        <span>Sofa & Couches</span> /
-        <span className={productCss.last_span}>Maimz Sofa</span>
-      </div> */}
 
       <div className={productCss.img_and_detail} key={product._id}>
         <div className={productCss.image_detail}>
@@ -701,7 +673,7 @@ function ProductDetail({ product, reviews }) {
               </button>
               <div
                 className={productCss.icon}
-                onClick={() => addToWishlistHandler(product._id)}
+                onClick={() => wishlistHandler(product._id)}
                 style={{
                   height: 50,
                   width: 50,
@@ -754,9 +726,9 @@ function ProductDetail({ product, reviews }) {
               >
                 {isProductIdInWishlist(product._id) ?
                   <AiFillHeart className={productCss.heart}
-                    onClick={() => addToWishlistHandler(product._id)} /> :
+                    onClick={() => wishlistHandler(product._id)} /> :
                   <AiOutlineHeart className={productCss.heart}
-                    onClick={() => addToWishlistHandler(product._id)} />
+                    onClick={() => wishlistHandler(product._id)} />
                 }
               </div>
             </div>
@@ -783,7 +755,7 @@ function ProductDetail({ product, reviews }) {
                     <AiFillHeart /> : <AiOutlineHeart />}
                 </h4>
                 <h4 className={productCss.display}
-                  onClick={() => addToWishlistHandler(p._id)}
+                  onClick={() => wishlistHandler(p._id)}
                 >Add to Wishlist</h4>
               </div>
               <Link href={`/products/details?slug=${p.slug}`}>

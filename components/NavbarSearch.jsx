@@ -4,8 +4,8 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { selectCart } from "../app/features/cartSlice";
-import { selectLoginData, setLogin, setLogout } from "../app/features/loginSlice";
-import { clearWishlist, fetchWishlist, selectWishlist } from "../app/features/wishlistSlice";
+import { selectLoginData, setLogout } from "../app/features/loginSlice";
+import { selectWishlistCount, clearWishlist } from "../app/features/wishlistSlice";
 
 import { toast } from 'react-toastify';
 import axios from "axios";
@@ -20,29 +20,17 @@ import ZipCodeModal from "./ZipCodeModal";
 
 const NavbarSearch = () => {
   const selectCartDetail = useSelector(selectCart);
-  // const selectProductDetail = useSelector(selectProducts);
   const cartCount = selectCartDetail.length;
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [searchTerm, setSearchTerm] = useState("");
-  // const [user, setUser] = useState(null);
 
   const router = useRouter();
   const dispatch = useDispatch();
 
-  let loginData = useSelector(selectLoginData);
-  const wishlist = useSelector(selectWishlist);
-
-  useEffect(() => {
-    if (!loginData) {
-      const user = JSON.parse(localStorage.getItem("user"));
-      if (user) {
-        dispatch(setLogin(user));
-        dispatch(fetchWishlist(user.user_id));
-      }
-    }
-  }, []);
+  const loginData = useSelector(selectLoginData);
+  const wishlistCount = useSelector(selectWishlistCount);
 
 
   const searchClickHandler = () =>
@@ -161,14 +149,24 @@ const NavbarSearch = () => {
           </div>
         </div>
         <div className={navsearch.icon_wrapper} style={{ padding: 0 }}>
-          <Link href="/wishlist">
-            <a>
-              <span className={navsearch.cart_icon}>
-                <AiOutlineHeart className={navsearch.icon} />
-                <span className={navsearch.badge}>{wishlist.count}</span>
-              </span>
-            </a>
-          </Link>
+          {loginData ?
+            <Link href="/wishlist">
+              <a>
+                <span className={navsearch.cart_icon}>
+                  <AiOutlineHeart className={navsearch.icon} />
+                  <span className={navsearch.badge}>{wishlistCount}</span>
+                </span>
+              </a>
+            </Link> :
+            <Link href="/login">
+              <a>
+                <span className={navsearch.cart_icon}>
+                  <AiOutlineHeart className={navsearch.icon} />
+                  {/* <span className={navsearch.badge}>{wishlistCount}</span> */}
+                </span>
+              </a>
+            </Link>
+          }
         </div>
       </div>
     </div>

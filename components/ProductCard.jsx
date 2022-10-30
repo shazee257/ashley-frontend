@@ -11,7 +11,12 @@ import product from "../styles/ProductCard.module.scss";
 
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoginData } from "../app/features/loginSlice";
-import { fetchWishlist, selectWishlist } from "../app/features/wishlistSlice";
+import {
+  addItemToWishlist,
+  removeItemFromWishlist,
+  selectWishlistData,
+  selectWishlist
+} from "../app/features/wishlistSlice";
 
 const ProductCard = ({ cardProduct }) => {
   const loginData = useSelector(selectLoginData);
@@ -21,31 +26,34 @@ const ProductCard = ({ cardProduct }) => {
   const minPrice = Math.min(...prices);
   const maxPrice = Math.max(...prices);
 
-  const wishlist = useSelector(selectWishlist);
+  const wishlistIds = useSelector(selectWishlistData);
 
-  const getWishlistIds = () => {
-    return wishlist?.data.map((product) => product._id);
-  };
-
-  const isProductIdInWishlist = (id) => {
-    return getWishlistIds().includes(id);
-  };
+  const isProductIdInWishlist = (id) => wishlistIds.includes(id);
 
   const image = cardProduct.variants[0]?.features[0]?.images[0];
 
-  const addToWishlistHandler = async (productId) => {
+  const wishlistHandler = async (productId) => {
     if (loginData) {
       if (isProductIdInWishlist(productId)) {
         const { data } = await axios
           .put(`${process.env.NEXT_PUBLIC_baseURL}/wishlist/${loginData.user_id}`,
             { productId });
-        data.success && toast.success(data.message);
+        if (data.success) {
+          dispatch(removeItemFromWishlist(productId));
+          toast.success(data.message);
+        } else {
+          toast.error(data.message);
+        }
       } else {
         const { data } = await axios.post(`${process.env.NEXT_PUBLIC_baseURL}/wishlist/${loginData.user_id}`,
           { productId });
-        data.success && toast.success(data.message);
+        if (data.success) {
+          dispatch(addItemToWishlist(productId));
+          toast.success(data.message);
+        } else {
+          toast.error(data.message);
+        }
       }
-      dispatch(fetchWishlist(loginData.user_id));
     } else {
       push('/login');
     }
@@ -60,7 +68,7 @@ const ProductCard = ({ cardProduct }) => {
 
   return (
     <div className={product.products_card}>
-      <div className={product.heart} onClick={() => addToWishlistHandler(cardProduct._id)}>
+      <div className={product.heart} onClick={() => wishlistHandler(cardProduct._id)}>
         <h4 className={product.icon}>
           {isProductIdInWishlist(cardProduct._id) ? <AiFillHeart /> : <AiOutlineHeart />}
         </h4>

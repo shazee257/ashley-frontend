@@ -27,19 +27,15 @@ const Login = () => {
       .post(`${process.env.NEXT_PUBLIC_baseURL}/users/login`, userObj,
         { withCredentials: true }
       ).then(({ data }) => {
-        console.log(data, ">>>>>>>>>>>>>>>>>>>");
-        if (data.status === 200) {
+        if (data.success) {
           dispatch(setLogin(data.authData));
           dispatch(fetchWishlist(data.authData.user_id));
-          localStorage.setItem("user", JSON.stringify(data.authData));
           toast.success(data.message);
           router.push("/");
         } else {
           toast.error(data.message);
         }
-      }).catch(err => {
-        console.log("err: ", err);
-      })
+      }).catch(err => console.log("err: ", err));
   };
 
   return (
