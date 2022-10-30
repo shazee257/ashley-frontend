@@ -1,5 +1,4 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { createWrapper } from "next-redux-wrapper";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
@@ -31,12 +30,12 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);
 
-const makeStore = () => {
-  const store = configureStore({
-    reducer: persistedReducer,
-  });
-  store.__persistor = persistStore(store);
-  return store;
-};
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+});
 
-export const wrapper = createWrapper(makeStore, { debug: true });
+export const persistor = persistStore(store);
