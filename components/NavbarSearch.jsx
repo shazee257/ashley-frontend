@@ -140,13 +140,17 @@ const NavbarSearch = () => {
             <a>
               <span className={navsearch.cart_icon}>
                 <AiOutlineShoppingCart className={navsearch.icon} />
-                <span className={navsearch.badge}>{cartCount}</span>
+                {loginData && cartCount > 0 &&
+                  <span className={navsearch.badge}>{cartCount}</span>
+                }
               </span>
             </a>
           </Link>
-          <div className={navsearch.cart_detail}>
-            <HoverCart />
-          </div>
+          <Link href="/cartnew">
+            <div className={navsearch.cart_detail}>
+              <HoverCart />
+            </div>
+          </Link>
         </div>
         <div className={navsearch.icon_wrapper} style={{ padding: 0 }}>
           {loginData ?

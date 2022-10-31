@@ -25,3 +25,4 @@ export const { setLogin, setLogout } = loginSlice.actions;
 export default loginSlice.reducer;
 
 export const selectLoginData = (state) => state.login.data;
+export const selectLoginStatus = (state) => state.login.status;
