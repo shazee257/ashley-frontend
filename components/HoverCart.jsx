@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectCart,
+  selectCartProducts,
   removeFromCart,
   incQuantity,
   decQuantity,
@@ -12,7 +12,7 @@ import {
 import cart from "../styles/HoverCart.module.scss";
 
 const HoverCart = () => {
-  const selectCartDetail = useSelector(selectCart);
+  const selectCartDetail = useSelector(selectCartProducts);
   const dispatch = useDispatch();
 
   const decQty = (id) => {
@@ -29,7 +29,7 @@ const HoverCart = () => {
   return (
     <div className={cart.main}>
       {selectCartDetail.length === 0 ? (
-        <h3>Cart is Empty</h3>
+        <h2>Cart is Empty</h2>
       ) : (
         selectCartDetail?.map((cartDetail) => (
           <div className={cart.card} key={cartDetail.sku}>

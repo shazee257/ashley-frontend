@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectCart,
+  selectCartProducts,
   removeFromCart,
   incQuantity,
   decQuantity,
@@ -12,7 +12,7 @@ import {
 import cart from "../styles/Cart.module.scss";
 
 const CartItems = () => {
-  const selectCartDetail = useSelector(selectCart);
+  const selectCartDetail = useSelector(selectCartProducts);
   const dispatch = useDispatch();
 
   const decQty = (id) => {

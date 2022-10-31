@@ -48,8 +48,6 @@ export default wishlistSlice.reducer;
 
 export const selectWishlistCount = (state) => state.wishlist.count;
 export const selectWishlistData = (state) => state.wishlist.data; //ids
-export const selectWishlistProducts = (state) => state.wishlist.products;
-
 
 export const fetchWishlist = createAsyncThunk("wishlist/fetch", async (userId) => {
   const { data } = await axios(`${process.env.NEXT_PUBLIC_baseURL}/wishlist/${userId}`);

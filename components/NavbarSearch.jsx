@@ -3,11 +3,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
-import { selectCart } from "../app/features/cartSlice";
+import { selectCartCount } from "../app/features/cartSlice";
 import { selectLoginData, setLogout } from "../app/features/loginSlice";
 import { selectWishlistCount, clearWishlist } from "../app/features/wishlistSlice";
+import { clearCart } from "../app/features/cartSlice";
 
-import { toast } from 'react-toastify';
 import axios from "axios";
 import navsearch from "../styles/NavbarSearch.module.scss";
 import logo from "../components/assets/m_logo_360.png";
@@ -19,8 +19,7 @@ import NavbarLinksResponsive from "./NavbarLinksResponsive";
 import ZipCodeModal from "./ZipCodeModal";
 
 const NavbarSearch = () => {
-  const selectCartDetail = useSelector(selectCart);
-  const cartCount = selectCartDetail.length;
+  const cartCount = useSelector(selectCartCount);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -40,10 +39,11 @@ const NavbarSearch = () => {
     axios.post(`${process.env.NEXT_PUBLIC_baseURL}/users/logout`, {}, { withCredentials: true })
       .then(({ data }) => {
         if (data.status === 200) {
-          toast.success(data.message);
+          // toast.success(data.message);
           // remove all removable data from redux store on logout
           dispatch(clearWishlist());
           dispatch(setLogout());
+          dispatch(clearCart());
 
           localStorage.removeItem("user");
           router.push("/");

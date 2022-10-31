@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../app/features/loginSlice";
 import { fetchWishlist } from "../app/features/wishlistSlice";
+import { fetchCartItems } from "../app/features/cartSlice";
 
 import Tracking from "../components/Tracking";
 
@@ -30,7 +31,7 @@ const Login = () => {
         if (data.success) {
           dispatch(setLogin(data.authData));
           dispatch(fetchWishlist(data.authData.user_id));
-          toast.success(data.message);
+          dispatch(fetchCartItems(data.authData.user_id));
           router.push("/");
         } else {
           toast.error(data.message);

@@ -50,6 +50,7 @@ import bed from "../../assets/bed.webp";
 import ReactPlayer from "react-player";
 import fur12 from "../../assets/fur12.jpg";
 import BreadCrumbs from "../../../components/BreadCrumbs";
+import { addItemToCart } from "../../../app/features/cartSlice";
 
 
 function SampleNextArrow(props) {
@@ -224,6 +225,34 @@ function ProductDetail({ product, reviews }) {
       setQuantity(quantity - 1);
     }
   };
+
+  const addToCartHandler = async () => {
+    const cartItem = {
+      title: product.title,
+      size: selectedVariant.size,
+      color: selectedFeature.color_id.title,
+      sku: selectedFeature.sku,
+      price: selectedVariant.sale_price,
+      quantity,
+      image: selectedImage,
+      total: quantity * selectedVariant.sale_price,
+      product_id: product._id,
+    };
+
+    if (loginData) {
+      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_baseURL}/cart/${loginData.user_id}`, cartItem);
+      if (data.success) {
+        dispatch(addItemToCart(cartItem));
+        toast.success(data.message);
+      } else {
+        toast.error(data.message);
+      }
+    }
+  };
+
+
+
+
 
   // useEffect(() => {
   //   setCartDetail({
@@ -666,9 +695,7 @@ function ProductDetail({ product, reviews }) {
                 <p>{quantity}</p>
                 <p onClick={quantityIncrementHandler}>+</p>
               </div>
-              <button
-              // onClick={addToCartHandler}
-              >
+              <button onClick={addToCartHandler}>
                 Add Items to Cart
               </button>
               <div

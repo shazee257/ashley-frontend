@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCheckout } from "../app/features/checkoutSlice";
-import { selectCart } from "../app/features/cartSlice";
+import { selectCartProducts } from "../app/features/cartSlice";
 
 import { fetchProducts } from "../app/features/productSlice";
 import { fetchCategory } from "../app/features/categorySlice";
@@ -23,7 +23,7 @@ const Cart = () => {
   const [togglepromocode, settogglepromocode] = useState(false);
 
   const dispatch = useDispatch();
-  const selectCartDetail = useSelector(selectCart);
+  const selectCartDetail = useSelector(selectCartProducts);
   const router = useRouter();
 
   useEffect(() => {
@@ -68,14 +68,14 @@ const Cart = () => {
     <div className={cart.cart_wrapper}>
       <div className={cart.cart_content}>
         <div className={cart.cart_header}>
-            <MdArrowBackIosNew className={cart.arrow_icon} />
-            <Link href="/">
+          <MdArrowBackIosNew className={cart.arrow_icon} />
+          <Link href="/">
             <p className={cart.back}>Back to Shopping</p>
-            </Link>  
-            <Link href="/">
-            <p className={cart.home}> Home /</p> 
-            </Link>  
-            <p className={cart.Shopping}> Shopping cart</p>
+          </Link>
+          <Link href="/">
+            <p className={cart.home}> Home /</p>
+          </Link>
+          <p className={cart.Shopping}> Shopping cart</p>
         </div>
         <div className={cart.cart_heading}>
           <h2>

@@ -6,10 +6,10 @@ import fur16 from "../pages/assets/fur16.jpg";
 import { ImTruck } from "react-icons/im";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectCart,
   removeFromCart,
   incQuantity,
   decQuantity,
+  selectCartProducts,
 } from "../app/features/cartSlice";
 
 // import Capture from "../pages/assets/Capture.PNG"
@@ -17,7 +17,7 @@ import { TiTickOutline } from "react-icons/ti";
 import { FiSettings } from "react-icons/fi";
 
 const CartItems = () => {
-  const selectCartDetail = useSelector(selectCart);
+  const selectCartDetail = useSelector(selectCartProducts);
   const dispatch = useDispatch();
 
   const decQty = (id) => {

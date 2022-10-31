@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCheckout } from "../app/features/checkoutSlice";
-import { selectCart } from "../app/features/cartSlice";
+import { selectCartProducts } from "../app/features/cartSlice";
 
 // from redux slices
 
@@ -18,7 +18,7 @@ import cartimage from "./assets/fur18.jpg";
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const selectCartDetail = useSelector(selectCart);
+  const selectCartDetail = useSelector(selectCartProducts);
   const router = useRouter();
 
   useEffect(() => {
