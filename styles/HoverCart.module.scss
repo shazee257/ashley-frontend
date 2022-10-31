@@ -3,15 +3,14 @@
 .main {
   @include flex-column;
   width: 100%;
-  
-
+  // padding-top: 20px;
   .card {
     width: 100%;
     height: 100%;
     @include flex-column;
     align-items: flex-start;
     justify-content: flex-start;
-    margin-top: 10px;
+    // margin-top: 10px;
     border-bottom: 2px solid $extra-light-grey;
 
     .card_img_info {
@@ -39,15 +38,18 @@
           margin: 0;
           width: 100%;
           h6 {
-            font-weight: 600;
-            font-size: 14px;
             width: 100%;
+            font-size: 14px;
+            font-weight: 700;
           }
           p {
-            width: 100%;
-            text-align: left;
             margin: 6px 0;
-            font-size: 16px;
+            width: 100%;
+            font-size: 14px;
+            text-align: left;
+            .bold_color_size {
+              font-weight: 700;
+            }
           }
         }
         .qty_price {
@@ -59,13 +61,21 @@
 
           .qty {
             @include flex-center;
-            justify-content: flex-start;
+            // justify-content: flex-start;
             margin: 6px 0;
+
+            .qty_value {
+              p {
+                font-size: 14px;
+                display: flex;
+                justify-content: center;
+              }
+            }
             p {
               @include flex-center;
               margin: 0;
               justify-content: flex-start;
-              font-size: 16px;
+              font-size: 14px;
               width: 50px;
             }
             div {
@@ -82,19 +92,35 @@
 
           .price,
           .total {
-            @include flex-center;
+            // @include flex-center;
+            // justify-content: flex-start;
+            display: flex;
             justify-content: flex-start;
+            align-items: center;
             margin: 6px 0;
-            p {
-              @include flex-center;
+
+            .diff_line {
+              margin: 0px 5px;
+            }
+            span {
+              // padding-left: 3px;
+              font-size: 14px;
+              font-weight: 700;
+              // line-height: 10px;
               margin: 0;
-              justify-content: flex-start;
+            }
+            h6 {
+              // @include flex-center;
+              font-size: 14px;
               margin: 0;
+              // justify-content: flex-start;
             }
             h4,
             h3 {
-              font-size: 16px;
-              line-height: 10px;
+              // padding-left: 3px;
+              font-size: 14px;
+              font-weight: 700;
+              // line-height: 10px;
               margin: 0;
             }
           }
@@ -103,11 +129,15 @@
     }
 
     .remove_btn {
-      margin: 10px 0;
-      @include flex-center;
+      padding: 5px 10px;
+      margin: 5px 0px 10px 0px;
+      display: flex;
+      justify-content: space-evenly;
       width: 100%;
       button {
+        font-size: 14px;
         background-color: $red;
+        border: 1px solid $red;
         color: white;
         border-radius: 4px;
         border: 0;
@@ -117,6 +147,62 @@
         &:hover {
           background-color: rgb(180, 25, 35);
         }
+      }
+
+      .ChechOut_btn {
+        font-size: 14px;
+        background-color: $yellow;
+        border: 1px solid $yellow;
+        color: white;
+        border-radius: 4px;
+        border: 0;
+        outline: 0;
+        padding: 5px 10px;
+        // font-size: 14px;
+        // border: 1px solid $yellow;
+        // background-color: $yellow;
+        // color: white;
+        // border-radius: 4px;
+        // border: 0;
+        // outline: 0;
+        // padding: 5px 10px;
+
+        &:hover {
+          background-color: $yellow-light;
+          // background-color: white;
+          // border: 1px solid $yellow;
+          // color: $yellow;
+          // border: 1px solid $yellow;
+          // background-color: rgb(180, 25, 35);
+        }
+      }
+    }
+  }
+
+  .ChechOut_btn_div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .ChechOut_btn {
+      margin: 20px 0px;
+      width: 80%;
+      height: 35px;
+      font-size: 14px;
+      font-weight: 700;
+      color: white;
+      background-color: $yellow;
+      border: 1px solid $yellow;
+      border-radius: 4px;
+      border: 0;
+      outline: 0;
+
+      &:hover {
+        // background-color: $yellow-light;
+        background-color: white;
+        border: 1px solid $yellow;
+        color: $yellow;
+        // border: 1px solid $yellow;
+        // background-color: rgb(180, 25, 35);
       }
     }
   }

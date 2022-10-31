@@ -3,3 +3,8 @@ export const STATUSES = Object.freeze({
     ERROR: "error",
     LOADING: "loading",
 });
+
+export const SIZES = [
+    "King", "Medium", "Queen", "Large", "Full",
+    "Wide", "Twin", "Small", "Queen XL"
+]; 

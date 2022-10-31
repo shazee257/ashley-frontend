@@ -410,13 +410,49 @@
 
 // export default FilterAccordion;
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 import styles from "../styles/FilterAccordion.module.scss";
 
-const FilterAccordion = () => {
+const FilterAccordion = ({ products }) => {
+  const [sizes, setSizes] = useState([]);
+  const [colors, setColors] = useState([]);
+
+  const getSizes = () => {
+    const sizes = products.map((product) => {
+      return product.variants.map((variant) => {
+        return variant.size;
+      });
+    });
+    const uniqueSizes = [...new Set(sizes.flat())];
+    setSizes(uniqueSizes);
+  };
+
+  const getColors = () => {
+    let colors = [];
+    products.map((product) => {
+      return product.variants.map((variant) => {
+        return variant.features.map((feature) => {
+          colors.push({
+            title: feature.color_id.title,
+            image: feature.color_id.image
+          })
+        });
+      });
+    });
+
+    const uniqueColors = [...new Set(colors.map(item => item.title))]
+      .map(title => colors.find(item => item.title === title));
+    setColors(uniqueColors);
+  };
+
+  useEffect(() => {
+    getSizes();
+    getColors();
+  }, []);
+
   const filters = [
     {
       id: 1,
@@ -587,27 +623,20 @@ const FilterAccordion = () => {
     <div className={styles.accordion_wrapper}>
       {filterState?.map((filter) => (
         <div className={styles.accordion_item} key={filter.id}>
-          <div
-            className={styles.accordion_heading}
-            onClick={() => toggleShowAccordion(filter.id)}
-          >
-            <h4>{filter.title} </h4>
+          <div className={styles.accordion_heading}
+            onClick={() => toggleShowAccordion(filter.id)}>
+            <h4>{filter.title} data </h4>
             <span>
-              {activeCurrentIndex === filter.id ? (
-                <FiChevronUp className={styles.accordion_icon} />
-              ) : (
-                <FiChevronDown className={styles.accordion_icon} />
-              )}
+              {activeCurrentIndex === filter.id ? <FiChevronUp className={styles.accordion_icon} />
+                : <FiChevronDown className={styles.accordion_icon} />}
             </span>
           </div>
 
-          <div
-            className={
-              activeCurrentIndex !== filter.id
-                ? styles.accordion_content
-                : styles.accordion_content + " " + styles.show
-            }
-          >
+          <div className={
+            activeCurrentIndex !== filter.id
+              ? styles.accordion_content
+              : styles.accordion_content + " " + styles.show
+          }>
             {filter.filters.map((box, i) => (
               <div className={styles.content_filter_wrapper} key={i}>
                 <input

@@ -186,6 +186,7 @@
       margin: 0 2px;
 
       .cart_detail {
+        background: #000;
         @include flex-center;
         height: 0;
         width: 170px;
@@ -194,7 +195,7 @@
         box-shadow: 0 0 5px $extra-light-grey;
         background-color: white;
         color: black;
-        top: 66px;
+        top: 50px;
         right: -10px;
         z-index: 111000;
         font-size: 15px;
@@ -207,7 +208,8 @@
 
         .cart_detail {
           height: auto;
-          padding: 16px;
+          padding:0px 10px;
+          width: 20vw;
         }
       }
 

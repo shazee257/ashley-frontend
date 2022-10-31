@@ -2,6 +2,7 @@
 
 .products_wrapper {
   width: 95%;
+  padding-top: 15px;
   margin: auto;
   font-family: $open-sans;
 
@@ -23,7 +24,7 @@
         align-items: flex-start;
         border-bottom: 1px solid $extra-light-grey;
         width: 100%;
-        padding: 20px 0;
+        // padding: 10px 0;
 
         h3 {
           font-size: 18px;
@@ -61,7 +62,7 @@
     }
 
     .products_item_wrapper {
-      margin-top: 10px;
+      // margin-top: 10px;
       width: 80%;
 
       // sub_categories
@@ -110,6 +111,7 @@
 
       .images_fiter {
         margin: 35px 0px;
+        margin-top: 10px;
         margin-bottom: 0px;
         display: flex;
         justify-content: space-around;

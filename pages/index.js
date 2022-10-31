@@ -66,7 +66,7 @@ function Home({ categoriesData }) {
     settings.slidesToShow = 2;
   }
 
-  const categories = useSelector(selectCategory);
+  // const categories = useSelector(selectCategory);
   const products = useSelector(selectProducts);
   const banners = useSelector(selectBanners);
 
@@ -76,7 +76,7 @@ function Home({ categoriesData }) {
     dispatch(fetchBanners());
   }, [dispatch]);
 
-  const mainCategories = categories?.filter((cat) => cat.parent_id === "");
+  // const parentCategories = categories?.filter((cat) => cat.parent_id === "");
   const sliders = banners.filter((banner) => banner.type === 'slider');
   const featureBanner = banners.filter((banner) => banner.type === 'custom');
   const categoryBanner = banners.find((banner) => banner.type === 'category');
@@ -111,7 +111,7 @@ function Home({ categoriesData }) {
         <meta name="description" content="Ashley Home" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {!mainCategories ? (
+      {/* {!parentCategories ? (
         <h1
           style={{
             textAlign: "center",
@@ -120,72 +120,72 @@ function Home({ categoriesData }) {
           }}>{" "}
           <Image src={loader} alt="Loading..." height={100} width={100} />
         </h1>
-      ) : (
-        <div className={styles.home_wrapper} style={{}}>
-          <Carousal
-            height={460}
-            slider={sliders}
-            url={`${process.env.NEXT_PUBLIC_uploadURL}/banners/`}
-          />
+      ) : ( */}
+      <div className={styles.home_wrapper} style={{}}>
+        <Carousal
+          height={460}
+          slider={sliders}
+          url={`${process.env.NEXT_PUBLIC_uploadURL}/banners/`}
+        />
 
-          <ShopByCategories categoriesData={categoriesData} />
-          <div className={styles.discount_cards_wrapper}>
-            <div className={styles.discount_cards_heading}>
-              <h2>Discount in full bloom</h2>
-            </div>
-
-            <div className={styles.discount_cards}>
-              {discountCategories?.slice(0, 6).map((disproduct) => (
-                <DiscountCard products={disproduct} key={disproduct._id} />
-              ))}
-            </div>
+        <ShopByCategories categoriesData={categoriesData} />
+        <div className={styles.discount_cards_wrapper}>
+          <div className={styles.discount_cards_heading}>
+            <h2>Discount in full bloom</h2>
           </div>
 
-          <div className={styles.banner_card_wrapper}>
-            {featureBanner?.slice(0, 1).map((item) => (
-              <BannerCard key={item._id} banner={item} />
+          <div className={styles.discount_cards}>
+            {discountCategories?.slice(0, 6).map((disproduct) => (
+              <DiscountCard products={disproduct} key={disproduct._id} />
             ))}
           </div>
+        </div>
 
-          {/* Featured Products */}
-          <div className={styles.free_shipping}>
-            <h4>Swith it up</h4>
-            <h2>Update your happy Place</h2>
-            <Slider {...settings}>
-              {featureProducts?.map((item) => (
-                <CategoryCard product={item} key={item._id} />
-              ))}
-            </Slider>
-          </div>
+        <div className={styles.banner_card_wrapper}>
+          {featureBanner?.slice(0, 1).map((item) => (
+            <BannerCard key={item._id} banner={item} />
+          ))}
+        </div>
 
-          {/* Category Banner */}
-          <div className={styles.thin_banner_wrapper}>
-            <ThinBannerCard categoryBanner={categoryBanner} />
-          </div>
+        {/* Featured Products */}
+        <div className={styles.free_shipping}>
+          <h4>Swith it up</h4>
+          <h2>Update your happy Place</h2>
+          <Slider {...settings}>
+            {featureProducts?.map((item) => (
+              <CategoryCard product={item} key={item._id} />
+            ))}
+          </Slider>
+        </div>
 
-          <div className={styles.free_shipping}>
-            {bannerCategoryProducts &&
-              <>
-                <h4>Swith it up</h4>
-                <h2>Update your happy Place</h2>
-              </>
-            }
-            <Slider {...settings}>
-              {bannerCategoryProducts?.map((item) => (
-                <CategoryCard product={item} key={item._id} />
-              ))}
-            </Slider>
-          </div>
+        {/* Category Banner */}
+        <div className={styles.thin_banner_wrapper}>
+          <ThinBannerCard categoryBanner={categoryBanner} />
+        </div>
 
-          <div className={styles.chatbot_wrapper}>
-            <div className={styles.chatbot}>{botShow && <ChatBot />}</div>
-            <div className={styles.chatbot_icon}
-              onClick={() => setBotShow(!botShow)}>
-              {botShow ? <AiOutlineDown /> : <BsChatDots />}
-            </div>
+        <div className={styles.free_shipping}>
+          {bannerCategoryProducts &&
+            <>
+              <h4>Swith it up</h4>
+              <h2>Update your happy Place</h2>
+            </>
+          }
+          <Slider {...settings}>
+            {bannerCategoryProducts?.map((item) => (
+              <CategoryCard product={item} key={item._id} />
+            ))}
+          </Slider>
+        </div>
+
+        <div className={styles.chatbot_wrapper}>
+          <div className={styles.chatbot}>{botShow && <ChatBot />}</div>
+          <div className={styles.chatbot_icon}
+            onClick={() => setBotShow(!botShow)}>
+            {botShow ? <AiOutlineDown /> : <BsChatDots />}
           </div>
         </div>
-      )}
+      </div>
+      {/* )} */}
     </div>
   );
 }

@@ -16,17 +16,13 @@ import Link from "next/link";
 import BreadCrumbs from "../../components/BreadCrumbs";
 
 function Products() {
+  const [filterProducts, setFilterProducts] = useState([]);
+
   const router = useRouter();
   const { categorySlug, discountedCategorySlug, zipCode, searchTerm } = router.query;
-  // const dispatch = useDispatch();
 
   const products = useSelector(selectProducts);
   const categories = useSelector(selectCategory);
-
-  // useEffect(() => {
-  //   dispatch(fetchProducts());
-  //   dispatch(fetchCategory());
-  // }, [dispatch]);
 
   let filteredProducts = [];
   let currentCategory = {};
@@ -46,30 +42,37 @@ function Products() {
   const findProductsByZipCode = (zipCode) =>
     products?.filter((product) => product.store_id.zip === Number(zipCode));
 
-  if (categorySlug) {
-    setCategoryVariables(categories, categorySlug);
-    filteredProducts = products?.filter((fp) => fp.category_id.slug === categorySlug);
-  }
+  useEffect(() => {
+    if (categorySlug) {
+      setCategoryVariables(categories, categorySlug);
+      const filterData = products?.filter((fp) => fp.category_id.slug === categorySlug);
+      setFilterProducts(filterData);
+    }
 
-  if (discountedCategorySlug) {
-    setCategoryVariables(categories, discountedCategorySlug);
-    filteredProducts = products?.filter((fp) =>
-      fp.category_id.slug === discountedCategorySlug && fp.discount > 0);
-  }
+    if (discountedCategorySlug) {
+      setCategoryVariables(categories, discountedCategorySlug);
+      const filterData = products?.filter((fp) =>
+        fp.category_id.slug === discountedCategorySlug && fp.discount > 0);
+      setFilterProducts(filterData);
+    }
 
-  zipCode && (filteredProducts = findProductsByZipCode(zipCode));
+    zipCode && (setFilterProducts(findProductsByZipCode(zipCode)));
 
-  searchTerm &&
-    (filteredProducts = products?.filter((product) =>
-      product.title.toLowerCase().includes(searchTerm.toLowerCase())));
+    searchTerm &&
+      (setFilterProducts(products?.filter((product) =>
+        product.title.toLowerCase().includes(searchTerm.toLowerCase()))));
+
+  }, [products, categories, categorySlug, discountedCategorySlug, zipCode, searchTerm]);
 
   return (
     <div className={product.products_wrapper}>
       <BreadCrumbs
         parentCategoryTitle={parentCategory.title}
         categoryTitle={currentCategory.title}
-        categorySlug={currentCategory.slug}
-        productTitle={product?.title}
+        categorySlug={categorySlug}
+        // productTitle={product?.title}
+        discountedCategorySlug={discountedCategorySlug}
+        searchTerm={searchTerm}
       />
 
       <div className={product.filter_products_wrapper}>
@@ -78,7 +81,7 @@ function Products() {
             <h3>{categorySlug?.replace(/-/g, " ")}</h3>
             <h3>{discountedCategorySlug?.replace(/-/g, " ")}</h3>
             <p>
-              {filteredProducts?.length} of {products?.length} Products Showing
+              {filterProducts?.length} of {products?.length} Products Showing
             </p>
           </div>
           <div className={product.filters_cat}>
@@ -93,7 +96,7 @@ function Products() {
             ))}
           </div>
           <div className={product.filter_cats}>
-            <FilterAccordion />
+            <FilterAccordion products={products} />
           </div>
         </div>
         {/* filters ends here  */}
@@ -107,13 +110,11 @@ function Products() {
                 <div
                   // className="{product.images_fiter_wrapper}"
                   className={product.images_fiter_wrapper}
-                  key={siblingCategory._id}
-                >
+                  key={siblingCategory._id}>
                   <Link
                     href={`/products?categorySlug=${siblingCategory.slug}`}
                     key={siblingCategory._id}
-                    className={product.images_fiter}
-                  >
+                    className={product.images_fiter}>
                     {/* <div className="flex flex-col items-center justify-center h-60 w-48" >
                     <div className={`flex items-center justify-center h-40 w-40 bg-green-200 rounded-full ${product.sub_categories_image_div}`}>
                       */}
@@ -157,8 +158,8 @@ function Products() {
           </div> */}
 
           <div className={product.products_cards_wrapper}>
-            {filteredProducts?.length > 0 ? (
-              filteredProducts?.map((product) => (
+            {filterProducts?.length > 0 ? (
+              filterProducts?.map((product) => (
                 <ProductCard key={product._id} cardProduct={product} />
               ))
             ) : (
