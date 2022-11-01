@@ -1,424 +1,13 @@
-// import React, { useState } from "react";
-
-// import { FiChevronDown, FiChevronUp } from "react-icons/fi";
-
-// import styles from "../styles/FilterAccordion.module.scss";
-
-// const FilterAccordion = () => {
-//   const filters = [
-//     {
-//       id: 1,
-//       title: "price",
-//       type: "radio",
-//       filters: [
-//         { type: "radio", input: "Under $25" },
-//         { type: "radio", input: "$26 to $50" },
-//         { type: "radio", input: "$50 to $100" },
-//         { type: "radio", input: "$100 to $500" },
-//         { type: "radio", input: "Over $500" },
-//       ],
-//     },
-//     {
-//       id: 2,
-//       title: "Size",
-//       type: "checkbox",
-//       filters: [
-//         { type: "checkbox", input: "Twin" },
-//         { type: "checkbox", input: "Full" },
-//         { type: "checkbox", input: "Queen" },
-//         { type: "checkbox", input: "Kings" },
-//         { type: "checkbox", input: "Others" },
-//       ],
-//     },
-//     {
-//       id: 3,
-//       title: "Color",
-//       type: "checkbox",
-//       filters: [
-//         { type: "checkbox", input: "Red" },
-//         { type: "checkbox", input: "Blue" },
-//         { type: "checkbox", input: "White" },
-//         { type: "checkbox", input: "Black" },
-//         { type: "checkbox", input: "Gold" },
-//         { type: "checkbox", input: "Bronze" },
-//         { type: "checkbox", input: "Silver" },
-//         { type: "checkbox", input: "Purple" },
-//         { type: "checkbox", input: "Cream" },
-//         { type: "checkbox", input: "Green" },
-//       ],
-//     },
-//     {
-//       id: 4,
-//       title: "Brand",
-//       type: "checkbox",
-//       filters: [
-//         { type: "checkbox", input: "Apple" },
-//         { type: "checkbox", input: "Samsung" },
-//         { type: "checkbox", input: "Xiaomi" },
-//         { type: "checkbox", input: "Oneplus" },
-//         { type: "checkbox", input: "Infinix" },
-//         { type: "checkbox", input: "Tecno" },
-//         { type: "checkbox", input: "Moto" },
-//         { type: "checkbox", input: "Qmobile" },
-//         { type: "checkbox", input: "LG" },
-//         { type: "checkbox", input: "Nokia" },
-//       ],
-//     },
-//   ];
-//   // const mappedData = filters
-//   //   .filter((filterdData) => {
-//   //     filterdData.type === "checkbox";
-//   //   })
-//   //   .map((mappedData) => {
-//   //     mappedData.filters;
-//   //   })
-//   //   .map((data) => {
-//   //     return data[input];
-//   //   });
-//   const data = {
-//     name: "Nokia",
-//     checked: false,
-//     name: "LG",
-//     checked: false,
-//     name: "Qmobile",
-//     checked: false,
-//     name: "Moto",
-//     checked: false,
-//     name: "Tecno",
-//     checked: false,
-//     name: "Infinix",
-//     checked: false,
-//     name: "Oneplus",
-//     checked: false,
-//     name: "Xiaomi",
-//     checked: false,
-//     name: "Samsung",
-//     checked: false,
-//     name: "Apple",
-//     checked: false,
-//     name: "Green",
-//     checked: false,
-//     name: "Cream",
-//     checked: false,
-//     name: "Purple",
-//     checked: false,
-//     name: "Silver",
-//     checked: false,
-//     name: "Bronze",
-//     checked: false,
-//     name: "Gold",
-//     checked: false,
-//     name: "Black",
-//     checked: false,
-//     name: "White",
-//     checked: false,
-//     name: "Blue",
-//     checked: false,
-//     name: "Red",
-//     checked: false,
-//     name: "Others",
-//     checked: false,
-//     name: "Kings",
-//     checked: false,
-//     name: "Queen",
-//     checked: false,
-//     name: "Full",
-//     checked: false,
-//     name: "Twin",
-//     checked: false,
-//   };
-
-//   const [filterState, setFilterState] = useState(filters);
-//   const [activeCurrentIndex, setActiveCurrentIndex] = useState();
-//   const [radio, setRadio] = useState("");
-//   const [checkbox, setCheckbox] = useState(data.checked);
-
-//   const toggleShowAccordion = (id) => {
-//     if (activeCurrentIndex === id) {
-//       setActiveCurrentIndex();
-//     } else {
-//       setActiveCurrentIndex(id);
-//     }
-//   };
-
-//   return (
-//     <div className={styles.accordion_wrapper}>
-//       {filterState?.map((filter) => (
-//         <div className={styles.accordion_item} key={filter.id}>
-//           <div
-//             className={styles.accordion_heading}
-//             onClick={() => toggleShowAccordion(filter.id)}
-//           >
-//             <h4>{filter.title} </h4>
-//             <span>
-//               {activeCurrentIndex === filter.id ? (
-//                 <FiChevronUp className={styles.accordion_icon} />
-//               ) : (
-//                 <FiChevronDown className={styles.accordion_icon} />
-//               )}
-//             </span>
-//           </div>
-//           <div
-//             className={
-//               activeCurrentIndex !== filter.id
-//                 ? styles.accordion_content
-//                 : styles.accordion_content + " " + styles.show
-//             }
-//           >
-//             {filter.filters.map((box, i) => (
-//               <div className={styles.content_filter_wrapper} key={i}>
-//                 <input
-//                   type={box.type}
-//                   name={box.input}
-//                   id={box.input}
-//                   value={box.type === "radio" && box.input}
-//                   checked={
-//                     box.type === "radio" ? radio === box.input : checkbox
-//                   }
-//                   onChange={(e) =>
-//                     box.type === "radio"
-//                       ? setRadio(e.target.value)
-//                       : e.target.name===checkbox.name&& setCheckbox(e.target.checked)
-//                       // setCheckbox({
-//                       //     ...checkbox,
-//                       //     [e.target.name]: e.target.checked,
-//                       //   })
-//                   }
-//                 />
-//                 <label htmlFor={box.input}>{box.input}</label>
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// };
-
-// export default FilterAccordion;
-
-// import React, { useState } from "react";
-
-// import { FiChevronDown, FiChevronUp } from "react-icons/fi";
-
-// import styles from "../styles/FilterAccordion.module.scss";
-
-// const FilterAccordion = () => {
-//   const filters = [
-//     {
-//       id: 1,
-//       title: "price",
-//       type: "radio",
-//       filters: [
-//         { type: "radio", input: "Under $25" },
-//         { type: "radio", input: "$26 to $50" },
-//         { type: "radio", input: "$50 to $100" },
-//         { type: "radio", input: "$100 to $500" },
-//         { type: "radio", input: "Over $500" },
-//       ],
-//     },
-//     {
-//       id: 2,
-//       title: "Size",
-//       type: "checkbox",
-//       filters: [
-//         { type: "checkbox", input: "Twin", checked: false },
-//         { type: "checkbox", input: "Full", checked: false },
-//         { type: "checkbox", input: "Queen", checked: false },
-//         { type: "checkbox", input: "Kings", checked: false },
-//         { type: "checkbox", input: "Others", checked: false },
-//       ],
-//     },
-//     {
-//       id: 3,
-//       title: "Color",
-//       type: "checkbox",
-//       filters: [
-//         { type: "checkbox", input: "Red", checked: false },
-//         { type: "checkbox", input: "Blue", checked: false },
-//         { type: "checkbox", input: "White", checked: false },
-//         { type: "checkbox", input: "Black", checked: false },
-//         { type: "checkbox", input: "Gold", checked: false },
-//         { type: "checkbox", input: "Bronze", checked: false },
-//         { type: "checkbox", input: "Silver", checked: false },
-//         { type: "checkbox", input: "Purple", checked: false },
-//         { type: "checkbox", input: "Cream", checked: false },
-//         { type: "checkbox", input: "Green", checked: false },
-//       ],
-//     },
-//     {
-//       id: 4,
-//       title: "Brand",
-//       type: "checkbox",
-//       filters: [
-//         { type: "checkbox", input: "Apple", checked: false },
-//         { type: "checkbox", input: "Samsung", checked: false },
-//         { type: "checkbox", input: "Xiaomi", checked: false },
-//         { type: "checkbox", input: "Oneplus", checked: false },
-//         { type: "checkbox", input: "Infinix", checked: false },
-//         { type: "checkbox", input: "Tecno", checked: false },
-//         { type: "checkbox", input: "Moto", checked: false },
-//         { type: "checkbox", input: "Qmobile", checked: false },
-//         { type: "checkbox", input: "LG", checked: false },
-//         { type: "checkbox", input: "Nokia", checked: false },
-//       ],
-//     },
-//   ];
-//   // const mappedData = filters
-//   //   .filter((filterdData) => {
-//   //     filterdData.type === "checkbox";
-//   //   })
-//   //   .map((mappedData) => {
-//   //     mappedData.filters;
-//   //   })
-//   //   .map((data) => {
-//   //     return data[input];
-//   //   });
-//   const data = {
-//     name: "Nokia",
-//     checked: false,
-//     name: "LG",
-//     checked: false,
-//     name: "Qmobile",
-//     checked: false,
-//     name: "Moto",
-//     checked: false,
-//     name: "Tecno",
-//     checked: false,
-//     name: "Infinix",
-//     checked: false,
-//     name: "Oneplus",
-//     checked: false,
-//     name: "Xiaomi",
-//     checked: false,
-//     name: "Samsung",
-//     checked: false,
-//     name: "Apple",
-//     checked: false,
-//     name: "Green",
-//     checked: false,
-//     name: "Cream",
-//     checked: false,
-//     name: "Purple",
-//     checked: false,
-//     name: "Silver",
-//     checked: false,
-//     name: "Bronze",
-//     checked: false,
-//     name: "Gold",
-//     checked: false,
-//     name: "Black",
-//     checked: false,
-//     name: "White",
-//     checked: false,
-//     name: "Blue",
-//     checked: false,
-//     name: "Red",
-//     checked: false,
-//     name: "Others",
-//     checked: false,
-//     name: "Kings",
-//     checked: false,
-//     name: "Queen",
-//     checked: false,
-//     name: "Full",
-//     checked: false,
-//     name: "Twin",
-//     checked: false,
-//   };
-
-//   const [filterState, setFilterState] = useState(filters);
-//   const [activeCurrentIndex, setActiveCurrentIndex] = useState();
-//   const [radio, setRadio] = useState("");
-//   // const [checkbox, setCheckbox] = useState(data.checked);
-
-//   const toggleShowAccordion = (id) => {
-//     if (activeCurrentIndex === id) {
-//       setActiveCurrentIndex();
-//     } else {
-//       setActiveCurrentIndex(id);
-//     }
-//   };
-
-//   const handleChange = ({ target: { value, name } }, filterSection, i) => {
-//     const filterIndex = filterState.findIndex(
-//       (filter) => filter.id !== filterSection.id
-//     );
-
-//     const modifiedFilters = filters.map((filter) => {
-//       if (filterSection.id === filter.id) {
-//         return {
-//           ...filterSection,
-//           filters: filterSection.filters.map((checkbox, currentIdx) => {
-//             if (currentIdx === i)
-//               return { ...checkbox, checked: !checkbox.checked };
-//             return checkbox;
-//           }),
-//         };
-//       }
-//       return filter;
-//     });
-//     setFilterState(modifiedFilters);
-//   };
-
-//   return (
-//     <div className={styles.accordion_wrapper}>
-//       {filterState?.map((filter) => (
-//         <div className={styles.accordion_item} key={filter.id}>
-//           <div
-//             className={styles.accordion_heading}
-//             onClick={() => toggleShowAccordion(filter.id)}
-//           >
-//             <h4>{filter.title} </h4>
-//             <span>
-//               {activeCurrentIndex === filter.id ? (
-//                 <FiChevronUp className={styles.accordion_icon} />
-//               ) : (
-//                 <FiChevronDown className={styles.accordion_icon} />
-//               )}
-//             </span>
-//           </div>
-
-//           <div
-//             className={
-//               activeCurrentIndex !== filter.id
-//                 ? styles.accordion_content
-//                 : styles.accordion_content + " " + styles.show
-//             }
-//           >
-//             {filter.filters.map((box, i) => (
-//               <div className={styles.content_filter_wrapper} key={i}>
-//                 <input
-//                   type={box.type}
-//                   name={box.input}
-//                   id={box.input}
-//                   value={box.type === "radio" && box.input}
-//                   checked={
-//                     box.type === "radio" ? radio === box.input : box.checked
-//                   }
-//                   onChange={(e) => handleChange(e, filter, i)}
-//                 />
-//                 <label htmlFor={box.input}>{box.input}</label>
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// };
-
-// export default FilterAccordion;
-
 import React, { useEffect, useState } from "react";
-
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
-
 import styles from "../styles/FilterAccordion.module.scss";
 
-const FilterAccordion = ({ products }) => {
+const FilterAccordion = ({ products, setFilterProducts }) => {
   const [sizes, setSizes] = useState([]);
   const [colors, setColors] = useState([]);
+
+  const [filters, setFilters] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState();
 
   const getSizes = () => {
     const sizes = products.map((product) => {
@@ -448,12 +37,7 @@ const FilterAccordion = ({ products }) => {
     setColors(uniqueColors);
   };
 
-  useEffect(() => {
-    getSizes();
-    getColors();
-  }, []);
-
-  const filters = [
+  const initialFilters = [
     {
       id: 1,
       title: "price",
@@ -471,30 +55,17 @@ const FilterAccordion = ({ products }) => {
       id: 2,
       title: "Size",
       type: "checkbox",
-      filters: [
-        { type: "checkbox", input: "Twin", checked: false },
-        { type: "checkbox", input: "Full", checked: false },
-        { type: "checkbox", input: "Queen", checked: false },
-        { type: "checkbox", input: "Kings", checked: false },
-        { type: "checkbox", input: "Others", checked: false },
-      ],
+      filters: sizes.map((size) => {
+        return { type: "checkbox", input: size, checked: false };
+      }),
     },
     {
       id: 3,
       title: "Color",
       type: "checkbox",
-      filters: [
-        { type: "checkbox", input: "Red", checked: false },
-        { type: "checkbox", input: "Blue", checked: false },
-        { type: "checkbox", input: "White", checked: false },
-        { type: "checkbox", input: "Black", checked: false },
-        { type: "checkbox", input: "Gold", checked: false },
-        { type: "checkbox", input: "Bronze", checked: false },
-        { type: "checkbox", input: "Silver", checked: false },
-        { type: "checkbox", input: "Purple", checked: false },
-        { type: "checkbox", input: "Cream", checked: false },
-        { type: "checkbox", input: "Green", checked: false },
-      ],
+      filters: colors.map((color) => {
+        return { type: "checkbox", input: color.title, image: color.image, checked: false };
+      }),
     },
     {
       id: 4,
@@ -514,100 +85,109 @@ const FilterAccordion = ({ products }) => {
       ],
     },
   ];
-  // const mappedData = filters
-  //   .filter((filterdData) => {
-  //     filterdData.type === "checkbox";
-  //   })
-  //   .map((mappedData) => {
-  //     mappedData.filters;
-  //   })
-  //   .map((data) => {
-  //     return data[input];
-  //   });
-  const data = {
-    name: "Nokia",
-    checked: false,
-    name: "LG",
-    checked: false,
-    name: "Qmobile",
-    checked: false,
-    name: "Moto",
-    checked: false,
-    name: "Tecno",
-    checked: false,
-    name: "Infinix",
-    checked: false,
-    name: "Oneplus",
-    checked: false,
-    name: "Xiaomi",
-    checked: false,
-    name: "Samsung",
-    checked: false,
-    name: "Apple",
-    checked: false,
-    name: "Green",
-    checked: false,
-    name: "Cream",
-    checked: false,
-    name: "Purple",
-    checked: false,
-    name: "Silver",
-    checked: false,
-    name: "Bronze",
-    checked: false,
-    name: "Gold",
-    checked: false,
-    name: "Black",
-    checked: false,
-    name: "White",
-    checked: false,
-    name: "Blue",
-    checked: false,
-    name: "Red",
-    checked: false,
-    name: "Others",
-    checked: false,
-    name: "Kings",
-    checked: false,
-    name: "Queen",
-    checked: false,
-    name: "Full",
-    checked: false,
-    name: "Twin",
-    checked: false,
-  };
 
-  const [filterState, setFilterState] = useState(filters);
-  const [activeCurrentIndex, setActiveCurrentIndex] = useState();
-  // const [radio, setRadio] = useState("");
-  // const [checkbox, setCheckbox] = useState(data.checked);
+  useEffect(() => {
+    getSizes();
+    getColors();
+    setFilters(initialFilters);
+  }, []);
 
   const toggleShowAccordion = (id) => {
-    if (activeCurrentIndex === id) {
-      setActiveCurrentIndex();
+    if (currentIndex === id) {
+      setCurrentIndex();
     } else {
-      setActiveCurrentIndex(id);
+      setCurrentIndex(id);
     }
   };
 
-  const handleChange = ({ target: { value, name } }, filterSection, i) => {
-    // handling both cases radio button and checkboxes.
+
+
+  const handleApplyFilters = (filters) => {
+    const filteredProducts = products.filter((product) => {
+      const { variants } = product;
+
+      // // const { filters: priceFilters } = filters[0];
+      // const { filters: sizeFilters } = filters[1];
+      // const { filters: colorFilters } = filters[2];
+      // const { filters: brandFilters } = filters[3];
+
+      // // const priceFilter = priceFilters.find((filter) => filter.checked);
+      // const sizeFilter = sizeFilters.find((filter) => filter.checked);
+      // const colorFilter = colorFilters.find((filter) => filter.checked);
+      // const brandFilter = brandFilters.find((filter) => filter.checked);
+
+
+      const priceFilterValue = filters[0].value;
+
+      // const sizeFilterValue = sizeFilter?.input;
+      // const colorFilterValue = colorFilter?.input;
+      // const brandFilterValue = brandFilter?.input;
+
+
+
+      const priceFilterCondition = priceFilterValue
+        ? variants.some((variant) => {
+          const { sale_price: price } = variant;
+
+          if (priceFilterValue === "Under $25") {
+            console.log("price < 25", price);
+            return price < 25;
+          } else if (priceFilterValue === "$26 to $50") {
+            return price >= 26 && price <= 50;
+          } else if (priceFilterValue === "$50 to $100") {
+            return price >= 50 && price <= 100;
+          } else if (priceFilterValue === "$100 to $500") {
+            return price >= 100 && price <= 500;
+          } else if (priceFilterValue === "Over $500") {
+            return price > 500;
+          }
+        })
+        : true;
+
+
+      // const sizeFilterCondition = sizeFilterValue
+      //   ? variants.some((variant) => variant.size === sizeFilterValue)
+      //   : true;
+
+      // const colorFilterCondition = colorFilterValue
+      //   ? variants.some((variant) => {
+      //     return variant.features.some((feature) => {
+      //       return feature.color_id.title === colorFilterValue;
+      //     });
+      //   })
+      //   : true;
+
+      // const brandFilterCondition = brandFilterValue
+      //   ? variants.some((variant) => {
+      //     return variant.features.some((feature) => {
+      //       return feature.brand_id.title === brandFilterValue;
+      //     });
+      //   })
+      //   : true;
+
+    })
+    // console.log("filteredProducts", filteredProducts);
+    // setFilterProducts(filteredProducts);
+  };
+
+
+  const handleChange = ({ target: { value, name } }, filterSection, index) => {
+    // handling both cases radio button and checkboxes
     let modifiedFilters;
-    if (filterSection.type === "radio")
-      modifiedFilters = filterState.map((filter) => {
+    if (filterSection.type === "radio") {
+      modifiedFilters = filters.map((filter) => {
         if (filter.id === filterSection.id) {
-          console.log(value);
           return { ...filter, value };
         }
         return filter;
       });
-    else
-      modifiedFilters = filterState.map((filter) => {
+    } else {
+      modifiedFilters = filters.map((filter) => {
         if (filterSection.id === filter.id) {
           return {
             ...filterSection,
             filters: filterSection.filters.map((checkbox, currentIdx) => {
-              if (currentIdx === i)
+              if (currentIdx === index)
                 return { ...checkbox, checked: !checkbox.checked };
               return checkbox;
             }),
@@ -615,43 +195,49 @@ const FilterAccordion = ({ products }) => {
         }
         return filter;
       });
+    }
 
-    setFilterState(modifiedFilters);
+    console.log("modified Filters : ", modifiedFilters);
+    setFilters(modifiedFilters);
+    handleApplyFilters(modifiedFilters);
   };
+
+
+
+
 
   return (
     <div className={styles.accordion_wrapper}>
-      {filterState?.map((filter) => (
+      {filters?.map((filter) => (
         <div className={styles.accordion_item} key={filter.id}>
-          <div className={styles.accordion_heading}
-            onClick={() => toggleShowAccordion(filter.id)}>
-            <h4>{filter.title} data </h4>
+          <div className={styles.accordion_heading} onClick={() => toggleShowAccordion(filter.id)}>
+            <h4>{filter.title}</h4>
             <span>
-              {activeCurrentIndex === filter.id ? <FiChevronUp className={styles.accordion_icon} />
+              {currentIndex === filter.id ? <FiChevronUp className={styles.accordion_icon} />
                 : <FiChevronDown className={styles.accordion_icon} />}
             </span>
           </div>
 
           <div className={
-            activeCurrentIndex !== filter.id
+            currentIndex !== filter.id
               ? styles.accordion_content
-              : styles.accordion_content + " " + styles.show
-          }>
-            {filter.filters.map((box, i) => (
+              : styles.accordion_content + " " + styles.show}>
+
+            {filter.filters.map((data, i) => (
               <div className={styles.content_filter_wrapper} key={i}>
                 <input
-                  type={box.type}
-                  name={box.input}
-                  id={box.input}
-                  value={box.type === "radio" && box.input}
+                  type={data.type}
+                  name={data.input}
+                  id={data.input}
+                  value={data.type === "radio" && data.input}
                   checked={
-                    box.type === "radio"
-                      ? box.input === filter.value
-                      : box.checked
+                    data.type === "radio"
+                      ? data.input === filter.value
+                      : data.checked
                   }
                   onChange={(e) => handleChange(e, filter, i)}
                 />
-                <label htmlFor={box.input}>{box.input}</label>
+                <label htmlFor={data.input}>{data.input}</label>
               </div>
             ))}
           </div>

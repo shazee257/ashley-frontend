@@ -81,8 +81,7 @@ const Cart = () => {
           <h2>
             My Cart
             <span>
-              ({selectCartDetail.length} items
-              {/* item(s) in cart */} )
+              ({selectCartDetail.length} items)
             </span>
           </h2>
           <h6>

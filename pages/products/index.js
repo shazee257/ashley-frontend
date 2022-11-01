@@ -17,6 +17,10 @@ import BreadCrumbs from "../../components/BreadCrumbs";
 
 function Products() {
   const [filterProducts, setFilterProducts] = useState([]);
+  const [siblingCategories, setSiblingCategories] = useState([]);
+  const [currentCategory, setCurrentCategory] = useState({});
+  const [parentCategory, setParentCategory] = useState({});
+  const [topCategoriesExceptOne, setTopCategoriesExceptOne] = useState([]);
 
   const router = useRouter();
   const { categorySlug, discountedCategorySlug, zipCode, searchTerm } = router.query;
@@ -24,34 +28,32 @@ function Products() {
   const products = useSelector(selectProducts);
   const categories = useSelector(selectCategory);
 
-  let filteredProducts = [];
-  let currentCategory = {};
-  let parentCategory = {};
-  let siblingCategories = [];
-  let topCategoriesExceptOne = [];
-
-  // function to set filtered products
   const setCategoryVariables = (categories, slug) => {
-    currentCategory = categories?.find((cat) => cat.slug === slug);
-    parentCategory = categories?.find((cat) => cat._id == currentCategory?.parent_id);
-    siblingCategories = categories?.filter((cat) => cat.parent_id === parentCategory._id);
-    topCategoriesExceptOne = siblingCategories?.filter((cat) => cat.slug !== slug);
+    const currentCategory = categories.find((cat) => cat.slug === slug);
+    const parentCategory = categories.find((cat) => cat.id === currentCategory.parent_id);
+    const siblingCategories = categories.filter((cat) => cat.parent_id === parentCategory._id);
+    const topCategoriesExceptOne = siblingCategories.filter((cat) => cat.slug !== slug);
+
+    setCurrentCategory(currentCategory);
+    setParentCategory(parentCategory);
+    setSiblingCategories(siblingCategories);
+    setTopCategoriesExceptOne(topCategoriesExceptOne);
   };
 
   // find products by store zip code
   const findProductsByZipCode = (zipCode) =>
-    products?.filter((product) => product.store_id.zip === Number(zipCode));
+    products.filter((product) => product.store_id.zip === Number(zipCode));
 
   useEffect(() => {
     if (categorySlug) {
       setCategoryVariables(categories, categorySlug);
-      const filterData = products?.filter((fp) => fp.category_id.slug === categorySlug);
+      const filterData = products.filter((fp) => fp.category_id.slug === categorySlug);
       setFilterProducts(filterData);
     }
 
     if (discountedCategorySlug) {
       setCategoryVariables(categories, discountedCategorySlug);
-      const filterData = products?.filter((fp) =>
+      const filterData = products.filter((fp) =>
         fp.category_id.slug === discountedCategorySlug && fp.discount > 0);
       setFilterProducts(filterData);
     }
@@ -59,7 +61,7 @@ function Products() {
     zipCode && (setFilterProducts(findProductsByZipCode(zipCode)));
 
     searchTerm &&
-      (setFilterProducts(products?.filter((product) =>
+      (setFilterProducts(products.filter((product) =>
         product.title.toLowerCase().includes(searchTerm.toLowerCase()))));
 
   }, [products, categories, categorySlug, discountedCategorySlug, zipCode, searchTerm]);
@@ -87,16 +89,14 @@ function Products() {
           <div className={product.filters_cat}>
             <h3>{parentCategory?.title}</h3>
             {siblingCategories?.map((siblingCat) => (
-              <Link
-                href={`/products?categorySlug=${siblingCat.slug}`}
-                key={siblingCat._id}
-              >
+              <Link href={`/products?categorySlug=${siblingCat.slug}`}
+                key={siblingCat._id}>
                 <p>{siblingCat.title}</p>
               </Link>
             ))}
           </div>
           <div className={product.filter_cats}>
-            <FilterAccordion products={products} />
+            <FilterAccordion products={products} setFilterProducts={setFilterProducts} />
           </div>
         </div>
         {/* filters ends here  */}
