@@ -85,14 +85,17 @@ const Cart = () => {
               {/* item(s) in cart */} )
             </span>
           </h2>
+          <h6>
+            Pricing and availability may have changed..
+          </h6>
         </div>
-        <div className={cart.delivery_instructions}>
+        {/* <div className={cart.delivery_instructions}>
           <p>
             <BsFillExclamationTriangleFill className={cart.notallow_icon} />
             OUR APOLOGIES:
             <span> Protection plans are currently unavailable</span>
           </p>
-        </div>
+        </div> */}
         <div className={cart.yellow_instructions}>
           <p>
             Free Doorstep Delivery Offer — Please add your delivery zip code

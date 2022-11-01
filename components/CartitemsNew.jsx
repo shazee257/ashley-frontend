@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Image from "next/image";
 
 import cart from "../styles/CartNew.module.scss";
-import fur16 from "../pages/assets/fur16.jpg";
 import { ImTruck } from "react-icons/im";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,7 +11,6 @@ import {
   selectCartProducts,
 } from "../app/features/cartSlice";
 
-// import Capture from "../pages/assets/Capture.PNG"
 import { TiTickOutline } from "react-icons/ti";
 import { FiSettings } from "react-icons/fi";
 
@@ -62,22 +60,21 @@ const CartItems = () => {
 
             {/* second div   cart detail wrapper*/}
             <div className={cart.cart_detail_wrapper}>
-              <p className={cart.cart_detail_wrapper_p}>
-                Online <span>Only!</span>
-              </p>
               <h6>
                 {cartDetail.title}
               </h6>
-              <p>
-                Item: {cartDetail.sku}
-                <br />
-                Color: {cartDetail.color}
-                <br />
-                Bed Size: {cartDetail.size} <br />
-              </p>
+              <div className={cart.cart_item_color_size}>
+                <p className={cart.para}>  Item  : {cartDetail.sku}</p>
+                <p className={cart.para}>  Color : {cartDetail.color}</p>
+                <p className={cart.para}>  Size : {cartDetail.size}</p>
+              </div>
+
               <div className={cart.price_wrapper}>
-                <div className={cart.price_leftdiv}>
+                <div className={cart.price_div}>
                   <p>Qty</p>
+                  <p>Item Price</p>
+                </div>
+                <div className={cart.price_div}>
                   <div className={cart.qty}>
                     <p>
                       <span onClick={() => decQty(cartDetail.sku)}>-</span>
@@ -85,14 +82,12 @@ const CartItems = () => {
                       <span onClick={() => incQty(cartDetail.sku)}>+</span>
                     </p>
                   </div>
-                  <p className={cart.item_total}>Item Total</p>
+                  <p className={cart.price_bold}>$ {cartDetail.price}</p>
                 </div>
-
-                <div className={cart.price_rightdiv}>
-                  <p>Item Price</p>
-                  <p className={cart.price_bold}>${cartDetail.price}</p>
+                <div className={cart.price_div + " " + cart.price_div_upper_border}>
+                  <p className={cart.item_total}>Item Total</p>
                   <p className={cart.price_bold}>
-                    ${cartDetail.price * cartDetail.quantity}
+                    $ {cartDetail.price * cartDetail.quantity}
                   </p>
                 </div>
               </div>
@@ -121,16 +116,21 @@ const CartItems = () => {
               {/* protect */}
 
               <div className={cart.protect}>
-                <span className={cart.protect_heading}>
+                <h6 className={cart.protect_heading}>
                   Protect Your items for Unexpectetd
-                </span>
-                <br />
-                <TiTickOutline className={cart.protect_icon} />
-                <span className={cart.protect_para}>
-                  5 Years Furniture Protection Plan
-                </span>
-                <br />
-                <span className={cart.protect_link}>Plan Details</span>
+                </h6>
+                <div className={cart.protect_details}>
+                  <p className={cart.protect_icon_div}>
+                    <TiTickOutline className={cart.protect_icon} />
+                  </p>
+                  <p className={cart.protect_para}>
+                    5 Years Furniture Protection Plan
+                    <br />
+                    <span className={cart.protect_link}>Plan Details</span>
+                  </p>
+                  <br />
+                </div>
+
 
                 {/* <div>
                   <Image
@@ -146,19 +146,27 @@ const CartItems = () => {
               <div className={cart.expert_services}>
                 <p className={cart.expert_heading}> Add Expert Services</p>
                 <div className={cart.expert_details}>
-                  <input
-                    type="checkbox"
-                    id="vehicle1"
-                    name="vehicle1"
-                    value="Bike"
-                    className={cart.expert_services_input}
-                  />
-                  <FiSettings className={cart.expert_services_icon} />
-                  <span className={cart.expert_services_span}>
-                    Expert Assembly & installation by Handy
-                  </span>
+                  <div className={cart.expert_services_input_div}>
+                    <input
+                      type="checkbox"
+                      id="vehicle1"
+                      name="vehicle1"
+                      value="Bike"
+                      className={cart.expert_services_input}
+                    />
+                  </div>
+                  <div className={cart.expert_services_icon_div} >
+                    <FiSettings className={cart.expert_services_icon} />
+                  </div>
+                  <div className={cart.expert_services_details}>
+                    <p>
+                      Expert Assembly & installation by Handy
+                    </p>
+                    <p>
+                      $102.50 (applies per items) | <span className={cart.how_work_link}> How it Works</span>
+                    </p>
+                  </div>
                 </div>
-                <span className={cart.expert_services_works}>$102.50 (applies per items) | How it Works</span>
               </div>
 
             </div>
