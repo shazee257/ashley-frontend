@@ -63,12 +63,48 @@
             @include flex-center;
             // justify-content: flex-start;
             margin: 6px 0;
-
+            .qty_name {
+              width: 38px;
+            }
             .qty_value {
               p {
                 font-size: 14px;
                 display: flex;
                 justify-content: center;
+              }
+            }
+
+            .update_btn_div {
+              margin-left: 8px;
+              .update_btn {
+                font-size: 12px;
+                // background-color: $yellow;
+                // border: 1px solid $yellow;
+                color: white;
+
+                background-color: #3393FF;
+                border-radius: 4px;
+                border: 0;
+                outline: 0;
+                padding: 3px 8px;
+                // font-size: 14px;
+                // border: 1px solid $yellow;
+                // background-color: $yellow;
+                // color: white;
+                // border-radius: 4px;
+                // border: 0;
+                // outline: 0;
+                // padding: 5px 10px;
+
+                &:hover {
+                  background-color: #335EFF;
+                  // background-color: $yellow-light;
+                  // background-color: white;
+                  // border: 1px solid $yellow;
+                  // color: $yellow;
+                  // border: 1px solid $yellow;
+                  // background-color: rgb(180, 25, 35);
+                }
               }
             }
             p {

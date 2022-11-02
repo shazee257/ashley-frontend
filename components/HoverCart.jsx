@@ -50,18 +50,26 @@ const HoverCart = () => {
                 </div>
                 <div className={cart.qty_price}>
                   <div className={cart.qty}>
-                    <p>Qty:</p>
+                    <p className={cart.qty_name}>Qty :</p>
                     <div className={cart.qty_value}>
                       <p onClick={() => decQty(cartDetail.sku)}>-</p>
                       <p>{cartDetail.quantity}</p>
                       <p onClick={() => incQty(cartDetail.sku)}>+</p>
                     </div>
+                    <p className={cart.update_btn_div}>
+                      <button className={cart.update_btn}>
+                        Update
+                      </button>
+                    </p>
                   </div>
-                  <div className={cart.price}>
-                    {/* <h6>Item Price : </h6> */}
+                  <div className={cart.name_color_size}>
+                    <p>Price : <span className={cart.bold_color_size}>${cartDetail.price}</span></p>
+                    <p>Subtotal : <span className={cart.bold_color_size}>${cartDetail.total}</span> </p>
+                  </div>
+                  {/* <div className={cart.price}>
                     <span> $ {cartDetail.price}</span> <span className={cart.diff_line}>-</span>
                     <span> $ {cartDetail.price * cartDetail.quantity}</span>
-                  </div>
+                  </div> */}
                   {/* <div className={cart.price}>
                     <h6>Item Price : </h6>
                     <h4> $ {cartDetail.price}</h4>
