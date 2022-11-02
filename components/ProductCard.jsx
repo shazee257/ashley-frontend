@@ -85,7 +85,7 @@ const ProductCard = ({ cardProduct }) => {
           <div className={product.card_info}>
             <h4>{cardProduct.title}</h4>
             <div className={product.ratings}>
-              <ReactStars {...options} />
+              <ReactStars size={24} {...options} />
             </div>
             <p>$ {minPrice} - $ {maxPrice}</p>
           </div>

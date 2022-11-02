@@ -54,8 +54,10 @@ const Wishlist = () => {
 
   return (
     <div className={styles.wishlist_wrapper}>
-      <div className={`${styles.wishlist_heading} flex items-center justify-center h-20`}>
-        <h1 className="px-3 "><AiFillHeart /></h1>
+      {/* <div className={`${styles.wishlist_heading} flex items-center justify-center h-20 h-sm-0`}> */}
+      <div className={styles.wishlist_heading}>
+        {/* <h1 className="px-3 "><AiFillHeart /></h1> */}
+        <h1><AiFillHeart /></h1>
         <h2>My Wish List</h2>
       </div>
       <div className={styles.wishlist_cards_wrapper}>
