@@ -22,34 +22,31 @@ const NavbarLinks = () => {
     dispatch(fetchCategory());
   }, [dispatch]);
 
-
   useEffect(() => {
     getDiscountedCategories();
   }, []);
 
-  const mainCategories = categories?.filter((cat) => {
+  const parentCategories = categories?.filter((cat) => {
     return cat.parent_id === "";
   });
 
   return (
     <div className={navbar.navbar_links_items_wrapper}>
-      {mainCategories?.map((mainCategory) => (
-        <div className={navbar.links_wrapper} key={mainCategory._id}>
-          <p className={navbar.links}>{mainCategory.title}</p>
+      {parentCategories?.map((parentCategory) => (
+        <div className={navbar.links_wrapper} key={parentCategory._id}>
+          <p className={navbar.links}>{parentCategory.title}</p>
           <div className={navbar.dropdown}>
-            {categories?.filter(
-              (filteredCats) => filteredCats.parent_id === mainCategory._id
-            )
-              .map((subCats) => (
-                <Link href={`/products?categorySlug=${subCats.slug}`} key={subCats._id}>
-                  <p className={navbar.dropdown_link}>{subCats.title}</p>
+            {categories?.filter((category) => category.parent_id === parentCategory._id)
+              .map((childCategory) => (
+                <Link href={`/products?categorySlug=${childCategory.slug}`} key={childCategory._id}>
+                  <p className={navbar.dropdown_link}>{childCategory.title}</p>
                 </Link>
               ))}
           </div>
         </div>
       ))}
 
-      {mainCategories &&
+      {parentCategories &&
         <div className={navbar.links_wrapper}>
           <p className={navbar.links} style={{ color: "red", fontWeight: "600" }}>
             Discount

@@ -199,7 +199,7 @@ const FilterAccordion = ({ products, setFilterProducts }) => {
 
     console.log("modified Filters : ", modifiedFilters);
     setFilters(modifiedFilters);
-    handleApplyFilters(modifiedFilters);
+    // handleApplyFilters(modifiedFilters);
   };
 
 
