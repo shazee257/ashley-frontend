@@ -242,7 +242,10 @@ function ProductDetail({ product, reviews }) {
     if (loginData) {
       const { data } = await axios.post(`${process.env.NEXT_PUBLIC_baseURL}/cart/${loginData.user_id}`, cartItem);
       if (data.success) {
-        dispatch(addItemToCart(cartItem));
+        // get new element from data.products 
+        const newProduct = data.data.products[data.data.products.length - 1];
+        dispatch(addItemToCart(newProduct));
+        console.log("newProduct", newProduct);
         toast.success(data.message);
       } else {
         toast.error(data.message);

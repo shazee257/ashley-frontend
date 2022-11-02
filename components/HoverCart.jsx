@@ -3,17 +3,31 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectCartProducts,
-  removeFromCart,
   incQuantity,
   decQuantity,
+  removeItemFromCart,
 } from "../app/features/cartSlice";
-// import cartimage from "../pages/assets/fur18.jpg";
+import { selectLoginData } from "../app/features/loginSlice";
+import axios from "axios";
 
 import cart from "../styles/HoverCart.module.scss";
+import { toast } from "react-toastify";
 
 const HoverCart = () => {
   const selectCartDetail = useSelector(selectCartProducts);
+  const loginData = useSelector(selectLoginData);
   const dispatch = useDispatch();
+
+
+  const removeCartItemHandler = async (userId, cartProductId) => {
+    console.log("removeCartItemHandler", userId, cartProductId);
+    const { data } = await axios.put(`${process.env.NEXT_PUBLIC_baseURL}/cart/${userId}/remove-item`, { cartProductId });
+    if (data.success) {
+      dispatch(removeItemFromCart(cartProductId));
+      toast.success(data.message);
+    }
+  }
+
 
   const decQty = (id) => {
     dispatch(decQuantity(id));
@@ -28,33 +42,34 @@ const HoverCart = () => {
 
   return (
     <div className={cart.main}>
-      {selectCartDetail.length === 0 ? (
+      {selectCartDetail?.length === 0 ? (
         <h2>Cart is Empty</h2>
       ) : (
-        selectCartDetail?.map((cartDetail) => (
-          <div className={cart.card} key={cartDetail.sku}>
+        selectCartDetail?.map((item) => (
+          <div className={cart.card} key={item.sku}>
             <div className={cart.card_img_info}>
               <div className={cart.pic}>
                 <Image
-                  src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${cartDetail.image}`}
-                  alt={cartDetail.title}
+                  src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${item.image}`}
+                  alt={item.title}
                   layout="fill"
                   objectFit="cover"
                 />
               </div>
               <div className={cart.info}>
                 <div className={cart.name_color_size}>
-                  <h6>{cartDetail.title}</h6>
-                  <p>Color : <span className={cart.bold_color_size}>{cartDetail.color}</span></p>
-                  <p>Size : <span className={cart.bold_color_size}>{cartDetail.size}</span> </p>
+                  <h6>{item.title}</h6>
+                  <p>Code : <span className={cart.bold_color_size}>{item.sku}</span></p>
+                  <p>Color : <span className={cart.bold_color_size}>{item.color}</span></p>
+                  <p>Size : <span className={cart.bold_color_size}>{item.size}</span> </p>
                 </div>
                 <div className={cart.qty_price}>
                   <div className={cart.qty}>
                     <p className={cart.qty_name}>Qty :</p>
                     <div className={cart.qty_value}>
-                      <p onClick={() => decQty(cartDetail.sku)}>-</p>
-                      <p>{cartDetail.quantity}</p>
-                      <p onClick={() => incQty(cartDetail.sku)}>+</p>
+                      <p onClick={() => decQty(item.sku)}>-</p>
+                      <p>{item.quantity}</p>
+                      <p onClick={() => incQty(item.sku)}>+</p>
                     </div>
                     <p className={cart.update_btn_div}>
                       <button className={cart.update_btn}>
@@ -63,8 +78,8 @@ const HoverCart = () => {
                     </p>
                   </div>
                   <div className={cart.name_color_size}>
-                    <p>Price : <span className={cart.bold_color_size}>${cartDetail.price}</span></p>
-                    <p>Subtotal : <span className={cart.bold_color_size}>${cartDetail.total}</span> </p>
+                    <p>Price : <span className={cart.bold_color_size}>${item.price}</span></p>
+                    <p>Subtotal : <span className={cart.bold_color_size}>${item.total}</span> </p>
                   </div>
                   {/* <div className={cart.price}>
                     <span> $ {cartDetail.price}</span> <span className={cart.diff_line}>-</span>
@@ -82,7 +97,7 @@ const HoverCart = () => {
               </div>
             </div>
             <div className={cart.remove_btn}>
-              <button onClick={() => handleRemove(cartDetail.sku)}>
+              <button onClick={() => removeCartItemHandler(loginData.user_id, item._id)}>
                 Remove Item
               </button>
               {/* <button className={cart.ChechOut_btn} >
