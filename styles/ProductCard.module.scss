@@ -3,17 +3,17 @@
 .products_card {
   // flex: 1;
   width: 24%;
-  height: 550px;
+  // height: 550px;
   // @include flex-column;
   // justify-content: space-around;
   margin: 10px 5px;
+  padding: 30px 0px 45px 0px;
   border-right: 1px solid $extra-light-grey;
   border-bottom: 1px solid $extra-light-grey;
 
   .heart {
-    margin-top: 30px;
+    // margin-top: 30px;
     margin-left: 10px;
-    width: 70%;
     @include flex-around;
     justify-content: flex-start;
     color: $yellow;
@@ -36,71 +36,104 @@
     }
   }
   .card_details {
-    width: 90%;
+    width: 95%;
+    padding-left: 3%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    .card_image {
-     margin-top: 30px;
-      width: 95%;
-      margin-left: 6px;
-      height: 140px;
-      position: relative;
-      transition: all 0.3s ease-in-out;
+    .hanker_wrapper {
+      .card_image {
+        margin-top: 30px;
+        width: 95%;
+        margin-left: 6px;
+        height: 140px;
+        position: relative;
+        transition: all 0.3s ease-in-out;
 
-      &:hover {
-        transform: scale(1.1);
+        &:hover {
+          transform: scale(1.1);
+          .display {
+            display: block;
+          }
+        }
+        cursor: pointer;
+
         .display {
-          display: block;
+          display: none;
+          position: absolute;
+          top: 0;
+          right: 0;
+          left: 0;
+          height: 160px;
+          img {
+            height: 140px;
+          }
+          p {
+            text-align: center;
+            background: $yellow;
+            color: white;
+          }
         }
       }
-      cursor: pointer;
+      .card_info {
+        margin-top: 100px;
+        h4 {
+          font-size: 16px;
+          margin: 10px 0px 50px 0px;
+          font-weight: 700;
+        }
+        .ratings {
+          // font-size: 16px;
+          color: $yellow;
+          // width: 70%;
+          // @include flex-center;
+          // justify-content: flex-start;
+          span {
+            margin: 0 15px 0 0;
+          }
+        }
+        .max_min_prize {
+          margin-top: 30px;
+          font-size: 18px;
+          font-weight: 600;
+          margin: 10px 0;
+        }
 
-      .display {
-        display: none;
-        position: absolute;
-        top: 0;
-        right: 0;
-        left: 0;
-        height: 160px;
-        img {
-          height: 140px;
+        .year_schedule {
+          color: $light-grey;
+          font-size: 13px;
+          font-weight: 700;
         }
-        p {
-          text-align: center;
-          background: $yellow;
-          color: white;
-        }
+
+        // .policy{
+        //   margin-top: 5px;
+        //   font-size: 13px;
+        //   font-weight: 400;
+        //   color: $light-grey;
+        //   text-decoration: underline;
+        //   &:hover {
+        //     text-decoration: none;
+        //   }
+        // }
+        // .delovery_detail {
+        //   font-size: 14px;
+        //   color: $light-grey;
+        // }
       }
     }
-    .card_info {
-      margin-top: 100px;
-      width: 90%;
-      h4 {
-        font-size: 16px;
-        margin: 10px 0;
-        font-weight: 700;
-        margin-bottom: 50px;
-      }
-      .ratings {
-        // font-size: 16px;
-        color: $yellow;
-        // width: 70%;
-        // @include flex-center;
-        // justify-content: flex-start;
-        span {
-          margin: 0 15px 0 0;
-        }
-      }
-      p {
-        margin-top: 30px;
-        font-size: 18px;
-        font-weight: 600;
-        margin: 10px 0;
-      }
-      .delovery_detail {
-        font-size: 14px;
+
+    .learn_how {
+      width: 100%;
+      .policy {
+        cursor: pointer;
+        margin-top: 5px;
+        font-size: 13px;
+        font-weight: 400;
         color: $light-grey;
+        text-decoration: underline;
+        &:hover {
+          text-decoration: none;
+        }
       }
     }
   }

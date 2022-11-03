@@ -186,7 +186,6 @@
       margin: 0 2px;
 
       .cart_detail {
-        background: #000;
         @include flex-center;
         height: 0;
         width: 170px;
@@ -209,7 +208,8 @@
         .cart_detail {
           height: auto;
           padding:0px 10px;
-          width: 20vw;
+          // width: 20vw;
+          width: auto;
         }
       }
 

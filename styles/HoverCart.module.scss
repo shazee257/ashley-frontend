@@ -3,242 +3,259 @@
 .main {
   @include flex-column;
   width: 100%;
-  // padding-top: 20px;
-  .card {
-    width: 100%;
-    height: 100%;
-    @include flex-column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    // margin-top: 10px;
-    border-bottom: 2px solid $extra-light-grey;
 
-    .card_img_info {
+  .empty_card_heading {
+    text-align: center;
+    width: 10vw;
+    font-size: 15px;
+    padding: 12px 10px;
+  }
+
+  .hover_cart {
+    .card {
+      width: 20vw;
+      height: 100%;
       @include flex-column;
-      align-items: center;
-      width: 100%;
-      justify-content: space-between;
-      flex-direction: column-reverse;
+      align-items: flex-start;
+      justify-content: flex-start;
+      // margin-top: 10px;
+      border-bottom: 2px solid $extra-light-grey;
 
-      .pic {
-        width: 100%;
-        margin-bottom: 20px;
-        position: relative;
-        height: 100px;
-        margin: 10px 0;
-      }
-      .info {
-        margin-top: 20px;
+      .card_img_info {
         @include flex-column;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+        flex-direction: column-reverse;
 
-        .name_color_size {
+        .pic {
+          width: 95%;
+          margin-bottom: 20px;
+          position: relative;
+          height: 100px;
+          margin: 10px 0;
+        }
+        .info {
+          margin-top: 20px;
           @include flex-column;
-          justify-content: flex-start;
-          align-items: flex-start;
-          margin: 0;
-          width: 100%;
-          h6 {
+
+          .name_color_size {
+            @include flex-column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            margin: 0;
             width: 100%;
-            font-size: 14px;
-            font-weight: 700;
-          }
-          p {
-            margin: 6px 0;
-            width: 100%;
-            font-size: 14px;
-            text-align: left;
-            .bold_color_size {
+            h6 {
+              width: 100%;
+              font-size: 14px;
               font-weight: 700;
             }
-          }
-        }
-        .qty_price {
-          @include flex-column;
-          justify-content: flex-start;
-          align-items: flex-start;
-          margin: 0;
-          width: 100%;
-
-          .qty {
-            @include flex-center;
-            // justify-content: flex-start;
-            margin: 6px 0;
-            .qty_name {
-              width: 38px;
-            }
-            .qty_value {
-              p {
-                font-size: 14px;
-                display: flex;
-                justify-content: center;
+            p {
+              margin: 6px 0;
+              width: 100%;
+              font-size: 14px;
+              text-align: left;
+              .bold_color_size {
+                font-weight: 700;
               }
             }
+          }
+          .qty_price {
+            @include flex-column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            margin: 0;
+            width: 100%;
 
-            .update_btn_div {
-              margin-left: 8px;
-              .update_btn {
-                font-size: 12px;
-                // background-color: $yellow;
-                // border: 1px solid $yellow;
-                color: white;
+            .qty {
+              @include flex-center;
+              // justify-content: flex-start;
+              margin: 6px 0;
+              .qty_name {
+                width: 38px;
+              }
+              .qty_value {
+                .input_qty_value {
+                  width: 100px;
+                  height: 22px;
+                  padding: 5px;
+                  font-size: 12px;
+                  border: 1px solid black;
+                  border-radius: 4px;
+                }
+                p {
+                  font-size: 14px;
+                  display: flex;
+                  justify-content: center;
+                }
+              }
 
-                background-color: #3393FF;
-                border-radius: 4px;
-                border: 0;
-                outline: 0;
-                padding: 3px 8px;
-                // font-size: 14px;
-                // border: 1px solid $yellow;
-                // background-color: $yellow;
-                // color: white;
-                // border-radius: 4px;
-                // border: 0;
-                // outline: 0;
-                // padding: 5px 10px;
-
-                &:hover {
-                  background-color: #335EFF;
-                  // background-color: $yellow-light;
-                  // background-color: white;
+              .update_btn_div {
+                margin-left: 8px;
+                .update_btn {
+                  font-size: 12px;
+                  // background-color: $yellow;
                   // border: 1px solid $yellow;
-                  // color: $yellow;
+                  color: white;
+
+                  background-color: #3393ff;
+                  border-radius: 4px;
+                  border: 0;
+                  outline: 0;
+                  padding: 3px 8px;
+                  // font-size: 14px;
                   // border: 1px solid $yellow;
-                  // background-color: rgb(180, 25, 35);
+                  // background-color: $yellow;
+                  // color: white;
+                  // border-radius: 4px;
+                  // border: 0;
+                  // outline: 0;
+                  // padding: 5px 10px;
+
+                  &:hover {
+                    background-color: #335eff;
+                    // background-color: $yellow-light;
+                    // background-color: white;
+                    // border: 1px solid $yellow;
+                    // color: $yellow;
+                    // border: 1px solid $yellow;
+                    // background-color: rgb(180, 25, 35);
+                  }
+                }
+              }
+              p {
+                @include flex-center;
+                margin: 0;
+                justify-content: flex-start;
+                font-size: 14px;
+                width: 50px;
+              }
+              div {
+                margin: 0;
+                display: flex;
+                justify-content: flex-start;
+                p {
+                  font-size: 16px;
+                  border: 1px solid $light-grey;
+                  width: 30px;
                 }
               }
             }
-            p {
-              @include flex-center;
-              margin: 0;
-              justify-content: flex-start;
-              font-size: 14px;
-              width: 50px;
-            }
-            div {
-              margin: 0;
+
+            .price,
+            .total {
+              // @include flex-center;
+              // justify-content: flex-start;
               display: flex;
               justify-content: flex-start;
-              p {
-                font-size: 16px;
-                border: 1px solid $light-grey;
-                width: 30px;
+              align-items: center;
+              margin: 6px 0;
+
+              .diff_line {
+                margin: 0px 5px;
+              }
+              span {
+                // padding-left: 3px;
+                font-size: 14px;
+                font-weight: 700;
+                // line-height: 10px;
+                margin: 0;
+              }
+              h6 {
+                // @include flex-center;
+                font-size: 14px;
+                margin: 0;
+                // justify-content: flex-start;
+              }
+              h4,
+              h3 {
+                // padding-left: 3px;
+                font-size: 14px;
+                font-weight: 700;
+                // line-height: 10px;
+                margin: 0;
               }
             }
           }
+        }
+      }
 
-          .price,
-          .total {
-            // @include flex-center;
-            // justify-content: flex-start;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            margin: 6px 0;
+      .remove_btn {
+        padding: 5px 10px;
+        margin: 5px 0px 10px 0px;
+        display: flex;
+        justify-content: space-evenly;
+        width: 100%;
+        button {
+          font-size: 14px;
+          background-color: $red;
+          border: 1px solid $red;
+          color: white;
+          border-radius: 4px;
+          border: 0;
+          outline: 0;
+          padding: 5px 10px;
 
-            .diff_line {
-              margin: 0px 5px;
-            }
-            span {
-              // padding-left: 3px;
-              font-size: 14px;
-              font-weight: 700;
-              // line-height: 10px;
-              margin: 0;
-            }
-            h6 {
-              // @include flex-center;
-              font-size: 14px;
-              margin: 0;
-              // justify-content: flex-start;
-            }
-            h4,
-            h3 {
-              // padding-left: 3px;
-              font-size: 14px;
-              font-weight: 700;
-              // line-height: 10px;
-              margin: 0;
-            }
+          &:hover {
+            background-color: rgb(180, 25, 35);
+          }
+        }
+
+        .ChechOut_btn {
+          font-size: 14px;
+          background-color: $yellow;
+          border: 1px solid $yellow;
+          color: white;
+          border-radius: 4px;
+          border: 0;
+          outline: 0;
+          padding: 5px 10px;
+          // font-size: 14px;
+          // border: 1px solid $yellow;
+          // background-color: $yellow;
+          // color: white;
+          // border-radius: 4px;
+          // border: 0;
+          // outline: 0;
+          // padding: 5px 10px;
+
+          &:hover {
+            background-color: $yellow-light;
+            // background-color: white;
+            // border: 1px solid $yellow;
+            // color: $yellow;
+            // border: 1px solid $yellow;
+            // background-color: rgb(180, 25, 35);
           }
         }
       }
     }
 
-    .remove_btn {
-      padding: 5px 10px;
-      margin: 5px 0px 10px 0px;
-      display: flex;
-      justify-content: space-evenly;
+    .ChechOut_btn_div {
       width: 100%;
-      button {
-        font-size: 14px;
-        background-color: $red;
-        border: 1px solid $red;
-        color: white;
-        border-radius: 4px;
-        border: 0;
-        outline: 0;
-        padding: 5px 10px;
-
-        &:hover {
-          background-color: rgb(180, 25, 35);
-        }
-      }
-
+      display: flex;
+      justify-content: center;
       .ChechOut_btn {
+        margin: 20px 0px;
+        width: 80%;
+        height: 35px;
         font-size: 14px;
+        font-weight: 700;
+        color: white;
         background-color: $yellow;
         border: 1px solid $yellow;
-        color: white;
         border-radius: 4px;
         border: 0;
         outline: 0;
-        padding: 5px 10px;
-        // font-size: 14px;
-        // border: 1px solid $yellow;
-        // background-color: $yellow;
-        // color: white;
-        // border-radius: 4px;
-        // border: 0;
-        // outline: 0;
-        // padding: 5px 10px;
 
         &:hover {
-          background-color: $yellow-light;
-          // background-color: white;
-          // border: 1px solid $yellow;
-          // color: $yellow;
+          // background-color: $yellow-light;
+          background-color: white;
+          border: 1px solid $yellow;
+          color: $yellow;
           // border: 1px solid $yellow;
           // background-color: rgb(180, 25, 35);
         }
-      }
-    }
-  }
-
-  .ChechOut_btn_div {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    .ChechOut_btn {
-      margin: 20px 0px;
-      width: 80%;
-      height: 35px;
-      font-size: 14px;
-      font-weight: 700;
-      color: white;
-      background-color: $yellow;
-      border: 1px solid $yellow;
-      border-radius: 4px;
-      border: 0;
-      outline: 0;
-
-      &:hover {
-        // background-color: $yellow-light;
-        background-color: white;
-        border: 1px solid $yellow;
-        color: $yellow;
-        // border: 1px solid $yellow;
-        // background-color: rgb(180, 25, 35);
       }
     }
   }
