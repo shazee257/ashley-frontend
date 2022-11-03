@@ -3,8 +3,8 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectCartProducts,
-  incQuantity,
-  decQuantity,
+  incrementQuantity,
+  decrementQuantity,
   removeItemFromCart,
 } from "../app/features/cartSlice";
 import { selectLoginData } from "../app/features/loginSlice";
@@ -12,11 +12,17 @@ import axios from "axios";
 
 import cart from "../styles/HoverCart.module.scss";
 import { toast } from "react-toastify";
+import { CART } from "../constants";
 
 const HoverCart = () => {
-  const selectCartDetail = useSelector(selectCartProducts);
+  const cartDetail = useSelector(selectCartProducts);
   const loginData = useSelector(selectLoginData);
   const dispatch = useDispatch();
+
+  const cartUpdateAPI = async (userId, updateData) => {
+    const { data } = await axios.put(`${process.env.NEXT_PUBLIC_baseURL}/cart/${userId}`, updateData);
+    data.success && toast.success(data.message);
+  };
 
 
   const removeCartItemHandler = async (userId, cartProductId) => {
@@ -28,25 +34,32 @@ const HoverCart = () => {
     }
   }
 
+  const incrementQtyHandler = (cartItemId, qty) => {
+    if (qty < CART.MAX_QUANTITY) {
+      dispatch(incrementQuantity(cartItemId));
+      cartUpdateAPI(loginData.user_id, { cartItemId, quantity: qty });
+    } else {
+      toast.error("Maximum quantity reached");
+    }
+  };
 
-  const decQty = (id) => {
-    dispatch(decQuantity(id));
-  };
-  const incQty = (id) => {
-    dispatch(incQuantity(id));
+  const decrementQtyHandler = (cartItemId, qty) => {
+    if (qty > CART.MIN_QUANTITY) {
+      dispatch(decrementQuantity(cartItemId));
+      cartUpdateAPI(loginData.user_id, { cartItemId, quantity: qty });
+    } else {
+      toast.error("Minimum quantity reached");
+    }
   };
 
-  const handleRemove = (id) => {
-    dispatch(removeFromCart(id));
-  };
 
   return (
     <div className={cart.main}>
-      {selectCartDetail?.length === 0 ? (
+      {cartDetail?.length === 0 ? (
         <h2 className={cart.empty_card_heading}>Cart is Empty</h2>
       ) : (
-        <div  className={cart.hover_cart}>
-          {selectCartDetail?.map((item) => (
+        <div className={cart.hover_cart}>
+          {cartDetail?.map((item) => (
             <div className={cart.card} key={item.sku}>
               <div className={cart.card_img_info}>
                 <div className={cart.pic}>
@@ -68,13 +81,18 @@ const HoverCart = () => {
                     <div className={cart.qty}>
                       <p className={cart.qty_name}>Qty :</p>
                       <div className={cart.qty_value}>
-                        <input type="text" className={cart.input_qty_value}/>
-                        {/* <p onClick={() => decQty(item.sku)}>-</p>
+                        {/* <input type="text" className={cart.input_qty_value} value={item.quantity} /> */}
+                        <p onClick={() => decrementQtyHandler(item._id, item.quantity)}>-</p>
                         <p>{item.quantity}</p>
-                        <p onClick={() => incQty(item.sku)}>+</p> */}
+                        <p onClick={() => incrementQtyHandler(item._id, item.quantity)}>+</p>
                       </div>
                       <p className={cart.update_btn_div}>
-                        <button className={cart.update_btn}>
+                        <button className={cart.update_btn}
+                          onClick={() => {
+                            console.log("update btn clicked");
+                            console.log("item.quantity", item.quantity);
+                          }}
+                        >
                           Update
                         </button>
                       </p>

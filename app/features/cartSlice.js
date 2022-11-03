@@ -33,7 +33,25 @@ const cartSlice = createSlice({
       state.products = [];
       state.cartTotal = 0;
       state.count = 0;
-    }
+    },
+
+    incrementQuantity(state, action) {
+      const index = state.products.findIndex((item) => item._id === action.payload);
+      if (index >= 0) {
+        state.products[index].quantity++;
+        state.products[index].total = state.products[index].price * state.products[index].quantity;
+        state.cartTotal = state.products.reduce((acc, item) => acc + item.total, 0);
+      }
+    },
+
+    decrementQuantity(state, action) {
+      const index = state.products.findIndex((item) => item._id === action.payload);
+      if (index >= 0) {
+        state.products[index].quantity--;
+        state.products[index].total = state.products[index].price * state.products[index].quantity;
+        state.cartTotal = state.products.reduce((acc, item) => acc + item.total, 0);
+      }
+    },
   },
 
   extraReducers: (builder) => {
@@ -53,12 +71,6 @@ const cartSlice = createSlice({
           state.cartTotal = 0;
           state.status = STATUSES.IDLE;
         }
-
-        // console.log("action.payload", action.payload);
-        // state.products = action.payload.products;
-        // state.count = action.payload.products.length;
-        // state.cartTotal = action.payload.products.reduce((acc, item) => acc + item.total, 0);
-        // state.status = STATUSES.IDLE;
       })
       .addCase(fetchCartItems.rejected, (state) => {
         state.status = STATUSES.ERROR;
@@ -67,7 +79,7 @@ const cartSlice = createSlice({
 });
 
 
-export const { addItemToCart, removeItemFromCart, clearCart } = cartSlice.actions;
+export const { addItemToCart, removeItemFromCart, clearCart, incrementQuantity, decrementQuantity } = cartSlice.actions;
 export default cartSlice.reducer;
 
 export const selectCartCount = (state) => state.cart.count;
@@ -75,38 +87,11 @@ export const selectCartProducts = (state) => state.cart.products;
 
 export const fetchCartItems = createAsyncThunk("cart/fetch", async (userId) => {
   const { data } = await axios(`${process.env.NEXT_PUBLIC_baseURL}/cart/${userId}`);
-
-  console.log("data", data.data);
-  // return empty array if data is null
-
   return data.data ? data.data.products : [];
-  // return data;
 });
 
 // export const updateCartItems = createAsyncThunk("cart/update", async (cart) => {
 //   const { data } = await axios.put(`${process.env.NEXT_PUBLIC_baseURL}/cart`, cart);
 //   return data.data;
 // });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
