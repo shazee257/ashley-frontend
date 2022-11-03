@@ -97,7 +97,7 @@ const ProductCard = ({ cardProduct }) => {
           </a>
         </Link>
         <div className={product.learn_how}>
-          <p className={product.policy} onClick={() => setShowModal(true)}>Leran How</p>
+          <p className={product.policy} onClick={() => setShowModal(true)}>Learn How</p>
           {showModal ? (
             <>
               <div
