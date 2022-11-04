@@ -19,8 +19,11 @@ const HoverCart = () => {
   const loginData = useSelector(selectLoginData);
   const dispatch = useDispatch();
 
-  const cartUpdateAPI = async (userId, updateData) => {
-    const { data } = await axios.put(`${process.env.NEXT_PUBLIC_baseURL}/cart/${userId}`, updateData);
+  const cartUpdateAPI = async (userId, updateObj) => {
+
+    const { data } = await axios.put(`${process.env.NEXT_PUBLIC_baseURL}/cart/${userId}`, updateObj);
+    console.log("updateObj : ", updateObj);
+    console.log("data : ", data);
     // data.success && toast.success(data.message);
   };
 
@@ -37,7 +40,7 @@ const HoverCart = () => {
   const incrementQtyHandler = (cartItemId, qty) => {
     if (qty < CART.MAX_QUANTITY) {
       dispatch(incrementQuantity(cartItemId));
-      cartUpdateAPI(loginData.user_id, { cartItemId, quantity: qty });
+      cartUpdateAPI(loginData.user_id, { cartItemId, operation: "increment" });
     } else {
       toast.error("Maximum quantity reached");
     }
@@ -46,7 +49,7 @@ const HoverCart = () => {
   const decrementQtyHandler = (cartItemId, qty) => {
     if (qty > CART.MIN_QUANTITY) {
       dispatch(decrementQuantity(cartItemId));
-      cartUpdateAPI(loginData.user_id, { cartItemId, quantity: qty });
+      cartUpdateAPI(loginData.user_id, { cartItemId, operation: "decrement" });
     } else {
       toast.error("Minimum quantity reached");
     }
