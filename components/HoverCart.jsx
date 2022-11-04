@@ -99,7 +99,7 @@ const HoverCart = () => {
                     </div>
                     <div className={cart.name_color_size}>
                       <p>Price : <span className={cart.bold_color_size}>${item.price}</span></p>
-                      <p>Subtotal : <span className={cart.bold_color_size}>${item.total}</span> </p>
+                      <p>Subtotal : <span className={cart.bold_color_size}>${(item.total).toFixed(2)}</span> </p>
                     </div>
                     {/* <div className={cart.price}>
                     <span> $ {cartDetail.price}</span> <span className={cart.diff_line}>-</span>
