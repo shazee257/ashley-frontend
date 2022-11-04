@@ -73,7 +73,7 @@ const HoverCart = () => {
                 <div className={cart.info}>
                   <div className={cart.name_color_size}>
                     <h6>{item.title}</h6>
-                    <p>Code : <span className={cart.bold_color_size}>{item.sku}</span></p>
+                    <p>Code : <span className={cart.bold_sku}>{item.sku}</span></p>
                     <p>Color : <span className={cart.bold_color_size}>{item.color}</span></p>
                     <p>Size : <span className={cart.bold_color_size}>{item.size}</span> </p>
                   </div>
@@ -86,7 +86,7 @@ const HoverCart = () => {
                         <p>{item.quantity}</p>
                         <p onClick={() => incrementQtyHandler(item._id, item.quantity)}>+</p>
                       </div>
-                      <p className={cart.update_btn_div}>
+                      {/* <p className={cart.update_btn_div}>
                         <button className={cart.update_btn}
                           onClick={() => {
                             console.log("update btn clicked");
@@ -95,7 +95,7 @@ const HoverCart = () => {
                         >
                           Update
                         </button>
-                      </p>
+                      </p> */}
                     </div>
                     <div className={cart.name_color_size}>
                       <p>Price : <span className={cart.bold_color_size}>${item.price}</span></p>
