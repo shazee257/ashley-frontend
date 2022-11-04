@@ -21,7 +21,7 @@ const HoverCart = () => {
 
   const cartUpdateAPI = async (userId, updateData) => {
     const { data } = await axios.put(`${process.env.NEXT_PUBLIC_baseURL}/cart/${userId}`, updateData);
-    data.success && toast.success(data.message);
+    // data.success && toast.success(data.message);
   };
 
 
