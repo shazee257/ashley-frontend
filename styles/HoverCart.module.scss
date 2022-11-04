@@ -50,16 +50,24 @@
               font-size: 14px;
               font-weight: 700;
             }
+
+            .bold_sku_div {
+              margin: 8px 0px 4px 0px;
+              width: 100%;
+              font-size: 13px;
+              text-align: left;
+              .bold_sku {
+                // font-weight: 500;
+                font-size: 13px;
+              }
+            }
             p {
               margin: 6px 0;
               width: 100%;
               font-size: 14px;
               text-align: left;
-              .bold_sku {
-                font-weight: 600;
-              }
               .bold_color_size {
-                font-weight: 600;
+                font-weight: 700;
               }
             }
           }

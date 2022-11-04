@@ -73,7 +73,7 @@ const HoverCart = () => {
                 <div className={cart.info}>
                   <div className={cart.name_color_size}>
                     <h6>{item.title}</h6>
-                    <p>Code : <span className={cart.bold_sku}>{item.sku}</span></p>
+                    <p className={cart.bold_sku_div}>Code : <span className={cart.bold_sku}>{item.sku}</span></p>
                     <p>Color : <span className={cart.bold_color_size}>{item.color}</span></p>
                     <p>Size : <span className={cart.bold_color_size}>{item.size}</span> </p>
                   </div>
