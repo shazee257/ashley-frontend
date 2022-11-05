@@ -7,12 +7,12 @@ import {
   selectAddress,
   selectPayment,
 } from "../app/features/stepSlice";
-import { selectCart } from "../app/features/cartSlice";
+import { selectCartProducts } from "../app/features/cartSlice";
 import { selectCheckout } from "../app/features/checkoutSlice";
 
 const checkouttwo = () => {
   const dispatch = useDispatch();
-  const cartDetail = useSelector(selectCart);
+  const cartDetail = useSelector(selectCartProducts);
   const checkoutDetail = useSelector(selectCheckout);
   const addressDetails = useSelector(selectAddress);
   const paymentDetails = useSelector(selectPayment);
@@ -50,7 +50,7 @@ const checkouttwo = () => {
 
   const [payment, setPayment] = useState({
     cardname: "",
-    cardnumber: "", 
+    cardnumber: "",
     date: "",
     cvv: "",
   });
@@ -73,7 +73,7 @@ const checkouttwo = () => {
         <div className={styles.accordion_item}>
           <div
             className={styles.accordion_heading}
-            //  onClick={() => toggle(1)}
+          //  onClick={() => toggle(1)}
           >
             <h4>Deliver my order to</h4>
           </div>
@@ -220,7 +220,7 @@ const checkouttwo = () => {
         <div className={styles.accordion_item}>
           <div
             className={styles.accordion_heading}
-            //  onClick={() => toggle(2)}
+          //  onClick={() => toggle(2)}
           >
             <h4>Payment Info</h4>
           </div>
@@ -304,7 +304,7 @@ const checkouttwo = () => {
         <div className={styles.accordion_item}>
           <div
             className={styles.accordion_heading}
-            // onClick={() => toggle(3)}
+          // onClick={() => toggle(3)}
           >
             <h4>Order Review</h4>
           </div>
@@ -336,7 +336,7 @@ const checkouttwo = () => {
               <div className={styles.payment_info}>
                 <div className={styles.shipping}>
                   <p>Shipping</p>
-                  <p>{addressDetails.firstname+" "+addressDetails.lastname}</p>
+                  <p>{addressDetails.firstname + " " + addressDetails.lastname}</p>
                   <p>{addressDetails.address}</p>
                   <p>{addressDetails.city}</p>
                   <p>{addressDetails.state}</p>
@@ -354,11 +354,11 @@ const checkouttwo = () => {
               </div>
 
               <button
-                // onClick={(e) => {
-                //   e.preventDefault();
-                //   // toggle(3);
-                //   setShoworder(true);
-                // }}
+              // onClick={(e) => {
+              //   e.preventDefault();
+              //   // toggle(3);
+              //   setShoworder(true);
+              // }}
               >
                 Order
               </button>

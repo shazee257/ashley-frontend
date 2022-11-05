@@ -13,7 +13,7 @@ import axios from "axios";
 import { next, back, selectStep } from "../app/features/stepSlice";
 
 import { useSelector, useDispatch } from "react-redux";
-import { selectCart } from "../app/features/cartSlice";
+import { selectCartProducts } from "../app/features/cartSlice";
 import { selectCheckout } from "../app/features/checkoutSlice";
 import { selectAddress, selectPayment } from "../app/features/stepSlice";
 
@@ -44,7 +44,7 @@ const products = [
 const steps = ["Shipping address", "Payment details", "Review your order"];
 
 export default function Review() {
-  const selectCartDetail = useSelector(selectCart);
+  const selectCartDetail = useSelector(selectCartProducts);
   const selectCheckoutDetail = useSelector(selectCheckout);
   const activeStep = useSelector(selectStep);
   const address = useSelector(selectAddress);

@@ -3,31 +3,14 @@ import Image from "next/image";
 
 import cart from "../styles/CartNew.module.scss";
 import { ImTruck } from "react-icons/im";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  removeFromCart,
-  incQuantity,
-  decQuantity,
-  selectCartProducts,
-} from "../app/features/cartSlice";
+import { useSelector } from "react-redux";
+import { selectCartProducts } from "../app/features/cartSlice";
 
 import { TiTickOutline } from "react-icons/ti";
 import { FiSettings } from "react-icons/fi";
 
 const CartItems = () => {
   const selectCartDetail = useSelector(selectCartProducts);
-  const dispatch = useDispatch();
-
-  const decQty = (id) => {
-    dispatch(decQuantity(id));
-  };
-  const incQty = (id) => {
-    dispatch(incQuantity(id));
-  };
-
-  const handleRemove = (id) => {
-    dispatch(removeFromCart(id));
-  };
 
   return (
     <div className={cart.cratitems_wrapper}>
