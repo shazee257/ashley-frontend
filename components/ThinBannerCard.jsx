@@ -1,8 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import banner from "../styles/ThinBannerCard.module.scss";
-import bg from "../components/assets/fur16.jpg";
-
 const ThinBannerCard = ({ categoryBanner }) => {
 
   const imgURL = `${process.env.NEXT_PUBLIC_uploadURL}/`;

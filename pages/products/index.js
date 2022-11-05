@@ -9,7 +9,6 @@ import ProductCard from "../../components/ProductCard";
 
 import product from "../../styles/ProductsNew.module.scss";
 
-import bed from "../assets/bed.webp";
 import Image from "next/image";
 import iconone from "../assets/iconone.PNG";
 import Link from "next/link";

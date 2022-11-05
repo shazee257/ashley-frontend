@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Financing from "../styles/Financing.module.scss";
 import financingmaindifferences from "./assets/financingmaindifferences.PNG";
-import bed from "./assets/bed.webp";
+// import bed from "./assets/bed.webp";
 import nocreditone from "./assets/nocreditone.PNG";
 import nocredittwo from "./assets/nocredittwo.PNG";
 import nocreditthree from "./assets/nocreditthree.PNG";
@@ -15,7 +15,7 @@ const financing = () => {
       <h6 className={Financing.small_heading}>LEASING & FINANCING</h6>
       <h5 className={Financing.heading_red}>Financing For Everyone!</h5>
       <div className={Financing.imagediv}>
-        <Image src={bed} layout="fill" className={Financing.image} />
+        {/* <Image src={bed} layout="fill" className={Financing.image} /> */}
       </div>
       <h5 className={Financing.heading_red}>Its Easy to Get Started</h5>
 

@@ -7,7 +7,6 @@ import { selectLoginData } from "../app/features/loginSlice";
 import { selectProducts } from "../app/features/productSlice";
 
 import styles from "../styles/Wishlist.module.scss";
-import wishlistimg from "./assets/fur12.jpg";
 import { AiFillHeart, AiOutlineDelete, AiOutlineHeart } from "react-icons/ai";
 import { MdOutlineClose } from "react-icons/md";
 import { toast } from "react-toastify";

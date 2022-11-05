@@ -46,9 +46,7 @@ import Slider from "react-slick";
 // import styles from "../styles/Practiceslider.module.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import bed from "../../assets/bed.webp";
 import ReactPlayer from "react-player";
-import fur12 from "../../assets/fur12.jpg";
 import BreadCrumbs from "../../../components/BreadCrumbs";
 import { addItemToCart } from "../../../app/features/cartSlice";
 
@@ -318,12 +316,12 @@ function ProductDetail({ product, reviews }) {
 
   return (
     <div className={productCss.product_detail_wrapper}>
-      {/* <BreadCrumbs
+      <BreadCrumbs
         parentCategoryTitle={parentCategory.title}
         categoryTitle={currentCategory.title}
         categorySlug={currentCategory.slug}
         productTitle={product.title}
-      /> */}
+      />
 
       <div className={productCss.img_and_detail}>
         <div className={productCss.image_detail}>

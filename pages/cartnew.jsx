@@ -12,7 +12,6 @@ import { fetchCategory } from "../app/features/categorySlice";
 import CartitemsNew from "../components/CartitemsNew";
 
 import cart from "../styles/CartNew.module.scss";
-import cartimage from "./assets/fur18.jpg";
 import { BsFillExclamationTriangleFill } from "react-icons/bs";
 import { MdLockOutline } from "react-icons/md";
 import paypal_logo from "../pages/assets/paypal_logo.png";

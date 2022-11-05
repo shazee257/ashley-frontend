@@ -8,7 +8,6 @@ import { fetchCategory } from "../app/features/categorySlice";
 
 // import CategoryCard from "../components/CategoryCard";
 
-import sofa from "./assets/fur12.jpg";
 import model from "./assets/model.jpg";
 import furniture from "../styles/Furniture.module.scss";
 import BannerCard from "../components/BannerCard";
