@@ -8,9 +8,8 @@ import { fetchCategory } from "../app/features/categorySlice";
 
 // import CategoryCard from "../components/CategoryCard";
 
-import model from "./assets/model.jpg";
-import furniture from "../styles/Furniture.module.scss";
-import BannerCard from "../components/BannerCard";
+// import furniture from "../styles/Furniture.module.scss";
+// import BannerCard from "../components/BannerCard";
 
 const Furniture = () => {
   const dispatch = useDispatch();

@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import about from "../styles/About.module.scss";
-import banner from "./assets/henry-ascroft-4RJYV_rkoeM-unsplash (1).jpg";
+import banner from "./assets/unsplash.jpg";
 import Image from "next/image";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 // from redux slices
 
 import { fetchProducts } from "../app/features/productSlice";
-import { fetchCategory, selectCategory } from "../app/features/categorySlice";
+import { fetchCategory } from "../app/features/categorySlice";
 
 const About = () => {
   const dispatch = useDispatch();

@@ -2,7 +2,7 @@ import React from "react";
 import conditions from "../styles/TermsCondition.module.scss";
 import Link from "next/link";
 import Image from "next/image";
-import termscondition from "./assets/term&condition.jpg";
+import termscondition from "./assets/terms.jpg";
 
 const termsCondition = () => {
   return (
@@ -31,14 +31,14 @@ const termsCondition = () => {
 
       {/* image */}
       <div className={conditions.img}>
-        <Link href="/terms&condition">
+        <Link href="/termscondition">
           <a>
             <Image
               src={termscondition}
               alt="logo"
-              // layout="fill"
-              // objectFit="contain"
-              // priority
+            // layout="fill"
+            // objectFit="contain"
+            // priority
             />
           </a>
         </Link>

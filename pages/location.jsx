@@ -1,16 +1,16 @@
 import React from "react";
 import Image from "next/image";
 import Location from "../styles/Location.module.scss";
-import locationOne from "./assets/locationOne.jpg";
-import locationTwo from "./assets/locationTwo.jpg";
-import locationThree from "./assets/locationThree.jpg";
+// import locationOne from "./assets/locationOne.jpg";
+// import locationTwo from "./assets/locationTwo.jpg";
+// import locationThree from "./assets/locationThree.jpg";
 // import locationFour from "./assets/locationFour.jpg";
-import locationFive from "./assets/locationFive.png";
-import locationSix from "./assets/locationSix.jpg";
-import locationSeven from "./assets/locationSeven.jpg";
+// import locationFive from "./assets/locationFive.png";
+// import locationSix from "./assets/locationSix.jpg";
+// import locationSeven from "./assets/locationSeven.jpg";
 // import locationEight from "./assets/locationEight.jpg";
 // import locationNine from "./assets/locationNine.jpg";
-import locationTen from "./assets/locationTen.jpg";
+// import locationTen from "./assets/locationTen.jpg";
 
 const locationnew = () => {
   return (
