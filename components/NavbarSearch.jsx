@@ -32,8 +32,10 @@ const NavbarSearch = () => {
   const wishlistCount = useSelector(selectWishlistCount);
 
 
-  const searchClickHandler = () =>
+  const searchClickHandler = (e) => {
+    e.preventDefault();
     searchTerm && router.push('/products?searchTerm=' + searchTerm);
+  }
 
   const logoutHandler = () => {
     axios.post(`${process.env.NEXT_PUBLIC_baseURL}/users/logout`, {}, { withCredentials: true })
@@ -83,14 +85,16 @@ const NavbarSearch = () => {
       </div>
 
       <div className={navsearch.navbar_search_input}>
-        <input
-          type="text"
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search..."
-        />
-        <div className={navsearch.icon} onClick={searchClickHandler}>
-          <FiSearch />
-        </div>
+        <form onSubmit={searchClickHandler}>
+          <input
+            type="text"
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search..."
+          />
+          <button type="submmit" className={navsearch.icon} >
+            <FiSearch />
+          </button>
+        </form>
       </div>
 
       <div className={navsearch.navbar_links_wrapper}>
