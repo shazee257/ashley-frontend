@@ -166,7 +166,7 @@ function Home({ categoriesData }) {
         <div className={styles.free_shipping}>
           {bannerCategoryProducts &&
             <>
-              <h4>Swith it up</h4>
+              <h4>Swith it up!</h4>
               <h2>Update your happy Place</h2>
             </>
           }

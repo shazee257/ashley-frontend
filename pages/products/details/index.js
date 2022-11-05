@@ -318,14 +318,14 @@ function ProductDetail({ product, reviews }) {
 
   return (
     <div className={productCss.product_detail_wrapper}>
-      <BreadCrumbs
+      {/* <BreadCrumbs
         parentCategoryTitle={parentCategory.title}
         categoryTitle={currentCategory.title}
         categorySlug={currentCategory.slug}
         productTitle={product.title}
-      />
+      /> */}
 
-      <div className={productCss.img_and_detail} key={product._id}>
+      <div className={productCss.img_and_detail}>
         <div className={productCss.image_detail}>
           {/* Large Image */}
           <div className={productCss.large_img_div}>
@@ -776,9 +776,8 @@ function ProductDetail({ product, reviews }) {
         <p className={productCss.realted_product_heading}>YOU MAY ALSO LIKE</p>
 
         <Slider {...siblingproductssettings}>
-          {/* cardWrapper one */}
           {siblingProductsExceptCurrent?.map((p) => (
-            <div className={productCss.realtedProduct_cardWrapper}>
+            <div className={productCss.realtedProduct_cardWrapper} key={p._id}>
               <div className={productCss.heart}>
                 <h4 className={productCss.icon}>
                   {isProductIdInWishlist(p._id) ?
@@ -794,7 +793,7 @@ function ProductDetail({ product, reviews }) {
                     src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${p.variants[0].features[0].images[0]}`}
                     alt="Picture of the author"
                     layout="fill"
-                    className={productCss.realted_product_image}
+                    className={productCss.realted_product_image} priority={true}
                   />
                 </div>
               </Link>
@@ -809,15 +808,10 @@ function ProductDetail({ product, reviews }) {
                 />
               </div>
               <h5>{`$${p.minPrice} - $${p.maxPrice}`}</h5>
-              {/* <p>or $49/mo w/6 mos special financing</p>
-                  <h4>Save 5% wid Code:LDSAVINGS</h4>
-                  <h3>Free Grounp Shipping</h3>
-                  <h2>More Products Options Available</h2> */}
             </div>
           ))}
         </Slider>
       </div>
-      {/* <ProductCarousal height={200} slider={selectedFeature.images} url={process.env.NEXT_PUBLIC_uploadURL} /> */}
     </div>
   );
 };

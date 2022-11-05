@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "../styles/Progressbar.module.scss";
 
-const ProgressBar = ({completed}) => {
-    console.log(completed);
+const ProgressBar = ({ completed }) => {
     // const { bgcolor, completed } = props;
     // const { completed } = props;
 
