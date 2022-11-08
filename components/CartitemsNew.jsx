@@ -3,27 +3,72 @@ import Image from "next/image";
 
 import cart from "../styles/CartNew.module.scss";
 import { ImTruck } from "react-icons/im";
-import { useSelector } from "react-redux";
-import { selectCartProducts } from "../app/features/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 import { TiTickOutline } from "react-icons/ti";
 import { FiSettings } from "react-icons/fi";
 
+import {
+  selectCartProducts,
+  incrementQuantity,
+  decrementQuantity,
+  removeItemFromCart,
+} from "../app/features/cartSlice";
+
+import { selectLoginData } from "../app/features/loginSlice";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { CART } from "../constants";
+
 const CartItems = () => {
-  const selectCartDetail = useSelector(selectCartProducts);
+  const cartProducts = useSelector(selectCartProducts);
+  const loginData = useSelector(selectLoginData);
+  const dispatch = useDispatch();
+
+  const cartUpdateAPI = async (userId, updateObj) => {
+    const { data } = await axios.put(`${process.env.NEXT_PUBLIC_baseURL}/cart/${userId}`, updateObj);
+    if (!(data.success)) {
+      console.log("data.message", data.message);
+      toast.error(data.message);
+    }
+  };
+
+  const removeCartItemHandler = async (userId, cartProductId) => {
+    const { data } = await axios.put(`${process.env.NEXT_PUBLIC_baseURL}/cart/${userId}/remove-item`, { cartProductId });
+    if (data.success) {
+      dispatch(removeItemFromCart(cartProductId));
+      toast.success(data.message);
+    }
+  }
+
+  const incrementQtyHandler = (cartItemId, qty) => {
+    if (qty < CART.MAX_QUANTITY) {
+      cartUpdateAPI(loginData.user_id, { cartItemId, operation: "increment", quantity: qty });
+      dispatch(incrementQuantity(cartItemId));
+    } else {
+      toast.error("Maximum quantity reached");
+    }
+  };
+
+  const decrementQtyHandler = (cartItemId, qty) => {
+    if (qty > CART.MIN_QUANTITY) {
+      dispatch(decrementQuantity(cartItemId));
+      cartUpdateAPI(loginData.user_id, { cartItemId, operation: "decrement", quantity: qty });
+    } else {
+      toast.error("Minimum quantity reached");
+    }
+  };
 
   return (
     <div className={cart.cratitems_wrapper}>
-      {selectCartDetail.length < 1 ? (
-        <h3>Cart is Empty</h3>
-      ) : (
-        selectCartDetail?.map((cartDetail) => (
-          <div className={cart.threediv} key={cartDetail._id}>
+      {cartProducts.length === 0 ? <h3>Cart is Empty</h3> : (
+        cartProducts?.map((item) => (
+          <div className={cart.threediv} key={item._id}>
             {/* one div  mycartimgdiv_wrapper */}
             <div className={cart.mycartimgdiv_wrapper}>
               <div className={cart.mycartimgdiv}>
                 <Image
-                  src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${cartDetail.image}`}
+                  src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${item.image}`}
                   alt="Loading..."
                   layout="fill"
                   className={cart.mycartimgdiv_img}
@@ -34,7 +79,7 @@ const CartItems = () => {
                 <span>Save for Later </span>
                 <span
                   className={cart.mycartimgdiv_wrapperspan}
-                  onClick={() => handleRemove(cartDetail.sku)}
+                  onClick={() => removeCartItemHandler(loginData.user_id, item._id)}
                 >
                   Remove Item
                 </span>
@@ -44,12 +89,12 @@ const CartItems = () => {
             {/* second div   cart detail wrapper*/}
             <div className={cart.cart_detail_wrapper}>
               <h6>
-                {cartDetail.title}
+                {item.title}
               </h6>
               <div className={cart.cart_item_color_size}>
-                <p className={cart.para}>  Item  : {cartDetail.sku}</p>
-                <p className={cart.para}>  Color : {cartDetail.color}</p>
-                <p className={cart.para}>  Size : {cartDetail.size}</p>
+                <p className={cart.para}>  Item  : {item.sku}</p>
+                <p className={cart.para}>  Color : {item.color}</p>
+                <p className={cart.para}>  Size : {item.size}</p>
               </div>
 
               <div className={cart.price_wrapper}>
@@ -60,17 +105,17 @@ const CartItems = () => {
                 <div className={cart.price_div}>
                   <div className={cart.qty}>
                     <p>
-                      <span onClick={() => decQty(cartDetail.sku)}>-</span>
-                      <span>{cartDetail.quantity}</span>
-                      <span onClick={() => incQty(cartDetail.sku)}>+</span>
+                      <span onClick={() => decrementQtyHandler(item._id, item.quantity)}>-</span>
+                      <span>{item.quantity}</span>
+                      <span onClick={() => incrementQtyHandler(item._id, item.quantity)}>+</span>
                     </p>
                   </div>
-                  <p className={cart.price_bold}>$ {cartDetail.price}</p>
+                  <p className={cart.price_bold}>${item.price}</p>
                 </div>
                 <div className={cart.price_div + " " + cart.price_div_upper_border}>
                   <p className={cart.item_total}>Item Total</p>
                   <p className={cart.price_bold}>
-                    $ {cartDetail.price * cartDetail.quantity}
+                    ${(item.price * item.quantity).toFixed(2)}
                   </p>
                 </div>
               </div>

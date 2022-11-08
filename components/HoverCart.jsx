@@ -20,16 +20,15 @@ const HoverCart = () => {
   const dispatch = useDispatch();
 
   const cartUpdateAPI = async (userId, updateObj) => {
-
     const { data } = await axios.put(`${process.env.NEXT_PUBLIC_baseURL}/cart/${userId}`, updateObj);
-    console.log("updateObj : ", updateObj);
-    console.log("data : ", data);
-    // data.success && toast.success(data.message);
+    if (!(data.success)) {
+      console.log("data.message", data.message);
+      toast.error(data.message);
+    }
   };
 
 
   const removeCartItemHandler = async (userId, cartProductId) => {
-    console.log("removeCartItemHandler", userId, cartProductId);
     const { data } = await axios.put(`${process.env.NEXT_PUBLIC_baseURL}/cart/${userId}/remove-item`, { cartProductId });
     if (data.success) {
       dispatch(removeItemFromCart(cartProductId));
@@ -40,7 +39,7 @@ const HoverCart = () => {
   const incrementQtyHandler = (cartItemId, qty) => {
     if (qty < CART.MAX_QUANTITY) {
       dispatch(incrementQuantity(cartItemId));
-      cartUpdateAPI(loginData.user_id, { cartItemId, operation: "increment" });
+      cartUpdateAPI(loginData.user_id, { cartItemId, operation: "increment", quantity: qty });
     } else {
       toast.error("Maximum quantity reached");
     }
@@ -49,7 +48,7 @@ const HoverCart = () => {
   const decrementQtyHandler = (cartItemId, qty) => {
     if (qty > CART.MIN_QUANTITY) {
       dispatch(decrementQuantity(cartItemId));
-      cartUpdateAPI(loginData.user_id, { cartItemId, operation: "decrement" });
+      cartUpdateAPI(loginData.user_id, { cartItemId, operation: "decrement", quantity: qty });
     } else {
       toast.error("Minimum quantity reached");
     }

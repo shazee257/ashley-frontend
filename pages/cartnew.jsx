@@ -22,46 +22,37 @@ const Cart = () => {
   const [togglepromocode, settogglepromocode] = useState(false);
 
   const dispatch = useDispatch();
-  const selectCartDetail = useSelector(selectCartProducts);
+  const cartProducts = useSelector(selectCartProducts);
   const router = useRouter();
 
-  useEffect(() => {
-    dispatch(fetchCategory());
-    dispatch(fetchProducts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchCategory());
+  //   dispatch(fetchProducts());
+  // }, [dispatch]);
 
-  const total =
-    selectCartDetail.length >= 1 &&
-    selectCartDetail
-      .map((detail) => {
-        return detail.price * detail.quantity;
-      })
-      .reduce((a, b) => {
-        return a + b;
-      });
+  const total = cartProducts.length > 0 && cartProducts
+    .map((detail) => {
+      return detail.price * detail.quantity;
+    })
+    .reduce((a, b) => {
+      return a + b;
+    });
 
   const taxes = total * 0.17;
   const grandTotal = total + taxes;
-  const productName = selectCartDetail.map((detail) => {
-    return detail.title;
-  });
-  const productQty = selectCartDetail.map((detail) => {
-    return detail.quantity;
-  });
-  const productPrice = selectCartDetail.map((detail) => {
-    return detail.price;
-  });
 
   const checkout = { total, taxes, grandTotal };
 
   const checkoutHandler = () => {
-    if (selectCartDetail.length >= 1) {
+    if (cartProducts.length >= 1) {
       dispatch(addToCheckout(checkout));
       router.push("/checkoutnew");
     } else {
       alert("please add items to cart");
     }
   };
+
+
 
   return (
     <div className={cart.cart_wrapper}>
@@ -80,7 +71,7 @@ const Cart = () => {
           <h2>
             My Cart
             <span>
-              ({selectCartDetail.length} items)
+              ({cartProducts.length} items)
             </span>
           </h2>
           <h6>
@@ -119,12 +110,12 @@ const Cart = () => {
             <div className={cart.cart_summary}>
               <h3>Order Summary</h3>
               <div className={cart.subtotal}>
-                <h4>Subtotal ({selectCartDetail.length} items)</h4>
-                <p>${total} </p>
+                <h4>Subtotal ({cartProducts.length} items)</h4>
+                <p>${total && (total).toFixed(2)}</p>
               </div>
               <div className={cart.taxes}>
                 <h4>Taxes</h4>
-                <p>$ {taxes.toFixed(2)}</p>
+                <p>${taxes.toFixed(2)}</p>
               </div>
               <div className={cart.total}>
                 <h4>Total</h4>
@@ -205,7 +196,7 @@ const Cart = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
