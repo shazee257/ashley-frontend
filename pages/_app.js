@@ -7,6 +7,7 @@ import "../styles/globals.scss";
 import { PersistGate } from "redux-persist/integration/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import styles from "../styles/App.module.scss";
 
 const MyApp = ({ Component, pageProps }) => {
   const [loading, setLoading] = useState(false);
@@ -40,9 +41,13 @@ const MyApp = ({ Component, pageProps }) => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         {loading && <LoadingPanel />}
-        <Navbar />
-        <Component {...pageProps} />
-        <Footer />
+        <div className={styles.app_wrapper}>
+          <Navbar />
+          <div className={styles.components_wrapper}>
+            <Component {...pageProps} />
+            <Footer />
+          </div>
+        </div>
       </PersistGate>
     </Provider>
   );

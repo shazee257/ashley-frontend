@@ -2,6 +2,7 @@
 
 .navbar_links_items_wrapper {
   width: 95%;
+  max-width: 2250px;
   margin: auto;
   height: 50px;
   @include flex-around;

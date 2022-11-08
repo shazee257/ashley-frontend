@@ -375,7 +375,17 @@
             }
 
             .button {
-              display: none;
+              width: 100%;
+              // display: none;
+              display: flex;
+              justify-content: center;
+              button{
+                margin: 10px 0px 0px 0px;
+                padding: 3px 5px;
+                height: 40px;
+                width: 120px;
+                font-size: 15px;
+              }
             }
 
             .mbbutton {
@@ -437,6 +447,16 @@ $breakpoint-small: 480px;
               // text-align: center;
               margin-top: 10px;
               font-size: 14px;
+            }
+            
+            .button {
+              button{
+                margin: 0px;
+                padding: 0px 3px;
+                height: 34px;
+                width: 100px;
+                font-size: 14px;
+              }
             }
 
             .req {

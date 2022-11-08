@@ -1,0 +1,11 @@
+@import "../styles/Variables.module.scss";
+
+.app_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .components_wrapper {
+        width: 100%;
+        max-width: 2250px;
+    }
+}

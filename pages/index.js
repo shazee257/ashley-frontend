@@ -77,21 +77,25 @@ function Home({ categoriesData }) {
   }, [dispatch]);
 
   // const parentCategories = categories?.filter((cat) => cat.parent_id === "");
-  const sliders = banners.filter((banner) => banner.type === 'slider');
-  const featureBanner = banners.filter((banner) => banner.type === 'custom');
-  const categoryBanner = banners.find((banner) => banner.type === 'category');
-  const bannerCategoryProducts = products?.filter((fp) => fp.category_id._id === categoryBanner?.category_id._id);
+  const sliders = banners.filter((banner) => banner.type === "slider");
+  const featureBanner = banners.filter((banner) => banner.type === "custom");
+  const categoryBanner = banners.find((banner) => banner.type === "category");
+  const bannerCategoryProducts = products?.filter(
+    (fp) => fp.category_id._id === categoryBanner?.category_id._id
+  );
 
   const getDiscountedCategories = async () => {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_baseURL}/products/discount/categories`);
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_baseURL}/products/discount/categories`
+    );
     setDiscountCategories(response.data.categories);
-  }
+  };
 
   const getFeatureProducts = async () => {
     const featuredProducts = products?.filter((fp) => fp.is_featured === true);
     // const response = await axios.get(`${process.env.NEXT_PUBLIC_baseURL}/products/featured`);
     setFeatureProducts(featuredProducts);
-  }
+  };
 
   // const getBanners = async () => {
   //   const { data } = await axios.get(`${process.env.NEXT_PUBLIC_baseURL}/banners`);
@@ -121,9 +125,10 @@ function Home({ categoriesData }) {
           <Image src={loader} alt="Loading..." height={100} width={100} />
         </h1>
       ) : ( */}
-      <div className={styles.home_wrapper} style={{}}>
+      <div className={styles.home_wrapper}>
         <Carousal
-          height={460}
+          // height={460}
+          height={600}
           slider={sliders}
           url={`${process.env.NEXT_PUBLIC_uploadURL}/banners/`}
         />
@@ -164,12 +169,12 @@ function Home({ categoriesData }) {
         </div>
 
         <div className={styles.free_shipping}>
-          {bannerCategoryProducts &&
+          {bannerCategoryProducts && (
             <>
               <h4>Swith it up!</h4>
               <h2>Update your happy Place</h2>
             </>
-          }
+          )}
           <Slider {...settings}>
             {bannerCategoryProducts?.map((item) => (
               <CategoryCard product={item} key={item._id} />
@@ -179,8 +184,10 @@ function Home({ categoriesData }) {
 
         <div className={styles.chatbot_wrapper}>
           <div className={styles.chatbot}>{botShow && <ChatBot />}</div>
-          <div className={styles.chatbot_icon}
-            onClick={() => setBotShow(!botShow)}>
+          <div
+            className={styles.chatbot_icon}
+            onClick={() => setBotShow(!botShow)}
+          >
             {botShow ? <AiOutlineDown /> : <BsChatDots />}
           </div>
         </div>
@@ -191,12 +198,14 @@ function Home({ categoriesData }) {
 }
 
 export const getServerSideProps = async () => {
-  const { data } = await axios(`${process.env.NEXT_PUBLIC_baseURL}/categories/fetch/categories`);
+  const { data } = await axios(
+    `${process.env.NEXT_PUBLIC_baseURL}/categories/fetch/categories`
+  );
   const categoriesData = data.categories;
 
   return {
     props: {
-      categoriesData
+      categoriesData,
     },
   };
 };
