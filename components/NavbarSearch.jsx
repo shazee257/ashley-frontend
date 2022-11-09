@@ -38,19 +38,19 @@ const NavbarSearch = () => {
   }
 
   const logoutHandler = () => {
-    axios.post(`${process.env.NEXT_PUBLIC_baseURL}/users/logout`, {}, { withCredentials: true })
-      .then(({ data }) => {
-        if (data.status === 200) {
-          // toast.success(data.message);
-          // remove all removable data from redux store on logout
-          dispatch(clearWishlist());
-          dispatch(setLogout());
-          dispatch(clearCart());
+    // axios.post(`${process.env.NEXT_PUBLIC_baseURL}/users/logout`, {},
+    //   // { withCredentials: true }
+    // )
+    //   .then(({ data }) => {
+    //     if (data.status === 200) {
+    dispatch(clearWishlist());
+    dispatch(setLogout());
+    dispatch(clearCart());
 
-          localStorage.removeItem("user");
-          router.push("/");
-        }
-      }).catch(err => console.log("err: ", err));
+    localStorage.removeItem("user");
+    router.push("/");
+    //   }
+    // }).catch(err => console.log("err: ", err));
   };
 
   return (
