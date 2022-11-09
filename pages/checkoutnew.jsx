@@ -70,6 +70,7 @@ const checkouttwo = () => {
   return (
     <div className={styles.accordion_container}>
       <div className={styles.accordion_wrapper}>
+        {/* one */}
         <div className={styles.accordion_item}>
           <div
             className={styles.accordion_heading}
@@ -134,7 +135,7 @@ const checkouttwo = () => {
                 />
                 <input
                   type="text"
-                  placeholder="Enter Apt, Unit, Floor"
+                  placeholder="Enter here"
                   className={styles.optional_input}
                   name="unit"
                   value={order.unit}
@@ -202,16 +203,19 @@ const checkouttwo = () => {
                 />
               </div>
 
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  // toggle(2);
-                  dispatch(addAddress(order));
-                  setShowpayment(true);
-                }}
-              >
-                Continue
-              </button>
+              <div className={styles.btn_div}>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    // toggle(2);
+                    dispatch(addAddress(order));
+                    setShowpayment(true);
+                  }}
+                >
+                  Continue
+                </button>
+              </div>
+
             </div>
           </div>
         </div>
@@ -286,16 +290,18 @@ const checkouttwo = () => {
                 />
               </div>
 
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  // toggle(3);
-                  dispatch(addPayment(payment));
-                  setShoworder(true);
-                }}
-              >
-                Submit
-              </button>
+              <div className={styles.btn_div}>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    // toggle(3);
+                    dispatch(addPayment(payment));
+                    setShoworder(true);
+                  }}
+                >
+                  Submit
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -321,16 +327,16 @@ const checkouttwo = () => {
           >
             <div className={styles.content_filter_wrapper}>
               <div className={styles.total}>
-                <span>Total</span>
-                <span>${checkoutDetail.total}</span>
+                <p>Total</p>
+                <p className={styles.total_bold}>${(checkoutDetail.total).toFixed(2)}</p>
               </div>
               <div className={styles.total}>
-                <span>Taxes</span>
-                <span>${checkoutDetail.taxes}</span>
+                <p>Taxes</p>
+                <p className={styles.total_bold}>${(checkoutDetail.taxes).toFixed(2)}</p>
               </div>
-              <div className={styles.total}>
-                <span>Grand Total</span>
-                <span>${checkoutDetail.grandTotal}</span>
+              <div className={styles.total + " " + styles.Grand_total}>
+                <p className={styles.total_bold}>Grand Total</p>
+                <p className={styles.total_bold}>${(checkoutDetail.grandTotal).toFixed(2)}</p>
               </div>
 
               <div className={styles.payment_info}>
@@ -353,15 +359,17 @@ const checkouttwo = () => {
                 </div>
               </div>
 
-              <button
-              // onClick={(e) => {
-              //   e.preventDefault();
-              //   // toggle(3);
-              //   setShoworder(true);
-              // }}
-              >
-                Order
-              </button>
+              <div className={styles.btn_div}>
+                <button
+                // onClick={(e) => {
+                //   e.preventDefault();
+                //   // toggle(3);
+                //   setShoworder(true);
+                // }}
+                >
+                  Order
+                </button>
+              </div>
             </div>
           </div>
         </div>

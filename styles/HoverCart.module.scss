@@ -23,7 +23,8 @@
 
       .card_img_info {
         @include flex-column;
-        align-items: center;
+        // align-items: center;
+        align-items: flex-start;
         width: 100%;
         justify-content: space-between;
         flex-direction: column-reverse;
@@ -38,6 +39,7 @@
         .info {
           margin-top: 20px;
           @include flex-column;
+          justify-content: flex-start;
 
           .name_color_size {
             @include flex-column;
