@@ -100,10 +100,12 @@ const NavbarSearch = () => {
       <div className={navsearch.navbar_links_wrapper}>
         {loginData ? (
           <div className={navsearch.links + " " + navsearch.links_account}>
-            <Link href="/" className={navsearch.links}>
-              <a>
-                <CgProfile style={{ fontSize: 20, color: "grey", margin: "auto" }} />
-                {loginData.first_name}
+            <Link href="/">
+              <a className={navsearch.login_hanker_link}>
+                {/* <CgProfile style={{ fontSize: 20, color: "grey", margin: "auto" }} /> */}
+                <CgProfile className={navsearch.login_icon} />
+                {/* {loginData.first_name} */}
+                <span className={navsearch.login_name} >{loginData.first_name}</span>
               </a>
             </Link>
             <div className={navsearch.account}>

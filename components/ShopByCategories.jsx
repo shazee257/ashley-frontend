@@ -60,7 +60,8 @@ const ShopByCategories = ({ categoriesData }) => {
             onClick={() => catClickHandler(i)}
             style={
               catIndex === i
-                ? { borderBottom: "2px solid grey", fontWeight: "bolder" }
+              ? {textDecoration:"underline" , fontWeight: "bolder" , paddingBottom:"5px" }
+                // ? { borderBottom: "2px solid grey", fontWeight: "bolder" , paddingBottom:"5px" }
                 : { border: 0 }
             }
           >
@@ -81,7 +82,7 @@ const ShopByCategories = ({ categoriesData }) => {
             />
           </div>
           <div className={styles.shopby_categories_cart_link}>
-            Shop All {newselectedCategory.title}
+            <span className={styles.title_name}> Shop All {newselectedCategory.title}</span> 
             <span>
               <IoIosArrowDroprightCircle />
             </span>

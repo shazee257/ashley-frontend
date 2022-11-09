@@ -31,8 +31,22 @@
   }
 }
 
-@media (max-width: $breakpoint-large) { 
+@media (max-width: $breakpoint-xl-large) { 
+  .carousal_wrapper {
+    height: 430px;
+  
+    @include flex-column;
+  
+    .carousal {
+      height: 430px;
+      .img {
+        height: 430px;
+      }
+    }
+  }
+}
 
+@media (max-width: $breakpoint-large) { 
   .carousal_wrapper {
     height: 380px;
   

@@ -66,7 +66,6 @@
       }
     }
 
-    
     .shopby_categories_headings_hidden {
       width: 100%;
       @include flex-center;
@@ -131,10 +130,7 @@
         @include flex-between;
         flex-wrap: wrap;
         align-items: center;
-
-        // align-content: space-between;
         .shopby_categories_small_card {
-          // box-shadow: 0 0 5px $light-grey;
           cursor: pointer;
           width: 49%;
           height: 210px;
@@ -159,9 +155,9 @@
 
           p {
             font-weight: 500;
-            margin: 0;
+            margin: 0px;
             padding: 5px;
-            width: 80%;
+            width: 100%;
             text-align: center;
           }
         }
@@ -275,12 +271,40 @@
         }
       }
 
+      .shopby_categories_headings_hidden {
+        font-size: 14px;
+        p {
+          letter-spacing: 1px;
+        }
+      }
+
       .shopby_categories_content {
-        .shopby_categories_small_cards {
-          .shopby_categories_small_card {
-            p {
-              font-size: 14px;
+        padding-bottom: 8px;
+        .shopby_categories_bigcard {
+          height: 550px;
+
+          .shopby_categories_card_image {
+            height: 500px;
+          }
+
+          .shopby_categories_cart_link {
+            height: 50px;
+
+            .title_name {
+              font-size: 20px;
             }
+          }
+        }
+        .shopby_categories_small_cards {
+          height: 550px;
+
+          .shopby_categories_small_card {
+            height: 180px;
+            font-size: 14px;
+          }
+
+          p {
+            font-size: 12.5px;
           }
         }
       }
@@ -318,8 +342,8 @@
       }
 
       .shopby_categories_headings {
-        @include flex-center;
         margin: 10px 0;
+        padding: 0px 0px 10px 0px;
         display: flex;
         @include flex-column;
         width: 45%;
@@ -329,7 +353,7 @@
           width: 100%;
           padding-left: 5px;
           padding-top: 10px;
-          text-align: left;
+          text-align: center;
         }
       }
 
@@ -340,6 +364,11 @@
         .shopby_categories_bigcard {
           width: 95%;
           height: 400px;
+          .shopby_categories_cart_link {
+            span {
+              font-size: 24px;
+            }
+          }
         }
 
         .shopby_categories_small_cards {

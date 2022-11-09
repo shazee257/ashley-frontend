@@ -5,7 +5,7 @@
   width: 95%;
   max-width: 2250px;
   margin: auto;
-  padding:0px;
+  padding: 0px;
   font-family: $open-sans;
   display: flex;
   align-items: center;
@@ -21,7 +21,6 @@
     margin-left: 0px;
 
     a {
-      // @include flex-center;
       height: 100%;
       width: 160px;
       position: relative;
@@ -32,12 +31,8 @@
     width: 250px;
     display: flex;
     justify-content: center;
-    // @include flex-column;
     cursor: pointer;
     color: $light-grey;
-    // margin: 0 2px;
-    
-    // background: #000;
 
     p {
       margin: 0;
@@ -53,27 +48,16 @@
   }
 
   .navbar_search_input {
-    // flex: 1;
     margin: 0 20px;
     margin-left: 10px;
     position: relative;
-
-    // display: flex;
-
     width: 60%;
     border: 1px solid rgb(232, 232, 232);
     border-radius: 50px;
 
     input {
       height: 40px;
-      // flex: 1;
-      // border-radius: 50px;
-      // border: 1px solid rgb(232, 232, 232);
-      // color: rgb(94, 91, 91);
       padding: 0 30px;
-      // display: flex;
-      // align-items: center;
-
       border: none;
       border-radius: 50px;
       position: relative;
@@ -108,23 +92,35 @@
 
   .navbar_links_wrapper {
     position: relative;
-
     display: flex;
     align-items: center;
 
     .links_account {
       @include flex-center;
-      margin: 0 6px;
       font-size: 12px;
       font-weight: 500;
       height: 30px;
-      text-align: left;
+      text-align: center;
       border-right: 1px solid rgba(94, 91, 91, 0.459);
       padding-right: 10px;
 
       &:hover .account {
+        top: 55px;
         height: auto;
         padding: 20px;
+      }
+
+      .login_hanker_link {
+        .login_icon {
+          font-size: 20px;
+          color: grey;
+          margin: auto;
+        }
+
+        .login_name {
+          font-size: 12px;
+          margin: auto;
+        }
       }
     }
 
@@ -179,11 +175,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      // @include flex-center;
       height: 50px;
       border-radius: 50%;
-      // padding-right: 10px;
-      // position: relative;
       margin: 0 2px;
 
       .cart_detail {
@@ -208,14 +201,12 @@
 
         .cart_detail {
           height: auto;
-          padding:0px 10px;
-          // width: 20vw;
+          padding: 0px 10px;
           width: auto;
         }
       }
 
       .cart_icon {
-        // @include flex-around;
         font-size: 20px;
         color: rgba(94, 91, 91, 0.712);
         padding: 0;
@@ -284,6 +275,9 @@
       p.links {
         display: none;
       }
+      .links_account {
+        margin-right: 2px;
+      }
 
       .icon_wrapper {
         .cart_detail {
@@ -293,11 +287,11 @@
           font-size: 14px;
         }
 
-        &:hover {
-          .cart_detail {
-            padding: 14px;
-          }
-        }
+        // &:hover {
+        //   .cart_detail {
+        //      padding: 14px;
+        //   }
+        // }
       }
     }
   }
@@ -336,13 +330,32 @@
     }
 
     .navbar_links_wrapper {
+      .links_account {
+        padding-right: 6px;
+
+        &:hover .account {
+          // top: 45px;
+          display: none;
+        }
+
+        .login_hanker_link {
+          .login_icon {
+            font-size: 17px;
+          }
+
+          .login_name {
+            font-size: 10px;
+          }
+        }
+      }
       .icon_wrapper {
         width: 40px;
         height: 40px;
 
         .cart_detail {
-          top: 50px;
-          width: 130px;
+          // top: 50px;
+          // width: 130px;
+          display: none;
         }
 
         &:hover {
@@ -403,15 +416,32 @@
     }
 
     .navbar_links_wrapper {
+      .links_account {
+        padding-right: 4px;
+        padding-left: 2px;
+
+        // &:hover .account {
+        //   top: 40px;
+        // }
+        .login_hanker_link {
+          .login_icon {
+            font-size: 14px;
+          }
+
+          .login_name {
+            font-size: 7px;
+          }
+        }
+      }
       .icon_wrapper {
         width: 29px;
         height: 29px;
 
-        .cart_detail {
-          top: 40px;
-          width: 100px;
-          font-size: 12px;
-        }
+        // .cart_detail {
+        //   top: 40px;
+        //   width: 100px;
+        //   font-size: 12px;
+        // }
 
         .cart_icon {
           .icon {
@@ -423,6 +453,25 @@
             right: -4px;
           }
         }
+      }
+    }
+  }
+}
+
+@media (max-width: 330px) {
+  .navbar_search_wrapper {
+    .navbar_search_input {
+      input {
+        height: 25px;
+
+        &::placeholder {
+          font-size: 12px;
+        }
+      }
+      .icon {
+        top: 6px;
+        right: 7px;
+        font-size: 13px;
       }
     }
   }

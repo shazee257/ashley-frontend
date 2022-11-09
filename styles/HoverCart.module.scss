@@ -271,3 +271,55 @@
     }
   }
 }
+
+
+@media (max-width: $breakpoint-xl-large) {
+  .main {
+    .empty_card_heading {
+      width: 15vw;
+
+      // text-align: center;
+      // font-size: 15px;
+      // padding: 12px 10px;
+    }
+
+    .hover_cart {
+      .card {
+        width: 25vw;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-large) {
+  .main {
+    .empty_card_heading {
+      width: 17vw;
+      font-size: 13px;
+      // width: 20vw;
+      // width: 20vw;
+      // padding: 9px 7px;
+
+      // text-align: center;
+      // font-size: 15px;
+      // padding: 12px 10px;
+    }
+    .hover_cart {
+      .card {
+        width: 30vw;
+      }
+    }
+  }
+}
+
+// @media (max-width: $breakpoint-medium) {
+//   .main {
+//     display: none;
+//     .hover_cart {
+//       display: none;
+//       // .card {
+//       //   width: 40vw;
+//       // }
+//     }
+//   }
+// }
