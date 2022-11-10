@@ -31,26 +31,22 @@ const NavbarSearch = () => {
   const loginData = useSelector(selectLoginData);
   const wishlistCount = useSelector(selectWishlistCount);
 
-
   const searchClickHandler = (e) => {
     e.preventDefault();
     searchTerm && router.push('/products?searchTerm=' + searchTerm);
   }
 
   const logoutHandler = () => {
-    // axios.post(`${process.env.NEXT_PUBLIC_baseURL}/users/logout`, {},
-    //   // { withCredentials: true }
-    // )
-    //   .then(({ data }) => {
-    //     if (data.status === 200) {
-    dispatch(clearWishlist());
-    dispatch(setLogout());
-    dispatch(clearCart());
-
-    localStorage.removeItem("user");
-    router.push("/");
-    //   }
-    // }).catch(err => console.log("err: ", err));
+    axios.post(`${process.env.NEXT_PUBLIC_baseURL}/users/logout`, {},
+      { withCredentials: true }
+    ).then(({ data }) => {
+      if (data.success) {
+        dispatch(clearWishlist());
+        dispatch(setLogout());
+        dispatch(clearCart());
+        router.push("/");
+      }
+    }).catch(err => console.log("err: ", err));
   };
 
   return (
