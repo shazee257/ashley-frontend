@@ -26,7 +26,7 @@ const Login = () => {
 
     axios
       .post(`${process.env.NEXT_PUBLIC_baseURL}/users/login`, userObj,
-        // { withCredentials: true }
+        { withCredentials: true }
       ).then(({ data }) => {
         if (data.success) {
           dispatch(setLogin(data.authData));
