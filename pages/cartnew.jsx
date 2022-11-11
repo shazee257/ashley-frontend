@@ -52,8 +52,6 @@ const Cart = () => {
     }
   };
 
-
-
   return (
     <div className={cart.cart_wrapper}>
       <div className={cart.cart_content}>
@@ -95,12 +93,15 @@ const Cart = () => {
         </div>
         <div className={cart.cart}>
           <div className={cart.cart_items}>
-            <div className={cart.cart_item_heading}>
-              <span>items</span>
-              <p>
-                Availability and Delivery Options based on zip code{" "}
-                <span>75500</span>
-              </p>
+            <div className={cart.cart_item_heading_wrapper}>
+              <div className={cart.cart_item_heading}>
+                <p className={cart.cart_item_name}>items</p>
+                <p className={cart.cart_item_zipcode}>
+                  <span className={cart.hide_mobile}>Availability and Delivery Options based on</span>   zip code
+                  <span className={cart.zip_code_num}>75500</span>
+                </p>
+              </div>
+
             </div>
             <div className={cart.cart_item}>
               <CartitemsNew />
@@ -148,10 +149,11 @@ const Cart = () => {
               <div className={cart.adbvantage_card}>
                 <div className={cart.adbvantage_card_icondiv}>
                   <RiBankCard2Fill className={cart.adbvantage_card_icon} />
-                  <span> Furniture Mecca Advantage™ Card</span>
+                  <p className={cart.adbvantage_card_icon_sub_heading}> Furniture Mecca Advantage™ Card</p>
                 </div>
-                <p>Special Financing Options Available Prequalify Now</p>
+                <p className={cart.adbvantage_card_para}>Special Financing Options Available Prequalify Now</p>
               </div>
+
               {/* Secure Checkout */}
               <div className={cart.checkout_btn}>
                 <button onClick={checkoutHandler}>

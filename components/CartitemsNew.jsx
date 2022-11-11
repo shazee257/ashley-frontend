@@ -72,6 +72,7 @@ const CartItems = () => {
                   alt="Loading..."
                   layout="fill"
                   className={cart.mycartimgdiv_img}
+                  priority={true}
                 />
               </div>
 
@@ -171,6 +172,7 @@ const CartItems = () => {
               </div>
 
               {/* expert_services */}
+
               <div className={cart.expert_services}>
                 <p className={cart.expert_heading}> Add Expert Services</p>
                 <div className={cart.expert_details}>
@@ -187,11 +189,11 @@ const CartItems = () => {
                     <FiSettings className={cart.expert_services_icon} />
                   </div>
                   <div className={cart.expert_services_details}>
-                    <p>
+                    <p className={cart.how_work_link_wrapper}>
                       Expert Assembly & installation by Handy
                     </p>
-                    <p>
-                      $102.50 (applies per items) | <span className={cart.how_work_link}> How it Works</span>
+                    <p className={cart.how_work_link_wrapper}>
+                      $102.50 (applies per items) <br /> <span className={cart.how_work_link}> How it Works</span>
                     </p>
                   </div>
                 </div>
