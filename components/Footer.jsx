@@ -68,7 +68,7 @@ const Footer = () => {
           <Link href="/financing" className={footer.links}>
             <a>Financing</a>
           </Link>
-          <Link href="/termsCondition" className={footer.links}>
+          <Link href="/termscondition" className={footer.links}>
             <a>Terms & Condition</a>
           </Link>
           <Link href="/faqs" className={footer.links}>

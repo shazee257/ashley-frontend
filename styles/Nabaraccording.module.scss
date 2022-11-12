@@ -4,7 +4,8 @@
   cursor: pointer;
   width: 100%;
   border-top: 1px solid $extra-light-grey;
-  height: 61vh;
+  // height: 61vh;
+  height: 53vh;
   overflow-y: scroll;
 
   .accordion_item {
@@ -62,8 +63,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 3px 10px;
-    margin-top: 10px;
+    margin: 12px 10px 3px 10px;
     h3 {
       color: $red;
       font-size: 16px;
@@ -80,13 +80,15 @@
     margin-top: 0px;
     max-height: 9999px;
     transition: max-height 3s ease-in-out 0s;
-    margin-bottom: 10spx;
+    margin-bottom: 10px;
 
     h5 {
-      margin-top: 0px;
-      margin-left: 20px;
+      // margin-top: 0px;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 400;
+      padding: 5px 0px;
+      padding-left: 20px;
+      // margin-left: 10px;
     }
   }
 }

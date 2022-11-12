@@ -1,6 +1,5 @@
 @import "./Variables.module.scss";
 
-
 .navbar_wrapper {
   width: 100%;
   font-family: "Open Sans", sans-serif;
@@ -156,7 +155,7 @@
   }
 
   .navbar_chat {
-    margin:0px auto;
+    margin: 0px auto;
     width: 100%;
     max-width: 2250px;
     height: 40px;
@@ -192,9 +191,6 @@
   }
 }
 
-
-
-
 @media (max-width: $breakpoint-large) {
   .navbar_wrapper {
     .navbar_kids_page_navigator_wrapper {
@@ -221,38 +217,33 @@
     .discount_line {
       background-color: $dark-grey;
       height: 32px;
-      font-size: 17px;
+      font-size: 15px;
     }
   }
 }
 
-
-@media (max-width: $breakpoint-large) {
-
+@media (max-width: $breakpoint-medium) {
   .navbar_wrapper {
-
     .navbar_chat {
       h6 {
-        font-size: 14px;
+        font-size: 13.5px;
       }
     }
 
     .discount_line {
+      padding: 2px 5px;
       height: 40px;
-      font-size: 14px;
+      font-size: 13px;
     }
   }
 }
 
-
 @media (max-width: $breakpoint-small) {
   .navbar_wrapper {
     .navbar_chat {
-
       p {
-
-        font-size: 14px;
-
+        font-size: 13px;
+        font-weight: 600;
         .icon {
           margin: 0 5px;
         }
@@ -261,8 +252,7 @@
 
     .discount_line {
       height: 42px;
-      font-size: 14px;
+      font-size: 12px;
     }
-
   }
 }

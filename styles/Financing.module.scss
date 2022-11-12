@@ -2,7 +2,8 @@
 
 .Financing_wrapper {
   width: 95%;
-  margin: 40px 0px;
+  max-width: 1600px;
+  margin: 40px auto;
   padding-left: 50px;
 
   .small_heading {
@@ -18,9 +19,10 @@
   }
 
   .imagediv {
+    margin: auto;
     margin-top: 40px;
-    width: 100%;
-    height: 420px;
+    width: 80%;
+    height: 450px;
     position: relative;
     border-radius: 20px;
     .image {
@@ -81,6 +83,7 @@
         text-align: center;
       }
       ul {
+        margin-top: 10px;
         padding-left: 50px;
         font-style: normal;
         li {
@@ -89,9 +92,13 @@
           font-size: 16px;
         }
       }
-
+      // .creditOptions_div_two_alignment_issue {
+      //   padding-top: 33px;
+      //   margin-bottom: 33px;
+      // }
       .creditOptionsimg_div {
         margin: auto;
+        margin-top: 20px;
         width: 90%;
         height: 280px;
         position: relative;
@@ -101,6 +108,25 @@
         }
       }
     }
+  }
+}
+
+@media (max-width: $breakpoint-xl-large) {
+  .Financing_wrapper {
+    // margin: 30px 0px;
+    .imagediv {
+      width: 90%;
+      height: 400px;
+    }
+
+    // .creditOptions_wrapper {
+    //   .creditOptions_div {
+    //     .creditOptions_div_two_alignment_issue {
+    //       padding-top: 0px;
+    //       margin-bottom: 0px;
+    //     }
+    //   }
+    // }
   }
 }
 
@@ -118,6 +144,9 @@
 
     .creditOptions_wrapper {
       .creditOptions_div {
+        ul {
+          padding-left: 15px;
+        }
         .creditOptionsimg_div {
           height: 230px;
         }
@@ -139,7 +168,8 @@
 
     .imagediv {
       margin-top: 20px;
-      height: 250px;
+      width: 100%;
+      height: 280px;
     }
 
     .getstart_wrapper {
@@ -148,26 +178,32 @@
       .getstart_div {
         width: 80%;
         margin: auto;
-        p {
+        h4 {
           margin-top: 0px;
+        }
+        .getstart_heading_margin {
+          margin-top: 25px;
+        }
+        p {
+          margin-top: 10px;
         }
       }
     }
 
     .differenceimagediv {
-      margin-top: 10px;
+      margin-top: 40px;
       width: 100%;
       height: 150px;
     }
 
     .heading {
-      margin-top: 30px;
+      margin-top: 15px;
       font-size: 32px;
     }
 
     .creditOptions_wrapper {
       flex-direction: column;
-      margin-top: 20px;
+      margin-top: 10px;
       .creditOptions_div {
         width: 100%;
         border-bottom: 3px solid $extra-light-grey;
@@ -177,11 +213,17 @@
           margin-top: 10px;
         }
         ul {
+          margin-top: 10px;
           padding-left: 30px;
           li {
             line-height: 29px;
           }
         }
+
+        // .creditOptions_div_two_alignment_issue {
+        //   padding-top: 0px;
+        //   margin-bottom: 0px;
+        // }
       }
 
       .remove_bottom_bordoer {
@@ -206,6 +248,14 @@
       margin-top: 20px;
       .getstart_div {
         width: 100%;
+
+        .getstart_heading_margin {
+          margin-top: 20px;
+        }
+
+        p {
+          margin-top: 5px;
+        }
       }
     }
 
@@ -213,22 +263,31 @@
       font-size: 22px;
     }
 
+    .differenceimagediv {
+      margin-top: 20px;
+    }
+
     .creditOptions_wrapper {
       flex-direction: column;
-      margin-top: 20px;
+      margin-top: 10px;
       .creditOptions_div {
         h3 {
           margin-top: 5px;
           font-size: 19px;
         }
         ul {
-          padding-left: 20px;
+          margin-top: 5px;
+          padding-left: 5px;
           li {
+            font-size: 14px;
+            margin-top: 5px;
             line-height: 26px;
           }
         }
 
         .creditOptionsimg_div {
+          margin-top: 10px;
+          width: 95%;
           height: 170px;
         }
       }
