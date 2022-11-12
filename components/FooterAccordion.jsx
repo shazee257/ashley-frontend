@@ -129,7 +129,7 @@ const NavbarAccordion = () => {
           <Link href="/financing">
             <h3>Financing</h3>
           </Link>
-          <Link href="/termsCondition">
+          <Link href="/termscondition">
             <h3>Terms & Conditions</h3>
           </Link>
           <Link href="/faqs">

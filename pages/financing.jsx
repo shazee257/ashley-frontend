@@ -15,14 +15,14 @@ const financing = () => {
       <h6 className={Financing.small_heading}>LEASING & FINANCING</h6>
       <h5 className={Financing.heading_red}>Financing For Everyone!</h5>
       <div className={Financing.imagediv}>
-        {/* <Image src={bed} layout="fill" className={Financing.image} /> */}
+        {/* <Image src={bed} layout="fill" className={Financing.image} priority={true} /> */}
       </div>
       <h5 className={Financing.heading_red}>Its Easy to Get Started</h5>
 
       {/* getstart_wrapper */}
       <div className={Financing.getstart_wrapper}>
         <div className={Financing.getstart_div}>
-          <h4>GET APPROVED</h4>
+          <h4 >GET APPROVED</h4>
           <p>
             Choose one of the finance options below.We offer no credit needed
             financing to traditional financing.it's fast and convenient! Once
@@ -31,14 +31,14 @@ const financing = () => {
           </p>
         </div>
         <div className={Financing.getstart_div}>
-          <h4>SHOP</h4>
+          <h4 className={Financing.getstart_heading_margin}>SHOP</h4>
           <p>
             We want to help you get what you need, Shop online or use our Store
             Locator to find a furniture Mecca store near you and get shopping!
           </p>
         </div>
         <div className={Financing.getstart_div}>
-          <h4>CHECK OUT</h4>
+          <h4 className={Financing.getstart_heading_margin}>CHECK OUT</h4>
           <p>
             We make your lease-purchase financing experience as simple and easy
             as possible.you'll receive an instant email with access to your
@@ -54,6 +54,7 @@ const financing = () => {
           src={financingmaindifferences}
           layout="fill"
           className={Financing.image}
+          priority={true}
         />
       </div>
 
@@ -81,14 +82,15 @@ const financing = () => {
               src={nocreditone}
               layout="fill"
               className={Financing.image}
+              priority={true}
             />
           </div>
         </div>
 
         {/*no creditOptions_div two */}
-        <div className={Financing.creditOptions_div}>
+        {/* <div className={Financing.creditOptions_div}>
           <h3>Get approved for up to $5000</h3>
-          <ul>
+          <ul className={Financing.creditOptions_div_two_alignment_issue}>
             <li>101 Day Early Buyout/Payoff Period</li>
             <li>6-24 Month Payment Options</li>
             <li>100% Completely Paperless Transaction</li>
@@ -99,6 +101,29 @@ const financing = () => {
               src={nocredittwo}
               layout="fill"
               className={Financing.image}
+              priority={true}
+            />
+          </div>
+        </div> */}
+        <div className={Financing.creditOptions_div}>
+          <h3>Get approved for up to $3000</h3>
+          <ul>
+            <li>No Credit Needed</li>
+            <li>12 Month Leasing Option</li>
+            <li>120 Days 5% Buy Out Option</li>
+            <li>Flexible Lease Terms.</li>
+            <li>
+              e Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry.
+            </li>
+            <li>$49 Processsing Fees Collected AFTER DELIVERY</li>
+          </ul>
+          <div className={Financing.creditOptionsimg_div}>
+            <Image
+              src={nocreditfive}
+              layout="fill"
+              className={Financing.image}
+              priority={true}
             />
           </div>
         </div>
@@ -122,6 +147,7 @@ const financing = () => {
               src={nocreditthree}
               layout="fill"
               className={Financing.image}
+              priority={true}
             />
           </div>
         </div>
@@ -142,6 +168,7 @@ const financing = () => {
               src={nocreditfour}
               layout="fill"
               className={Financing.image}
+              priority={true}
             />
           </div>
         </div>
@@ -150,7 +177,7 @@ const financing = () => {
       {/*no creditOptions_wrapper three */}
       <div className={Financing.creditOptions_wrapper}>
         {/*no creditOptions_div five */}
-        <div className={Financing.creditOptions_div}>
+        {/* <div className={Financing.creditOptions_div}>
           <h3>Get approved for up to $3000</h3>
           <ul>
             <li>No Credit Needed</li>
@@ -168,6 +195,25 @@ const financing = () => {
               src={nocreditfive}
               layout="fill"
               className={Financing.image}
+              priority={true}
+            />
+          </div>
+        </div> */}
+
+        <div className={Financing.creditOptions_div}>
+          <h3>Get approved for up to $5000</h3>
+          <ul className={Financing.creditOptions_div_two_alignment_issue}>
+            <li>101 Day Early Buyout/Payoff Period</li>
+            <li>6-24 Month Payment Options</li>
+            <li>100% Completely Paperless Transaction</li>
+            <li>Day One Owernership on credit products serviced by AFF</li>
+          </ul>
+          <div className={Financing.creditOptionsimg_div}>
+            <Image
+              src={nocredittwo}
+              layout="fill"
+              className={Financing.image}
+              priority={true}
             />
           </div>
         </div>
@@ -191,6 +237,7 @@ const financing = () => {
               src={nocreditthree}
               layout="fill"
               className={Financing.image}
+              priority={true}
             />
           </div>
         </div>
@@ -209,6 +256,7 @@ const financing = () => {
               src={nocreditfour}
               layout="fill"
               className={Financing.image}
+              priority={true}
             />
           </div>
         </div>
