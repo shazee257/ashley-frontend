@@ -2,10 +2,17 @@ const { createSlice } = require("@reduxjs/toolkit");
 
 const checkoutSlice = createSlice({
   name: "activeSteps",
-  initialState: { checkout: null },
+  initialState: {
+    total: 0,
+    taxes: 0,
+    grandTotal: 0,
+
+  },
   reducers: {
     addToCheckout(state, action) {
-      state.checkout = action.payload;
+      state.total = action.payload.total;
+      state.taxes = action.payload.taxes;
+      state.grandTotal = action.payload.grandTotal;
     },
     // removeFromCart(state, action) {
     //   return state.filter((item) => item.sku !== action.payload);
@@ -32,4 +39,4 @@ const checkoutSlice = createSlice({
 
 export const { addToCheckout } = checkoutSlice.actions;
 export default checkoutSlice.reducer;
-export const selectCheckout = (state) => state.checkout.checkout;
+export const selectCheckout = (state) => state.checkout.data;

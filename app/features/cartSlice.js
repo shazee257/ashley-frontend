@@ -84,6 +84,7 @@ export default cartSlice.reducer;
 
 export const selectCartCount = (state) => state.cart.count;
 export const selectCartProducts = (state) => state.cart.products;
+export const selectCartTotal = (state) => state.cart.cartTotal;
 
 export const fetchCartItems = createAsyncThunk("cart/fetch", async (userId) => {
   const { data } = await axios(`${process.env.NEXT_PUBLIC_baseURL}/cart/${userId}`);

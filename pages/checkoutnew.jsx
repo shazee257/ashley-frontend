@@ -7,15 +7,23 @@ import {
   selectAddress,
   selectPayment,
 } from "../app/features/stepSlice";
-import { selectCartProducts } from "../app/features/cartSlice";
+import { selectLoginData } from "../app/features/loginSlice";
+import { clearCart, selectCartProducts, selectCartTotal } from "../app/features/cartSlice";
 import { selectCheckout } from "../app/features/checkoutSlice";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 const checkouttwo = () => {
   const dispatch = useDispatch();
+  const { push } = useRouter();
   const cartDetail = useSelector(selectCartProducts);
-  const checkoutDetail = useSelector(selectCheckout);
+  const checkout = useSelector(selectCheckout);
   const addressDetails = useSelector(selectAddress);
   const paymentDetails = useSelector(selectPayment);
+  const cartTotal = useSelector(selectCartTotal);
+  const loginData = useSelector(selectLoginData);
+
   // const [hide, sethide] = useState();
 
   // const toggle = (index) => {
@@ -25,6 +33,9 @@ const checkouttwo = () => {
   //     sethide(index);
   //   }
   // };
+
+  const tax = cartTotal * 0.17;
+  const grandTotal = cartTotal + tax;
 
   const [customer, setCustomer] = useState({
     firstname: "",
@@ -69,18 +80,6 @@ const checkouttwo = () => {
 
 
   const placeOrderHandler = () => {
-    const customer = {
-      first_name: order.firstname,
-      last_name: order.lastname,
-      email: order.email,
-      address: order.address,
-      unit: order.unit,
-      city: order.city,
-      state: order.state,
-      zip: order.zipcode,
-      phone: order.phonenumber,
-    };
-
     // const payment = {
     //   cardname: payment.cardname,
     //   cardnumber: payment.cardnumber,
@@ -88,29 +87,48 @@ const checkouttwo = () => {
     //   cvv: payment.cvv,
     // };
 
-    // const products = cartDetail.map((p) => {
-    //   return {
-    //     title: p.title,
-    //     size: p.size,
-    //     color: p.color,
-    //     sku: p.sku,
-    //     price: p.price,
-    //     quantity: p.quantity,
-    //     image: p.image,
-    //     total: p.total,
-    //     product_id: p.product_id,
-    //   };
-    // });
+    const products = cartDetail.map((p) => {
+      return {
+        title: p.title,
+        size: p.size,
+        color: p.color,
+        sku: p.sku,
+        price: p.price,
+        quantity: p.quantity,
+        image: p.image,
+        total: p.total,
+        product_id: p.product_id,
+      };
+    });
 
     const order = {
-      ...customer,
-      // products: { ...products },
-      // tax_amount: checkoutDetail.tax,
-      // total_amount: checkoutDetail.total,
+      user_id: loginData.user_id,
+      first_name: customer.firstname,
+      last_name: customer.lastname,
+      email: customer.email,
+      address: customer.address,
+      unit: customer.unit,
+      city: customer.city,
+      state: customer.state,
+      zip: customer.zipcode,
+      phone: customer.phonenumber,
+      products: products,
+      tax_amount: tax.toFixed(2),
+      total_amount: cartTotal.toFixed(2),
     };
 
-    return console.log("order : ", order);
+    console.log("order : ", order);
 
+    axios.
+      post("http://localhost:5000/orders", order)
+      .then(({ data }) => {
+        console.log(data);
+        if (data.success) {
+          toast.success(data.message);
+          dispatch(clearCart());
+          push("/order_confirmation");
+        }
+      }).catch(err => console.log(err));
   }
 
 
@@ -375,15 +393,16 @@ const checkouttwo = () => {
             <div className={styles.content_filter_wrapper}>
               <div className={styles.total}>
                 <p>Total</p>
-                <p className={styles.total_bold}>${(checkoutDetail.total).toFixed(2)}</p>
+                <p className={styles.total_bold}>${(cartTotal).toFixed(2)}</p>
+                {/* <p className={styles.total_bold}>${(checkout.total).toFixed(2)}</p> */}
               </div>
               <div className={styles.total}>
                 <p>Taxes</p>
-                <p className={styles.total_bold}>${(checkoutDetail.taxes).toFixed(2)}</p>
+                <p className={styles.total_bold}>${(tax).toFixed(2)}</p>
               </div>
               <div className={styles.total + " " + styles.Grand_total}>
                 <p className={styles.total_bold}>Grand Total</p>
-                <p className={styles.total_bold}>${(checkoutDetail.grandTotal).toFixed(2)}</p>
+                <p className={styles.total_bold}>${(grandTotal).toFixed(2)}</p>
               </div>
 
               <div className={styles.payment_info}>

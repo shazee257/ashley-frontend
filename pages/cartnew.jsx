@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCheckout } from "../app/features/checkoutSlice";
-import { selectCartProducts } from "../app/features/cartSlice";
+import { selectCartProducts, selectCartTotal } from "../app/features/cartSlice";
 
 import { fetchProducts } from "../app/features/productSlice";
 import { fetchCategory } from "../app/features/categorySlice";
@@ -17,39 +17,22 @@ import { MdLockOutline } from "react-icons/md";
 import paypal_logo from "../pages/assets/paypal_logo.png";
 import { RiBankCard2Fill } from "react-icons/ri";
 import { MdArrowBackIosNew } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const Cart = () => {
   const [togglepromocode, settogglepromocode] = useState(false);
 
   const dispatch = useDispatch();
   const cartProducts = useSelector(selectCartProducts);
+  const cartTotal = useSelector(selectCartTotal);
   const router = useRouter();
 
-  // useEffect(() => {
-  //   dispatch(fetchCategory());
-  //   dispatch(fetchProducts());
-  // }, [dispatch]);
-
-  const total = cartProducts.length > 0 && cartProducts
-    .map((detail) => {
-      return detail.price * detail.quantity;
-    })
-    .reduce((a, b) => {
-      return a + b;
-    });
-
-  const taxes = total * 0.17;
-  const grandTotal = total + taxes;
-
-  const checkout = { total, taxes, grandTotal };
+  const tax = cartTotal * 0.17;
+  const grandTotal = cartTotal + tax;
 
   const checkoutHandler = () => {
-    if (cartProducts.length >= 1) {
-      dispatch(addToCheckout(checkout));
-      router.push("/checkoutnew");
-    } else {
-      alert("please add items to cart");
-    }
+    if (cartProducts.length > 0) router.push("/checkoutnew");
+    else toast.info("Please add items to cart before proceeding to checkout");
   };
 
   return (
@@ -112,11 +95,11 @@ const Cart = () => {
               <h3>Order Summary</h3>
               <div className={cart.subtotal}>
                 <h4>Subtotal ({cartProducts.length} items)</h4>
-                <p>${total && (total).toFixed(2)}</p>
+                <p>${cartTotal && (cartTotal).toFixed(2)}</p>
               </div>
               <div className={cart.taxes}>
-                <h4>Taxes</h4>
-                <p>${taxes.toFixed(2)}</p>
+                <h4>Tax</h4>
+                <p>${tax.toFixed(2)}</p>
               </div>
               <div className={cart.total}>
                 <h4>Total</h4>
