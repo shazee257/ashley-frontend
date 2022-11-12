@@ -26,7 +26,7 @@ const checkouttwo = () => {
   //   }
   // };
 
-  const [order, setOrder] = useState({
+  const [customer, setCustomer] = useState({
     firstname: "",
     lastname: "",
     address: "",
@@ -38,15 +38,15 @@ const checkouttwo = () => {
     email: "",
   });
 
-  const orderonChange = (event) => {
-    const value = event.target.value;
-    setOrder({
-      ...order,
-      [event.target.name]: value,
-    });
+  // const orderonChange = (event) => {
+  //   const value = event.target.value;
+  //   setOrder({
+  //     ...order,
+  //     [event.target.name]: value,
+  //   });
 
-    console.log(order);
-  };
+  //   console.log(order);
+  // };
 
   const [payment, setPayment] = useState({
     cardname: "",
@@ -66,6 +66,53 @@ const checkouttwo = () => {
 
   const [showpayment, setShowpayment] = useState(false);
   const [showorder, setShoworder] = useState(false);
+
+
+  const placeOrderHandler = () => {
+    const customer = {
+      first_name: order.firstname,
+      last_name: order.lastname,
+      email: order.email,
+      address: order.address,
+      unit: order.unit,
+      city: order.city,
+      state: order.state,
+      zip: order.zipcode,
+      phone: order.phonenumber,
+    };
+
+    // const payment = {
+    //   cardname: payment.cardname,
+    //   cardnumber: payment.cardnumber,
+    //   date: payment.date,
+    //   cvv: payment.cvv,
+    // };
+
+    // const products = cartDetail.map((p) => {
+    //   return {
+    //     title: p.title,
+    //     size: p.size,
+    //     color: p.color,
+    //     sku: p.sku,
+    //     price: p.price,
+    //     quantity: p.quantity,
+    //     image: p.image,
+    //     total: p.total,
+    //     product_id: p.product_id,
+    //   };
+    // });
+
+    const order = {
+      ...customer,
+      // products: { ...products },
+      // tax_amount: checkoutDetail.tax,
+      // total_amount: checkoutDetail.total,
+    };
+
+    return console.log("order : ", order);
+
+  }
+
 
   return (
     <div className={styles.accordion_container}>
@@ -106,15 +153,15 @@ const checkouttwo = () => {
                   type="text"
                   placeholder="Enter First name"
                   name="firstname"
-                  value={order.firstname}
-                  onChange={orderonChange}
+                  value={customer.firstname}
+                  onChange={(e) => setCustomer({ ...customer, firstname: e.target.value })}
                 />
                 <input
                   type="text"
                   placeholder="Enter Last name"
                   name="lastname"
-                  value={order.lastname}
-                  onChange={orderonChange}
+                  value={customer.lastname}
+                  onChange={(e) => setCustomer({ ...customer, lastname: e.target.value })}
                 />
               </div>
               <div className={styles.address_div}>
@@ -127,19 +174,19 @@ const checkouttwo = () => {
               <div className={styles.address_inputs_div}>
                 <input
                   type="text"
-                  placeholder="Enter adress"
+                  placeholder="Enter address"
                   className={styles.address_inputs}
                   name="address"
-                  value={order.address}
-                  onChange={orderonChange}
+                  value={customer.address}
+                  onChange={(e) => setCustomer({ ...customer, address: e.target.value })}
                 />
                 <input
                   type="text"
                   placeholder="Enter here"
                   className={styles.optional_input}
                   name="unit"
-                  value={order.unit}
-                  onChange={orderonChange}
+                  value={customer.unit}
+                  onChange={(e) => setCustomer({ ...customer, unit: e.target.value })}
                 />
               </div>
               <div className={styles.city_div}>
@@ -149,8 +196,8 @@ const checkouttwo = () => {
                   placeholder="Enter city"
                   className={styles.city_inputs}
                   name="city"
-                  value={order.city}
-                  onChange={orderonChange}
+                  value={customer.city}
+                  onChange={(e) => setCustomer({ ...customer, city: e.target.value })}
                 />
               </div>
 
@@ -165,15 +212,15 @@ const checkouttwo = () => {
                   type="State"
                   placeholder="Enter State"
                   name="state"
-                  value={order.state}
-                  onChange={orderonChange}
+                  value={customer.state}
+                  onChange={(e) => setCustomer({ ...customer, state: e.target.value })}
                 />
                 <input
                   type="Zip Code"
                   placeholder="Enter Zip Code"
                   name="zipcode"
-                  value={order.zipcode}
-                  onChange={orderonChange}
+                  value={customer.zipcode}
+                  onChange={(e) => setCustomer({ ...customer, zipcode: e.target.value })}
                 />
               </div>
 
@@ -185,8 +232,8 @@ const checkouttwo = () => {
                   placeholder="Enter Contact"
                   className={styles.city_inputs}
                   name="phonenumber"
-                  value={order.phonenumber}
-                  onChange={orderonChange}
+                  value={customer.phonenumber}
+                  onChange={(e) => setCustomer({ ...customer, phonenumber: e.target.value })}
                 />
               </div>
 
@@ -198,8 +245,8 @@ const checkouttwo = () => {
                   placeholder="Enter Email"
                   className={styles.city_inputs}
                   name="email"
-                  value={order.email}
-                  onChange={orderonChange}
+                  value={customer.email}
+                  onChange={(e) => setCustomer({ ...customer, email: e.target.value })}
                 />
               </div>
 
@@ -208,7 +255,7 @@ const checkouttwo = () => {
                   onClick={(e) => {
                     e.preventDefault();
                     // toggle(2);
-                    dispatch(addAddress(order));
+                    dispatch(addAddress(customer));
                     setShowpayment(true);
                   }}
                 >
@@ -341,7 +388,7 @@ const checkouttwo = () => {
 
               <div className={styles.payment_info}>
                 <div className={styles.shipping}>
-                  <p>Shipping</p>
+                  <p>Shipping Details</p>
                   <p>{addressDetails.firstname + " " + addressDetails.lastname}</p>
                   <p>{addressDetails.address}</p>
                   <p>{addressDetails.city}</p>
@@ -360,15 +407,7 @@ const checkouttwo = () => {
               </div>
 
               <div className={styles.btn_div}>
-                <button
-                // onClick={(e) => {
-                //   e.preventDefault();
-                //   // toggle(3);
-                //   setShoworder(true);
-                // }}
-                >
-                  Order
-                </button>
+                <button onClick={placeOrderHandler}>Place Order</button>
               </div>
             </div>
           </div>
