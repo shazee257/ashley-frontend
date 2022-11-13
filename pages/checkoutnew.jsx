@@ -106,7 +106,7 @@ const checkouttwo = () => {
       first_name: customer.firstname,
       last_name: customer.lastname,
       email: customer.email,
-      address: "customer.address",
+      address: customer.address,
       unit: customer.unit,
       city: customer.city,
       state: customer.state,
