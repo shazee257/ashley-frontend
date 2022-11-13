@@ -106,7 +106,7 @@ const checkouttwo = () => {
       first_name: customer.firstname,
       last_name: customer.lastname,
       email: customer.email,
-      address: customer.address,
+      address: "customer.address",
       unit: customer.unit,
       city: customer.city,
       state: customer.state,
@@ -191,6 +191,7 @@ const checkouttwo = () => {
 
               <div className={styles.address_inputs_div}>
                 <input
+                  maxLength={20}
                   type="text"
                   placeholder="Enter address"
                   className={styles.address_inputs}
