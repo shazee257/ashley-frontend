@@ -120,7 +120,7 @@ const checkouttwo = () => {
     console.log("order : ", order);
 
     axios.
-      post("http://localhost:5000/orders", order)
+      post(`${process.env.NEXT_PUBLIC_baseURL}/orders`, order)
       .then(({ data }) => {
         console.log(data);
         if (data.success) {
