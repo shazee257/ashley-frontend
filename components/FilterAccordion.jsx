@@ -5,11 +5,12 @@ import styles from "../styles/FilterAccordion.module.scss";
 const FilterAccordion = ({ products, setFilterProducts }) => {
   const [sizes, setSizes] = useState([]);
   const [colors, setColors] = useState([]);
+  const [brands, setBrands] = useState([]);
 
   const [filters, setFilters] = useState([]);
   const [currentIndex, setCurrentIndex] = useState();
 
-  const getSizes = () => {
+  function getSizes() {
     const sizes = products.map((product) => {
       return product.variants.map((variant) => {
         return variant.size;
@@ -17,9 +18,9 @@ const FilterAccordion = ({ products, setFilterProducts }) => {
     });
     const uniqueSizes = [...new Set(sizes.flat())];
     setSizes(uniqueSizes);
-  };
+  }
 
-  const getColors = () => {
+  function getColors() {
     let colors = [];
     products.map((product) => {
       return product.variants.map((variant) => {
@@ -37,18 +38,25 @@ const FilterAccordion = ({ products, setFilterProducts }) => {
     setColors(uniqueColors);
   };
 
+  function getBrands() {
+    const brands = products.map((product) => {
+      return product.brand_id.title;
+    });
+    const uniqueBrands = [...new Set(brands)];
+    setBrands(uniqueBrands);
+  };
+
   const initialFilters = [
     {
       id: 1,
       title: "price",
-      type: "radio",
-      value: "Under $25",
+      type: "checkbox",
       filters: [
-        { type: "radio", input: "Under $25" },
-        { type: "radio", input: "$26 to $50" },
-        { type: "radio", input: "$50 to $100" },
-        { type: "radio", input: "$100 to $500" },
-        { type: "radio", input: "Over $500" },
+        { type: "checkbox", input: "Under $25", checked: false },
+        { type: "checkbox", input: "$26 to $50", checked: false },
+        { type: "checkbox", input: "$50 to $100", checked: false },
+        { type: "checkbox", input: "$100 to $500", checked: false },
+        { type: "checkbox", input: "Over $500", checked: false },
       ],
     },
     {
@@ -71,26 +79,24 @@ const FilterAccordion = ({ products, setFilterProducts }) => {
       id: 4,
       title: "Brand",
       type: "checkbox",
-      filters: [
-        { type: "checkbox", input: "Apple", checked: false },
-        { type: "checkbox", input: "Samsung", checked: false },
-        { type: "checkbox", input: "Xiaomi", checked: false },
-        { type: "checkbox", input: "Oneplus", checked: false },
-        { type: "checkbox", input: "Infinix", checked: false },
-        { type: "checkbox", input: "Tecno", checked: false },
-        { type: "checkbox", input: "Moto", checked: false },
-        { type: "checkbox", input: "Qmobile", checked: false },
-        { type: "checkbox", input: "LG", checked: false },
-        { type: "checkbox", input: "Nokia", checked: false },
-      ],
+      filters: brands.map((brand) => {
+        return { type: "checkbox", input: brand, checked: false };
+      }),
     },
   ];
 
   useEffect(() => {
     getSizes();
     getColors();
-    setFilters(initialFilters);
+    getBrands();
   }, []);
+
+  useEffect(() => {
+    setFilters(initialFilters);
+    console.log("initialFilters", initialFilters);
+  }, [sizes, colors, brands]);
+
+
 
   const toggleShowAccordion = (id) => {
     if (currentIndex === id) {
@@ -100,76 +106,77 @@ const FilterAccordion = ({ products, setFilterProducts }) => {
     }
   };
 
-
-
   const handleApplyFilters = (filters) => {
+    // filter products based on filters
+    let filter_products = [];
     const filteredProducts = products.filter((product) => {
-      const { variants } = product;
-
-      // // const { filters: priceFilters } = filters[0];
-      // const { filters: sizeFilters } = filters[1];
-      // const { filters: colorFilters } = filters[2];
-      // const { filters: brandFilters } = filters[3];
-
-      // // const priceFilter = priceFilters.find((filter) => filter.checked);
-      // const sizeFilter = sizeFilters.find((filter) => filter.checked);
-      // const colorFilter = colorFilters.find((filter) => filter.checked);
-      // const brandFilter = brandFilters.find((filter) => filter.checked);
-
-
-      const priceFilterValue = filters[0].value;
-
-      // const sizeFilterValue = sizeFilter?.input;
-      // const colorFilterValue = colorFilter?.input;
-      // const brandFilterValue = brandFilter?.input;
 
 
 
-      const priceFilterCondition = priceFilterValue
-        ? variants.some((variant) => {
-          const { sale_price: price } = variant;
-
-          if (priceFilterValue === "Under $25") {
-            console.log("price < 25", price);
-            return price < 25;
-          } else if (priceFilterValue === "$26 to $50") {
-            return price >= 26 && price <= 50;
-          } else if (priceFilterValue === "$50 to $100") {
-            return price >= 50 && price <= 100;
-          } else if (priceFilterValue === "$100 to $500") {
-            return price >= 100 && price <= 500;
-          } else if (priceFilterValue === "Over $500") {
-            return price > 500;
-          }
-        })
-        : true;
 
 
-      // const sizeFilterCondition = sizeFilterValue
-      //   ? variants.some((variant) => variant.size === sizeFilterValue)
-      //   : true;
 
-      // const colorFilterCondition = colorFilterValue
-      //   ? variants.some((variant) => {
-      //     return variant.features.some((feature) => {
-      //       return feature.color_id.title === colorFilterValue;
-      //     });
-      //   })
-      //   : true;
+      // return filter.title === "price"
+      // ? filter.filters.some((priceFilter) => {
+      //   return priceFilter.checked
+      //     ? variant.price >= parseInt(priceFilter.input.split(" ")[1])
+      //     : false;
+      // })
+      //:
+      // return (filter.title === "Size" ? filter.filters.some((sizeFilter) => sizeFilter.checked ? variant.size === sizeFilter.input : false) : false)
+      //   &&
+      //   (filter.title === "Color" ? filter.filters.some((colorFilter) => colorFilter.checked ? variant.features.some((feature) => feature.color_id.title === colorFilter.input) : false) : false)
+      //   &&
+      //   (filter.title === "Brand" ? filter.filters.some((brandFilter) => brandFilter.checked ? product.brand_id.title === brandFilter.input : false) : false);
 
-      // const brandFilterCondition = brandFilterValue
-      //   ? variants.some((variant) => {
-      //     return variant.features.some((feature) => {
-      //       return feature.brand_id.title === brandFilterValue;
-      //     });
-      //   })
-      //   : true;
+      // filter.title === "Size" ? filter.filters.some((sizeFilter) => sizeFilter.checked ? variant.size === sizeFilter.input : false) : false
+      //   &&
+      //   filter.title === "Color" ? filter.filters.some((colorFilter) => colorFilter.checked ? variant.features.some((feature) => feature.color_id.title === colorFilter.input) : false) : false
+      //     &&
+      //     filter.title === "Brand" ? filter.filters.some((brandFilter) => brandFilter.checked ? product.brand_id.title === brandFilter.input : false) : false);
 
-    })
-    // console.log("filteredProducts", filteredProducts);
-    // setFilterProducts(filteredProducts);
+      // // filter products based on Size, Color, Brand && Operators
+      // return filter.title === "Size" ? filter.filters.some((sizeFilter) => sizeFilter.checked ? variant.size === sizeFilter.input : false) : false
+      //   &&
+      //   filter.title === "Color" ? filter.filters.some((colorFilter) => colorFilter.checked ? variant.features.some((feature) => feature.color_id.title === colorFilter.input) : false) : false
+      //     &&
+      //     filter.title === "Brand" ? filter.filters.some((brandFilter) => brandFilter.checked ? product.brand_id.title === brandFilter.input : false) : false
+
+      // filter products based on Sizes and push to filter_products
+      // if (filter.title === "Size") {
+      //   filter.filters.some((sizeFilter) => {
+      //     if (sizeFilter.checked) {
+      //       if (variant.size === sizeFilter.input) {
+      //         filter_products.push(product);
+      //       }
+      //     }
+      //   });
+      // }
+
+
+
+      //   : filter.title === "Brand"
+      //     ? filter.filters.some((brandFilter) => {
+      //       return brandFilter.checked
+      //         ? variant.features.some((feature) => {
+      //           return feature.brand_id.title === brandFilter.input;
+      //         })
+      //         : false;
+      //     })
+      // : false;
+      // });
+      // });
+    });
+
+    setFilterProducts(filter_products);
+    console.log("Filter Products", filter_products);
+
+
+
+
+
+
   };
-
 
   const handleChange = ({ target: { value, name } }, filterSection, index) => {
     // handling both cases radio button and checkboxes
@@ -199,12 +206,8 @@ const FilterAccordion = ({ products, setFilterProducts }) => {
 
     console.log("modified Filters : ", modifiedFilters);
     setFilters(modifiedFilters);
-    // handleApplyFilters(modifiedFilters);
+    handleApplyFilters(modifiedFilters);
   };
-
-
-
-
 
   return (
     <div className={styles.accordion_wrapper}>
