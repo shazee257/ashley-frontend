@@ -3,12 +3,6 @@ import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import styles from "../styles/FilterAccordion.module.scss";
 
 const FilterAccordion = ({ products, setFilterProducts, sizes, colors, brands }) => {
-  // return console.log("sizes, colors, brands", sizes, colors, brands);
-
-  // const [getSizes, setGetSizes] = useState(sizes);
-  // const [colors, setColors] = useState(colors);
-  // const [brands, setBrands] = useState(brands);
-  // console.log("getSizes", getSizes);
   const [filters, setFilters] = useState([]);
   const [currentIndex, setCurrentIndex] = useState();
 
@@ -77,7 +71,6 @@ const FilterAccordion = ({ products, setFilterProducts, sizes, colors, brands })
       const sizeFilters = filters[1].filters.filter((filter) => filter.checked);
       const colorFilters = filters[2].filters.filter((filter) => filter.checked);
       const brandFilters = filters[3].filters.filter((filter) => filter.checked);
-
 
       if (priceValue) {
         if (priceValue === "Under $25") {
