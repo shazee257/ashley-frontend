@@ -20,6 +20,9 @@ function Products() {
   const [currentCategory, setCurrentCategory] = useState({});
   const [parentCategory, setParentCategory] = useState({});
   const [topCategoriesExceptOne, setTopCategoriesExceptOne] = useState([]);
+  // const [sizes, setSizes] = useState([]);
+  // const [colors, setColors] = useState([]);
+  // const [brands, setBrands] = useState([]);
 
   const router = useRouter();
   const { categorySlug, discountedCategorySlug, zipCode, searchTerm } = router.query;
@@ -65,6 +68,42 @@ function Products() {
 
   }, [products, categories, categorySlug, discountedCategorySlug, zipCode, searchTerm]);
 
+  const getSizes = () => {
+    const sizes = products.map((product) => {
+      return product.variants.map((variant) => {
+        return variant.size;
+      });
+    });
+    const uniqueSizes = [...new Set(sizes.flat())];
+    return uniqueSizes;
+  }
+
+  const getColors = () => {
+    let colors = [];
+    products.map((product) => {
+      return product.variants.map((variant) => {
+        return variant.features.map((feature) => {
+          colors.push({
+            title: feature.color_id.title,
+            image: feature.color_id.image
+          })
+        });
+      });
+    });
+
+    const uniqueColors = [...new Set(colors.map(item => item.title))]
+      .map(title => colors.find(item => item.title === title));
+    return uniqueColors;
+  };
+
+  const getBrands = () => {
+    const brands = products.map((product) => {
+      return product.brand_id.title;
+    });
+    const uniqueBrands = [...new Set(brands)];
+    return uniqueBrands;
+  };
+
   return (
     <div className={product.products_wrapper}>
       <BreadCrumbs
@@ -95,7 +134,7 @@ function Products() {
             ))}
           </div>
           <div className={product.filter_cats}>
-            <FilterAccordion products={products} setFilterProducts={setFilterProducts} />
+            <FilterAccordion products={products} setFilterProducts={setFilterProducts} sizes={getSizes()} colors={getColors()} brands={getBrands()} />
           </div>
         </div>
         {/* filters ends here  */}
