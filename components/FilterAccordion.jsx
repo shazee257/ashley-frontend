@@ -65,71 +65,71 @@ const FilterAccordion = ({ products, setFilterProducts, sizes, colors, brands })
   };
 
   const handleApplyFilters = (filters) => {
+    let isMatch = false;
+    let sizeMatch = false;
+    let colorMatch = false;
+    let brandMatch = false;
 
     const filteredProducts = products.filter((product) => {
-      let isMatch = false;
-      let sizeMatch = false;
-      let colorMatch = false;
-      let brandMatch = false;
-
-      // apply && operator to all filters
-
       // filter by size
       const sizeFilters = filters[0].filters.filter((filter) => filter.checked);
-      console.log("sizeFilters: ", sizeFilters);
       if (sizeFilters.length > 0) {
         sizeMatch = product.variants.some((variant) => {
           return sizeFilters.some((sizeFilter) => sizeFilter.input === variant.size);
         });
-        isMatch = sizeMatch;
       }
 
       // filter by brand
       const brandFilters = filters[2].filters.filter((filter) => filter.checked);
       if (brandFilters.length > 0) {
         brandMatch = brandFilters.some((brandFilter) => brandFilter.input === product.brand_id.title);
-        isMatch = brandMatch;
       }
 
       // filter by color
       const colorFilters = filters[1].filters.filter((filter) => filter.checked);
       if (colorFilters.length > 0) {
         colorMatch = colorFilters.some((colorFilter) => {
+          // return from variants then features
           return product.variants.some((variant) => {
             return variant.features.some((feature) => feature.color_id.title === colorFilter.input);
           });
         });
-        isMatch = colorMatch;
       }
 
-
-      // if (sizeMatch && colorMatch && brandMatch) {
-      //   isMatch = true;
-      // } else if (sizeMatch && colorMatch) {
-      //   isMatch = true;
-      // } else if (sizeMatch && brandMatch) {
-      //   isMatch = true;
-      // } else if (colorMatch && brandMatch) {
-      //   isMatch = true;
-      // } else if (sizeMatch) {
-      //   isMatch = true;
-      // } else if (colorMatch) {
-      //   isMatch = true;
-      // } else if (brandMatch) {
-      //   isMatch = true;
-      // } else {
-      //   isMatch = false;
-      // }
-
-      // AND operator
-      isMatch = sizeMatch && brandMatch && colorMatch;
-      return isMatch;
+      // check for every match condition
+      if (sizeFilters.length > 0 && brandFilters.length > 0 && colorFilters.length > 0) {
+        isMatch = sizeMatch && brandMatch && colorMatch;
+        console.log("sizeMatch && colorMatch && brandMatch");
+        return isMatch;
+      } else if (sizeFilters.length > 0 && colorFilters.length > 0) {
+        isMatch = sizeMatch && colorMatch;
+        console.log("sizeMatch && colorMatch");
+        return isMatch;
+      } else if (sizeFilters.length > 0 && brandFilters.length > 0) {
+        isMatch = sizeMatch && brandMatch;
+        console.log("sizeMatch && brandMatch");
+        return isMatch;
+      } else if (colorFilters.length > 0 && brandFilters.length > 0) {
+        isMatch = colorMatch && brandMatch;
+        console.log("colorMatch && brandMatch");
+        return isMatch;
+      } else if (sizeFilters.length > 0) {
+        isMatch = sizeMatch;
+        console.log("sizeMatch");
+        return isMatch;
+      } else if (colorFilters.length > 0) {
+        isMatch = colorMatch;
+        console.log("colorMatch");
+        return isMatch;
+      } else if (brandFilters.length > 0) {
+        isMatch = brandMatch;
+        console.log("brandMatch");
+        return isMatch;
+      }
     });
 
     setFilterProducts(filteredProducts);
     console.log("filteredProducts", filteredProducts);
-
-
   };
 
   const handleChange = ({ target: { value, name } }, filterSection, index) => {
