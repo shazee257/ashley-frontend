@@ -50,7 +50,6 @@ import ReactPlayer from "react-player";
 import BreadCrumbs from "../../../components/BreadCrumbs";
 import { addItemToCart } from "../../../app/features/cartSlice";
 
-
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
@@ -97,15 +96,22 @@ function ProductDetail({ product, reviews }) {
   const wishlistData = useSelector(selectWishlistData);
   const categories = useSelector(selectCategory);
 
-  const currentCategory = categories.find((cat) => cat._id === product.category_id._id);
-  const parentCategory = categories.find((cat) => cat._id == currentCategory.parent_id);
+  const currentCategory = categories.find(
+    (cat) => cat._id === product.category_id._id
+  );
+  const parentCategory = categories.find(
+    (cat) => cat._id == currentCategory.parent_id
+  );
 
   const isProductIdInWishlist = (id) => wishlistData.includes(id);
 
   const wishlistHandler = async (productId) => {
     if (loginData) {
       if (isProductIdInWishlist(productId)) {
-        const { data } = await axios.put(`${process.env.NEXT_PUBLIC_baseURL}/wishlist/${loginData.user_id}`, { productId });
+        const { data } = await axios.put(
+          `${process.env.NEXT_PUBLIC_baseURL}/wishlist/${loginData.user_id}`,
+          { productId }
+        );
         if (data.success) {
           dispatch(removeItemFromWishlist(productId));
           toast.success(data.message);
@@ -113,7 +119,10 @@ function ProductDetail({ product, reviews }) {
           toast.error(data.message);
         }
       } else {
-        const { data } = await axios.post(`${process.env.NEXT_PUBLIC_baseURL}/wishlist/${loginData.user_id}`, { productId });
+        const { data } = await axios.post(
+          `${process.env.NEXT_PUBLIC_baseURL}/wishlist/${loginData.user_id}`,
+          { productId }
+        );
         if (data.success) {
           dispatch(addItemToWishlist(productId));
           toast.success(data.message);
@@ -122,10 +131,9 @@ function ProductDetail({ product, reviews }) {
         }
       }
     } else {
-      push('/login');
+      push("/login");
     }
   };
-
 
   const totalstar = 25;
   const obtainedstarData = [
@@ -137,7 +145,7 @@ function ProductDetail({ product, reviews }) {
   ];
 
   const getRating = (obtainedValue) => {
-    return ((obtainedValue / totalstar) * 100);
+    return (obtainedValue / totalstar) * 100;
   };
 
   const [quantity, setQuantity] = useState(1);
@@ -149,7 +157,6 @@ function ProductDetail({ product, reviews }) {
     product.variants[0].features[0].images[0]
   );
   const [activeIndex, setActiveIndex] = useState(1);
-
 
   // Fetching similar category productsw with Min and Max price
   const filterSimilarProducts = products?.filter(
@@ -238,9 +245,12 @@ function ProductDetail({ product, reviews }) {
     };
 
     if (loginData) {
-      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_baseURL}/cart/${loginData.user_id}`, cartItem);
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_baseURL}/cart/${loginData.user_id}`,
+        cartItem
+      );
       if (data.success) {
-        // get new element from data.products 
+        // get new element from data.products
         const newProduct = data.data.products[data.data.products.length - 1];
         dispatch(addItemToCart(newProduct));
         console.log("newProduct", newProduct);
@@ -250,10 +260,6 @@ function ProductDetail({ product, reviews }) {
       }
     }
   };
-
-
-
-
 
   // useEffect(() => {
   //   setCartDetail({
@@ -345,13 +351,15 @@ function ProductDetail({ product, reviews }) {
                   onClick={() => imageChangeHandler(index)}
                 >
                   <Image
-                    className="cursor-pointer  hover:opacity-70"
+                    // className="cursor-pointer  hover:opacity-70"
                     src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${image}`}
                     alt="Picture of the author"
-                    width={150}
-                    height={100}
-                    layout="fixed"
-                  // className={productCss.image}
+                    // width={150}
+                    // height={100}
+                    // layout="fixed"
+                    priority={true}
+                    // className={productCss.image}
+                    layout ="fill"
                   />
                 </div>
               ))}
@@ -397,7 +405,7 @@ function ProductDetail({ product, reviews }) {
               </span>
             </div>
           </div>
-          <div style={{ width: "100%" }}>
+          <div className={productCss.color_size_wrapper}>
             <Accordion>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -423,29 +431,26 @@ function ProductDetail({ product, reviews }) {
                   </Typography>
                 </div>
               </AccordionSummary>
-              <AccordionDetails sx={{ display: "flex", cursor: "pointer" }}>
+              <AccordionDetails className={productCss.color_detail_wrapper}>
                 {colors &&
                   colors.map((color, i) => (
                     <div
-                      style={{
-                        display: "flex",
-                        cursor: "pointer",
-                        marginRight: "8px",
-                        fontWeight: "500",
-                        display: "flex",
-                        justifyContent: "space-around",
-                      }}
+                      className={productCss.color_detail_div}
                       key={i}
                       onClick={() => colorChangeHandler(i)}
                     >
                       <div className="flex">
-                        <Image
-                          className="rounded-xl"
-                          src={`${process.env.NEXT_PUBLIC_uploadURL}/colors/${color.image}`}
-                          width={24}
-                          height={24}
-                        />
-                        <span className="pl-2 pr-5">{color.title}</span>
+                        <div className={productCss.color_detail_img_div}>
+                          <Image
+                            className="rounded-xl"
+                            src={`${process.env.NEXT_PUBLIC_uploadURL}/colors/${color.image}`}
+                            layout="fill"
+                            priority={true}
+                            // width={24}
+                            // height={24}
+                          />
+                        </div>
+                        <span className={productCss.color_detail_color_name}>{color.title}</span>
                       </div>
                     </div>
                   ))}
@@ -621,7 +626,9 @@ function ProductDetail({ product, reviews }) {
                       <ReactStars {...options} />
                     </div>
                     <h6 className={productCss.review_title}>{review.title}</h6>
-                    <p className={productCss.review_discription}>{review.description}</p>
+                    <p className={productCss.review_discription}>
+                      {review.description}
+                    </p>
                     <div className={productCss.review_discription}>
                       <div className={productCss.review_img_wrapper}>
                         {review.images.length > 0 &&
@@ -668,8 +675,8 @@ function ProductDetail({ product, reviews }) {
 
         {/* Quantity */}
         {selectedFeature.quantity > 0 ? (
-          <div className={productCss.subtotal}>
-            <h3>
+          <div className={productCss.subtotal_wrapper}>
+            <h3 className={productCss.subtotal_heading}>
               Subtotal: $ {(quantity * selectedVariant.sale_price).toFixed(2)}
             </h3>
             {selectedFeature.quantity < 10 && (
@@ -690,29 +697,26 @@ function ProductDetail({ product, reviews }) {
             )}
 
             <div className={productCss.qty_wrapper}>
-              <h3>Qty:</h3>
-              <div className={productCss.qty}>
-                <p onClick={quantityDecrementHandler}>-</p>
-                <p>{quantity}</p>
-                <p onClick={quantityIncrementHandler}>+</p>
+              <div className={productCss.add_cartItems_wrapper}>
+                <h3>Qty:</h3>
+                <div className={productCss.qty}>
+                  <p onClick={quantityDecrementHandler}>-</p>
+                  <p>{quantity}</p>
+                  <p onClick={quantityIncrementHandler}>+</p>
+                </div>
               </div>
-              <button onClick={addToCartHandler}>
-                Add Items to Cart
-              </button>
-              <div
-                className={productCss.icon}
-                onClick={() => wishlistHandler(product._id)}
-                style={{
-                  height: 50,
-                  width: 50,
-                  borderRadius: "50%",
-                  boxShadow: "0 0 2px grey",
-                }}
-              >
-                {isProductIdInWishlist(product._id) ?
-                  <AiFillHeart className={productCss.heart} /> :
-                  <AiOutlineHeart className={productCss.heart} />
-                }
+              <div className={productCss.btn_logo_wrapper}>
+                <button onClick={addToCartHandler}>Add Items to Cart</button>
+                <div
+                  className={productCss.icon}
+                  onClick={() => wishlistHandler(product._id)}
+                >
+                  {isProductIdInWishlist(product._id) ? (
+                    <AiFillHeart className={productCss.heart} />
+                  ) : (
+                    <AiOutlineHeart className={productCss.heart} />
+                  )}
+                </div>
               </div>
             </div>
             <div className={productCss.delivery}>
@@ -752,12 +756,17 @@ function ProductDetail({ product, reviews }) {
                   boxShadow: "0 0 2px grey",
                 }}
               >
-                {isProductIdInWishlist(product._id) ?
-                  <AiFillHeart className={productCss.heart}
-                    onClick={() => wishlistHandler(product._id)} /> :
-                  <AiOutlineHeart className={productCss.heart}
-                    onClick={() => wishlistHandler(product._id)} />
-                }
+                {isProductIdInWishlist(product._id) ? (
+                  <AiFillHeart
+                    className={productCss.heart}
+                    onClick={() => wishlistHandler(product._id)}
+                  />
+                ) : (
+                  <AiOutlineHeart
+                    className={productCss.heart}
+                    onClick={() => wishlistHandler(product._id)}
+                  />
+                )}
               </div>
             </div>
             <div
@@ -778,12 +787,18 @@ function ProductDetail({ product, reviews }) {
             <div className={productCss.realtedProduct_cardWrapper} key={p._id}>
               <div className={productCss.heart}>
                 <h4 className={productCss.icon}>
-                  {isProductIdInWishlist(p._id) ?
-                    <AiFillHeart /> : <AiOutlineHeart />}
+                  {isProductIdInWishlist(p._id) ? (
+                    <AiFillHeart />
+                  ) : (
+                    <AiOutlineHeart />
+                  )}
                 </h4>
-                <h4 className={productCss.display}
+                <h4
+                  className={productCss.display}
                   onClick={() => wishlistHandler(p._id)}
-                >Add to Wishlist</h4>
+                >
+                  Add to Wishlist
+                </h4>
               </div>
               <Link href={`/products/details?slug=${p.slug}`}>
                 <div className={productCss.realted_product_imagediv}>
@@ -791,7 +806,8 @@ function ProductDetail({ product, reviews }) {
                     src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${p.variants[0].features[0].images[0]}`}
                     alt="Picture of the author"
                     layout="fill"
-                    className={productCss.realted_product_image} priority={true}
+                    className={productCss.realted_product_image}
+                    priority={true}
                   />
                 </div>
               </Link>
@@ -812,12 +828,14 @@ function ProductDetail({ product, reviews }) {
       </div>
     </div>
   );
-};
+}
 
 export const getServerSideProps = async (context) => {
   const { slug } = context.query;
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_baseURL}/products/${slug}`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_baseURL}/products/${slug}`
+  );
 
   const data = await res.json();
   const { product, reviews } = data;
@@ -828,6 +846,6 @@ export const getServerSideProps = async (context) => {
       reviews,
     },
   };
-}
+};
 
 export default ProductDetail;
