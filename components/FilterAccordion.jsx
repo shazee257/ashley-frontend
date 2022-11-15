@@ -13,18 +13,19 @@ const FilterAccordion = ({ products, setFilterProducts, sizes, colors, brands })
   const [currentIndex, setCurrentIndex] = useState();
 
   const initialFilters = [
-    // {
-    //   id: 1,
-    //   title: "price",
-    //   type: "checkbox",
-    //   filters: [
-    //     { type: "checkbox", input: "Under $25", checked: false },
-    //     { type: "checkbox", input: "$26 to $50", checked: false },
-    //     { type: "checkbox", input: "$50 to $100", checked: false },
-    //     { type: "checkbox", input: "$100 to $500", checked: false },
-    //     { type: "checkbox", input: "Over $500", checked: false },
-    //   ],
-    // },
+    {
+      id: 1,
+      title: "Price",
+      type: "radio",
+      value: "",
+      filters: [
+        { type: "radio", input: "Under $25", value: "Under $25" },
+        { type: "radio", input: "$26 to $50", value: "$26 to $50" },
+        { type: "radio", input: "$50 to $100", value: "$50 to $100" },
+        { type: "radio", input: "$100 to $500", value: "$100 to $500" },
+        { type: "radio", input: "Over $500", value: "Over $500" },
+      ],
+    },
     {
       id: 2,
       title: "Size",
@@ -66,52 +67,90 @@ const FilterAccordion = ({ products, setFilterProducts, sizes, colors, brands })
 
   const handleApplyFilters = (filters) => {
     let isMatch = false;
+    let priceMatch = false;
     let sizeMatch = false;
     let colorMatch = false;
     let brandMatch = false;
 
     const filteredProducts = products.filter((product) => {
-      // filter by size
-      const sizeFilters = filters[0].filters.filter((filter) => filter.checked);
+      const priceValue = filters[0].value;
+      const sizeFilters = filters[1].filters.filter((filter) => filter.checked);
+      const colorFilters = filters[2].filters.filter((filter) => filter.checked);
+      const brandFilters = filters[3].filters.filter((filter) => filter.checked);
+
+
+      if (priceValue) {
+        if (priceValue === "Under $25") {
+          priceMatch = product.variants.some((variant) => variant.sale_price < 25);
+        } else if (priceValue === "$26 to $50") {
+          priceMatch = product.variants.some((variant) => variant.sale_price > 25 && variant.sale_price < 50);
+        } else if (priceValue === "$50 to $100") {
+          priceMatch = product.variants.some((variant) => variant.sale_price > 50 && variant.sale_price < 100);
+        } else if (priceValue === "$100 to $500") {
+          priceMatch = product.variants.some((variant) => variant.sale_price > 100 && variant.sale_price < 500);
+        } else if (priceValue === "Over $500") {
+          priceMatch = product.variants.some((variant) => variant.sale_price > 500);
+        }
+      }
+
       if (sizeFilters.length > 0) {
         sizeMatch = product.variants.some((variant) => {
           return sizeFilters.some((sizeFilter) => sizeFilter.input === variant.size);
         });
       }
 
-      // filter by brand
-      const brandFilters = filters[2].filters.filter((filter) => filter.checked);
-      if (brandFilters.length > 0) {
-        brandMatch = brandFilters.some((brandFilter) => brandFilter.input === product.brand_id.title);
-      }
-
-      // filter by color
-      const colorFilters = filters[1].filters.filter((filter) => filter.checked);
       if (colorFilters.length > 0) {
         colorMatch = colorFilters.some((colorFilter) => {
-          // return from variants then features
           return product.variants.some((variant) => {
             return variant.features.some((feature) => feature.color_id.title === colorFilter.input);
           });
         });
       }
 
+      if (brandFilters.length > 0) {
+        brandMatch = brandFilters.some((brandFilter) => brandFilter.input === product.brand_id.title);
+      }
+
       // check for every match condition
-      if (sizeFilters.length > 0 && brandFilters.length > 0 && colorFilters.length > 0) {
+      if (sizeFilters.length > 0 && brandFilters.length > 0 && colorFilters.length > 0 && priceValue) {
+        isMatch = sizeMatch && brandMatch && colorMatch && priceMatch;
+        console.log("sizeMatch && colorMatch && brandMatch && priceMatch");
+        return isMatch;
+      } else if (sizeFilters.length > 0 && colorFilters.length > 0 && priceValue) {
+        isMatch = sizeMatch && colorMatch && priceMatch;
+        console.log("sizeMatch && colorMatch && priceMatch");
+        return isMatch;
+      } else if (sizeFilters.length > 0 && brandFilters.length > 0 && priceValue) {
+        isMatch = sizeMatch && brandMatch && priceMatch;
+        console.log("sizeMatch && brandMatch && priceMatch");
+        return isMatch;
+      } else if (colorFilters.length > 0 && brandFilters.length > 0 && priceValue) {
+        isMatch = colorMatch && brandMatch && priceMatch;
+        console.log("colorMatch && brandMatch && priceMatch");
+        return isMatch;
+      } else if (sizeFilters.length > 0 && brandFilters.length > 0 && colorFilters.length > 0) {
         isMatch = sizeMatch && brandMatch && colorMatch;
-        console.log("sizeMatch && colorMatch && brandMatch");
-        return isMatch;
-      } else if (sizeFilters.length > 0 && colorFilters.length > 0) {
-        isMatch = sizeMatch && colorMatch;
-        console.log("sizeMatch && colorMatch");
-        return isMatch;
-      } else if (sizeFilters.length > 0 && brandFilters.length > 0) {
-        isMatch = sizeMatch && brandMatch;
-        console.log("sizeMatch && brandMatch");
+        console.log("sizeMatch && brandMatch && colorMatch");
         return isMatch;
       } else if (colorFilters.length > 0 && brandFilters.length > 0) {
         isMatch = colorMatch && brandMatch;
         console.log("colorMatch && brandMatch");
+        return isMatch;
+      } else if (brandFilters.length > 0 && priceValue) {
+        isMatch = brandMatch && priceMatch;
+        console.log("brandMatch && priceMatch");
+        return isMatch;
+      } else if (sizeFilters.length > 0 && priceValue) {
+        isMatch = sizeMatch && priceMatch;
+        console.log("sizeMatch && priceMatch");
+        return isMatch;
+      } else if (colorFilters.length > 0 && priceValue) {
+        isMatch = colorMatch && priceMatch;
+        console.log("colorMatch && priceMatch");
+        return isMatch;
+      } else if (sizeFilters.length > 0 && brandFilters.length > 0) {
+        isMatch = sizeMatch && brandMatch;
+        console.log("sizeMatch && brandMatch");
         return isMatch;
       } else if (sizeFilters.length > 0) {
         isMatch = sizeMatch;
@@ -125,6 +164,12 @@ const FilterAccordion = ({ products, setFilterProducts, sizes, colors, brands })
         isMatch = brandMatch;
         console.log("brandMatch");
         return isMatch;
+      } else if (priceValue) {
+        isMatch = priceMatch;
+        console.log("priceMatch");
+        return isMatch;
+      } else {
+        return product;
       }
     });
 
