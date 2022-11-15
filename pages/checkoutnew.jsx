@@ -119,17 +119,23 @@ const checkouttwo = () => {
 
     console.log("order : ", order);
 
+    const deleteCart = async (userId) => {
+      await axios.
+        delete(`${process.env.NEXT_PUBLIC_baseURL}/cart/${userId}`)
+    }
+
     axios.
       post(`${process.env.NEXT_PUBLIC_baseURL}/orders`, order)
       .then(({ data }) => {
         console.log(data);
         if (data.success) {
           toast.success(data.message);
+          deleteCart(loginData.user_id);
           dispatch(clearCart());
           push("/order_confirmation");
         }
       }).catch(err => console.log(err));
-  }
+  };
 
 
   return (

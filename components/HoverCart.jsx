@@ -13,6 +13,7 @@ import axios from "axios";
 import cart from "../styles/HoverCart.module.scss";
 import { toast } from "react-toastify";
 import { CART } from "../constants";
+import Link from "next/link";
 
 const HoverCart = () => {
   const cartDetail = useSelector(selectCartProducts);
@@ -129,9 +130,11 @@ const HoverCart = () => {
             </div>
           ))}
           <div className={cart.ChechOut_btn_div}>
-            <button className={cart.ChechOut_btn} >
-              Chechout
-            </button>
+            <Link href="/checkoutnew">
+              <button className={cart.ChechOut_btn} >
+                Chechout
+              </button>
+            </Link>
           </div>
         </div>
       )}
