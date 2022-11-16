@@ -1451,7 +1451,7 @@
     }
 
     .product_features_and_subtotal {
-      flex-direction: column;
+      flex-direction: column-reverse;
       // width: 95%;
       // margin: 30px 0;
       // margin-top: 10px;
@@ -1459,6 +1459,7 @@
       // align-items: flex-start;
 
       .features {
+        margin-top: 15px;
         width: 100%;
         // width: 58%;
         // padding: 0 15px;
@@ -1467,6 +1468,7 @@
         // border-radius: 4px;
       }
       .subtotal_wrapper {
+        margin-top: 40px;
         width: 100%;
         // width: 40%;
         // background-color: $xs-grey;
