@@ -318,6 +318,30 @@ function ProductDetail({ product, reviews }) {
     prevArrow: <SamplePrevArrow />,
   };
 
+  // related producs responsive start :::::
+  const [siblingProductsSlider , setSiblingProductsSlider] = useState(
+    {}
+  );
+
+  const updateSize = () =>
+  setSiblingProductsSlider({
+      x: window.innerWidth,
+    });
+
+  useEffect(() => (window.onresize = updateSize), []);
+
+  if (siblingProductsSlider.x < 1024) {
+    siblingproductssettings.slidesToShow = 3;
+  }
+  if (siblingProductsSlider.x < 769) {
+    siblingproductssettings.slidesToShow = 2;
+  }
+  if (siblingProductsSlider.x < 480) {
+    siblingproductssettings.slidesToShow = 1;
+  }
+
+  // related producs responsive end  :::::::::
+
   const activeLinkHandler = (i) => setActiveIndex(i);
 
   return (
@@ -338,6 +362,7 @@ function ProductDetail({ product, reviews }) {
               alt="Picture of the author"
               layout="fill"
               className={productCss.img}
+              priority={true}
             />
           </div>
 
@@ -357,9 +382,9 @@ function ProductDetail({ product, reviews }) {
                     // width={150}
                     // height={100}
                     // layout="fixed"
-                    priority={true}
                     // className={productCss.image}
-                    layout ="fill"
+                    layout="fill"
+                    priority={false}
                   />
                 </div>
               ))}
@@ -419,6 +444,7 @@ function ProductDetail({ product, reviews }) {
                     src={`${process.env.NEXT_PUBLIC_uploadURL}/colors/${selectedFeature.color_id.image}`}
                     width={22}
                     height={22}
+                    priority={true}
                   />
                   <Typography
                     sx={{
@@ -450,7 +476,9 @@ function ProductDetail({ product, reviews }) {
                             // height={24}
                           />
                         </div>
-                        <span className={productCss.color_detail_color_name}>{color.title}</span>
+                        <span className={productCss.color_detail_color_name}>
+                          {color.title}
+                        </span>
                       </div>
                     </div>
                   ))}
@@ -639,6 +667,7 @@ function ProductDetail({ product, reviews }) {
                                 alt="revie wpicture"
                                 layout="fill"
                                 className={productCss.img}
+                                priority={true}
                               />
                             </div>
                           ))}
