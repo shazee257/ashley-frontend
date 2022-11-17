@@ -1,23 +1,33 @@
 @import "./Variables.module.scss";
 
-
 .bread_crumbs {
-    width: 95%;
-    font-size: 14px;
-    margin: 10px 0px;
-    margin-bottom: 20px;
-    // margin-top: 20px;
+  width: 95%;
+  font-size: 14px;
+  margin: 10px 0px;
+  margin-bottom: 20px;
+  // margin-top: 20px;
 
+  span {
+    cursor: pointer;
+    color: black;
+    text-decoration: underline;
+    font-size: 14px;
+    font-variant: normal;
+    margin-left: 2px;
+  }
+  .last_span {
+    font-weight: 700;
+    text-decoration: none;
+  }
+}
+
+@media (max-width: $breakpoint-medium) {
+  .bread_crumbs {
+    margin: 5px 0px 5px 0px;
+    font-size: 12px;
     span {
-      cursor: pointer;
-      color: black;
-      text-decoration: underline;
-      font-size: 14px;
-      font-variant: normal;
-      margin-left: 2px;
-    }
-    .last_span {
-      font-weight: 700;
-      text-decoration: none;
+      line-height: 20px;
+      font-size: 12px;
     }
   }
+}

@@ -384,7 +384,7 @@ function ProductDetail({ product, reviews }) {
                     // layout="fixed"
                     // className={productCss.image}
                     layout="fill"
-                    priority={false}
+                    priority={true}
                   />
                 </div>
               ))}
@@ -422,7 +422,6 @@ function ProductDetail({ product, reviews }) {
               </span>
               Prices displayed in USD only.
             </p>
-
             <div className={productCss.special_offer}>
               <span className={productCss.right_border}>SPECIAL OFFER</span>
               <span className={productCss.left_border}>
