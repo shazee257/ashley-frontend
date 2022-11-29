@@ -64,51 +64,6 @@
     .products_item_wrapper {
       // margin-top: 10px;
       width: 80%;
-
-      // sub_categories
-      // .sub_categories {
-      //   margin: 35px 0px;
-      //   margin-bottom: 20px;
-      //   display: flex;
-      //   justify-content: space-evenly;
-      //   .sub_categories_image_wrapper {
-      //     cursor: pointer;
-      //     display: flex;
-      //     align-items: center;
-      //     justify-content: center;
-      //     flex-direction: column;
-      //     .sub_categories_image_div {
-      //       width: 120px;
-      //       height: 120px;
-      //       background-color: rgb(242, 242, 242);
-      //       border-radius: 50%;
-      //       display: flex;
-      //       justify-content: center;
-      //       align-items: center;
-
-      //       .sub_categories_image {
-      //         width: 100px;
-      //         height: 65px;
-      //         position: relative;
-
-      //         .image {
-      //           width: 100%;
-      //           height: 100%;
-      //           border-radius: 30%;
-      //           // position: relative !important;
-      //           // object-fit: cover; // Optional
-      //         }
-      //       }
-      //     }
-      //     .sub_categories_name {
-      //       margin-top: 5px;
-      //       font-size: 13px;
-      //       font-weight: 700;
-      //       font-variant: normal;
-      //     }
-      //   }
-      // }
-
       .images_fiter {
         margin: 35px 0px;
         margin-top: 10px;
@@ -150,41 +105,6 @@
               }
             }
           }
-
-          // .sub_categories_image_div {
-          //   // width: 120px;
-          //   height: 120px;
-          //   background-color: rgb(242, 242, 242);
-          //   border-radius: 50%;
-          //   display: flex;
-          //   justify-content: center;
-          //   align-items: center;
-
-          //   .sub_categories_image {
-          //     width: 100px;
-          //     height: 65px;
-          //     position: relative;
-
-          //     .image {
-          //       width: 100%;
-          //       height: 100%;
-          //       border-radius: 30%;
-          //     }
-          //   }
-          // }
-
-          // .sub_categories_name {
-          //   margin-top: 5px;
-          //   font-size: 14px;
-          //   font-weight: 700;
-          // }
-
-          // .sub_categories_name_ExpectOne {
-          //   font-size: 14px;
-          //   margin-top: 15px;
-          //   text-align: center;
-          //   background: #000;
-          // }
         }
       }
 
@@ -207,6 +127,69 @@
         border-left: 1px solid $extra-light-grey;
         border-top: 1px solid $extra-light-grey;
         flex-wrap: wrap;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-large) {
+  .products_wrapper {
+    .filter_products_wrapper {
+      display: flex;
+      flex-direction: column;
+
+      .filters_wrapper {
+        width: 100%;
+        .filter_heading {
+          p {
+            display: none;
+          }
+        }
+
+        .filters_cat {
+          display: none;
+        }
+      }
+
+      .products_item_wrapper {
+        width: 100%;
+
+        .images_fiter {
+          margin: 40px 0px 0px 0px;
+          .images_fiter_wrapper {
+            .sub_categories_image_div_wrapper {
+              .sub_categories_image_grey_div {
+                width: 120px;
+                height: 120px;
+              }
+
+              .sub_categories_image_div {
+                width: 70px;
+                height: 70px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-medium) {
+  .products_wrapper {
+    .filter_products_wrapper {
+      .products_item_wrapper {
+        .images_fiter {
+          margin: 0px;
+          .images_fiter_wrapper {
+            display: none;
+          }
+        }
+
+        .products_cards_wrapper {
+          margin-top: 20px;
+          border: none;
+        }
       }
     }
   }
