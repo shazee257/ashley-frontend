@@ -5,8 +5,7 @@ module.exports = {
   images: {
     domains: [
       "localhost",
-      "api-mecca.vercel.app",
-      "ashley-api.herokuapp.com",
+      "api-mecca.vercel.app"
     ],
   },
 };
