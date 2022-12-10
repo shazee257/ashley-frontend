@@ -31,7 +31,7 @@ const Cart = () => {
   const grandTotal = cartTotal + tax;
 
   const checkoutHandler = () => {
-    if (cartProducts.length > 0) router.push("/checkoutnew");
+    if (cartProducts.length > 0) router.push("/checkout");
     else toast.info("Please add items to cart before proceeding to checkout");
   };
 
@@ -66,14 +66,14 @@ const Cart = () => {
             <span> Protection plans are currently unavailable</span>
           </p>
         </div> */}
-        <div className={cart.yellow_instructions}>
+        {/* <div className={cart.yellow_instructions}>
           <p>
             Free Doorstep Delivery Offer — Please add your delivery zip code
             below to check availability and terms in your area, or contact your
             local Ashley store for more details. Not available in all areas.
             Minimum/maximum purchase restrictions may apply.
           </p>
-        </div>
+        </div> */}
         <div className={cart.cart}>
           <div className={cart.cart_items}>
             <div className={cart.cart_item_heading_wrapper}>
@@ -175,7 +175,7 @@ const Cart = () => {
 
               <p>
                 By continuing to checkout, you are agreeing to our
-                <span> Terms of Use</span>+ <span>Privacy Policy</span>
+                <span onClick={() => {router.push("/termscondition")}}> Terms of Use</span>+   <span onClick={() => {router.push("/termscondition")}}>Privacy Policy</span>
               </p>
             </div>
           </div>

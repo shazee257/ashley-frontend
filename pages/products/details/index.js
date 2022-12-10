@@ -319,12 +319,10 @@ function ProductDetail({ product, reviews }) {
   };
 
   // related producs responsive start :::::
-  const [siblingProductsSlider , setSiblingProductsSlider] = useState(
-    {}
-  );
+  const [siblingProductsSlider, setSiblingProductsSlider] = useState({});
 
   const updateSize = () =>
-  setSiblingProductsSlider({
+    setSiblingProductsSlider({
       x: window.innerWidth,
     });
 
@@ -407,14 +405,19 @@ function ProductDetail({ product, reviews }) {
             </div>
             <div className={productCss.reatail_price}>
               <MdOutlinePhotoCameraBack className={productCss.icon} />
-              <p>
+              <div className={productCss.reatail_price_para}>
                 <span className={productCss.bold}>
                   or $71/mo w/12 mos special financing
                 </span>
-                <span className={productCss.lern_how}> Learn How </span> <br />
+                <span
+                  className={productCss.lern_how}
+                >
+                  Learn More
+                </span>
+                <br />
                 span Based on retail price of $849.99 (sales & promotion
                 excluded)
-              </p>
+              </div>
             </div>
             <p className={productCss.local_store}>
               <span className={productCss.bold}>

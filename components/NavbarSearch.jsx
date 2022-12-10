@@ -138,7 +138,7 @@ const NavbarSearch = () => {
           </Link>
         </p>
         <div className={navsearch.icon_wrapper}>
-          <Link href="/cartnew">
+          <Link href="/cart">
             <a>
               <span className={navsearch.cart_icon}>
                 <AiOutlineShoppingCart className={navsearch.icon} />
@@ -148,7 +148,7 @@ const NavbarSearch = () => {
               </span>
             </a>
           </Link>
-          <Link href="/cartnew">
+          <Link href="/cart">
             <div className={navsearch.cart_detail}>
               <HoverCart />
             </div>
