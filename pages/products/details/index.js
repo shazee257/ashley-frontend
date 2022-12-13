@@ -49,6 +49,7 @@ import "slick-carousel/slick/slick-theme.css";
 import ReactPlayer from "react-player";
 import BreadCrumbs from "../../../components/BreadCrumbs";
 import { addItemToCart } from "../../../app/features/cartSlice";
+import ProductDetailsModal from "../../../components/ProductDetailsModal";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -88,6 +89,7 @@ function SamplePrevArrow(props) {
 }
 
 function ProductDetail({ product, reviews }) {
+  const [modalOpen, setModalOpen] = useState(false);
   const { push } = useRouter();
   const dispatch = useDispatch();
 
@@ -344,6 +346,12 @@ function ProductDetail({ product, reviews }) {
 
   return (
     <div className={productCss.product_detail_wrapper}>
+      <div>
+        <ProductDetailsModal
+          modalOpen={modalOpen}
+          setModalOpen={setModalOpen}
+        />
+      </div>
       <BreadCrumbs
         parentCategoryTitle={parentCategory.title}
         categoryTitle={currentCategory.title}
@@ -392,7 +400,7 @@ function ProductDetail({ product, reviews }) {
 
         <div className={productCss.product_detail}>
           <div className={productCss.name_price}>
-            <h2> {product.title} </h2>
+            <h2> {product.title}</h2>
             <p>Item Code: {selectedFeature.sku}</p>
             <div className={productCss.flex + " " + productCss.reviews}>
               <div className={productCss.flex}>
@@ -411,6 +419,9 @@ function ProductDetail({ product, reviews }) {
                 </span>
                 <span
                   className={productCss.lern_how}
+                  onClick={() => {
+                    setModalOpen(true);
+                  }}
                 >
                   Learn More
                 </span>
