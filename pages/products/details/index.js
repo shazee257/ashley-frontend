@@ -180,7 +180,7 @@ function ProductDetail({ product, reviews }) {
   // get colors
   const getColors = () => {
     let colors = [];
-    product.variants[0].features.map((f) => {
+    selectedVariant.features.map((f) => {
       colors.push({
         id: f.color_id.id,
         title: f.color_id.title,

@@ -30,7 +30,7 @@ const ProductCard = ({ cardProduct }) => {
 
   const isProductIdInWishlist = (id) => wishlistIds.includes(id);
 
-  const image = cardProduct.variants[0]?.features[0]?.images[0];
+  const image = cardProduct.thumbnail_image;
 
   const wishlistHandler = async (productId) => {
     if (loginData) {
