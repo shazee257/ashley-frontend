@@ -845,7 +845,7 @@ function ProductDetail({ product, reviews }) {
               <Link href={`/products/details?slug=${p.slug}`}>
                 <div className={productCss.realted_product_imagediv}>
                   <Image
-                    src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${p.variants[0].features[0].images[0]}`}
+                    src={`${process.env.NEXT_PUBLIC_uploadURL}/products/${p.variants[0]?.features[0]?.images[0]}`}
                     alt="Picture of the author"
                     layout="fill"
                     className={productCss.realted_product_image}
