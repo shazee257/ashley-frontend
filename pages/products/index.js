@@ -134,7 +134,7 @@ function Products() {
             ))}
           </div>
           <div className={product.filter_cats}>
-            <FilterAccordion products={products} setFilterProducts={setFilterProducts} sizes={getSizes()} colors={getColors()} brands={getBrands()} />
+            <FilterAccordion categorySlug={categorySlug} products={products} setFilterProducts={setFilterProducts} sizes={getSizes()} colors={getColors()} brands={getBrands()} />
           </div>
         </div>
         {/* filters ends here  */}
