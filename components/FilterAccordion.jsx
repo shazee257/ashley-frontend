@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import styles from "../styles/FilterAccordion.module.scss";
 
-const FilterAccordion = ({ products, setFilterProducts, sizes, colors, brands }) => {
+const FilterAccordion = ({ products, setFilterProducts, sizes, colors, brands, categorySlug }) => {
   const [filters, setFilters] = useState([]);
   const [currentIndex, setCurrentIndex] = useState();
 
@@ -74,15 +74,15 @@ const FilterAccordion = ({ products, setFilterProducts, sizes, colors, brands })
 
       if (priceValue) {
         if (priceValue === "Under $25") {
-          priceMatch = product.variants.some((variant) => variant.sale_price < 25);
+          priceMatch = product.variants.some((variant) => variant.sale_price < 25 && product.category_id.slug === categorySlug);
         } else if (priceValue === "$26 to $50") {
-          priceMatch = product.variants.some((variant) => variant.sale_price > 25 && variant.sale_price < 50);
+          priceMatch = product.variants.some((variant) => variant.sale_price > 25 && variant.sale_price < 50 && product.category_id.slug === categorySlug);
         } else if (priceValue === "$50 to $100") {
-          priceMatch = product.variants.some((variant) => variant.sale_price > 50 && variant.sale_price < 100);
+          priceMatch = product.variants.some((variant) => variant.sale_price > 50 && variant.sale_price < 100 && product.category_id.slug === categorySlug);
         } else if (priceValue === "$100 to $500") {
-          priceMatch = product.variants.some((variant) => variant.sale_price > 100 && variant.sale_price < 500);
+          priceMatch = product.variants.some((variant) => variant.sale_price > 100 && variant.sale_price < 500 && product.category_id.slug === categorySlug);
         } else if (priceValue === "Over $500") {
-          priceMatch = product.variants.some((variant) => variant.sale_price > 500);
+          priceMatch = product.variants.some((variant) => variant.sale_price > 500 && product.category_id.slug === categorySlug);
         }
       }
 
