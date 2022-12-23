@@ -133,7 +133,7 @@ const NavbarSearch = () => {
           </Link>
         </p>
         <p className={navsearch.links}>
-          <Link href="/" className={navsearch.links}>
+          <Link href="/termscondition" className={navsearch.links}>
             <a>Help</a>
           </Link>
         </p>
