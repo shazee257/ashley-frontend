@@ -20,10 +20,29 @@ module.exports = {
   async headers() {
     return [
       {
-        key: 'Content-Security-Policy',
-        value: ContentSecurityPolicy.replace(/\s{2,}/g, ' ').trim()
+        source: "/(.*)",
+        headers: securityHeaders,
       },
+      {
+        key: 'X-XSS-Protection',
+        value: '1; mode=block'
+      },
+      {
+        key: 'X-Frame-Options',
+        value: 'SAMEORIGIN'
+      },
+      {
+        key: 'X-Content-Type-Options',
+        value: 'nosniff'
+      },
+      // {
+      //   key: 'Referrer-Policy',
+      //   value: 'same-origin'
+      // },
+      {
+        key: 'Content-Security-Policy',
+        value: ContentSecurityPolicy.replace(/\n/g, '')
+      }
     ]
   }
 }
-
