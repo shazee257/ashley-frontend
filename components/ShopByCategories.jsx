@@ -60,7 +60,7 @@ const ShopByCategories = ({ categoriesData }) => {
             onClick={() => catClickHandler(i)}
             style={
               catIndex === i
-              ? {textDecoration:"underline" , fontWeight: "bolder" , paddingBottom:"5px" }
+                ? { textDecoration: "underline", fontWeight: "bolder", paddingBottom: "5px" }
                 // ? { borderBottom: "2px solid grey", fontWeight: "bolder" , paddingBottom:"5px" }
                 : { border: 0 }
             }
@@ -82,10 +82,18 @@ const ShopByCategories = ({ categoriesData }) => {
             />
           </div>
           <div className={styles.shopby_categories_cart_link}>
-            <span className={styles.title_name}> Shop All {newselectedCategory.title}</span> 
+            <Link href={`/products?categorySlug=${selectedSubCategories[0].slug}`}>
+              <a>
+                <span className={styles.title_name}> Shop All {newselectedCategory.title}</span>
+                <span>
+                  <IoIosArrowDroprightCircle className={styles.shopby_categories_icon} />
+                </span>
+              </a>
+            </Link>
+            {/* <span className={styles.title_name}> Shop All {newselectedCategory.title}</span> 
             <span>
               <IoIosArrowDroprightCircle />
-            </span>
+            </span> */}
           </div>
         </div>
         <div className={styles.shopby_categories_small_cards}>

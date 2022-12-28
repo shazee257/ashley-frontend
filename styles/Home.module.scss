@@ -113,12 +113,15 @@
           font-size: 24px;
           color: $light-grey;
           cursor: pointer;
-
-          span {
-            color: $grey;
-            margin: 0;
-            margin-left: 10px;
-            font-size: 30px;
+          a {
+            display: flex;
+            align-items: center;
+            span {
+              color: $grey;
+              margin: 0;
+              margin-left: 10px;
+              font-size: 30px;
+            }
           }
         }
       }
@@ -290,8 +293,13 @@
           .shopby_categories_cart_link {
             height: 50px;
 
-            .title_name {
-              font-size: 20px;
+            a {
+              .title_name {
+                font-size: 20px;
+              }
+              .shopby_categories_icon {
+                font-size: 27px;
+              }
             }
           }
         }
@@ -365,8 +373,13 @@
           width: 95%;
           height: 400px;
           .shopby_categories_cart_link {
+            padding: 6px 10px 8px 0px;
             span {
               font-size: 24px;
+
+              .shopby_categories_icon {
+                font-size: 23px;
+              }
             }
           }
         }
@@ -444,7 +457,12 @@
           height: 350px;
 
           .shopby_categories_cart_link {
-            font-size: 20px;
+            font-size: 18px;
+            a {
+              .title_name {
+                font-size: 18px;
+              }
+            }
           }
         }
 
