@@ -27,6 +27,7 @@ import CategoryCard from "../components/CategoryCard";
 import ThinBannerCard from "../components/ThinBannerCard";
 import ShopByCategories from "../components/ShopByCategories";
 import ChatBot from "../components/ChatBot";
+import BannerCategoryProducts from "../components/BannerCategoryProducts";
 
 function Home({ categoriesData }) {
   // const [slider, setSlider] = useState([]);
@@ -84,6 +85,10 @@ function Home({ categoriesData }) {
     (fp) => fp.category_id._id === categoryBanner?.category_id._id
   );
 
+  // console.log(products)
+  // console.log(banners)
+  // console.log(bannerCategoryProducts)
+
   const getDiscountedCategories = async () => {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_baseURL}/products/discount/categories`
@@ -107,6 +112,9 @@ function Home({ categoriesData }) {
     getFeatureProducts();
     // getBanners();
   }, []);
+
+
+  console.log(products);
 
   return (
     <div className="index_wrapper">
@@ -153,34 +161,28 @@ function Home({ categoriesData }) {
         </div>
 
         {/* Featured Products */}
-        <div className={styles.free_shipping}>
-          <h4>Swith it up</h4>
-          <h2>Update your happy Place</h2>
-          <Slider {...settings}>
-            {featureProducts?.map((item) => (
-              <CategoryCard product={item} key={item._id} />
-            ))}
-          </Slider>
-        </div>
+
+        {featureProducts.length > 0 && (
+          <div className={styles.free_shipping}>
+            <CategoryCard products={products} featureProducts={featureProducts} />
+          </div>
+        )}
 
         {/* Category Banner */}
         <div className={styles.thin_banner_wrapper}>
           <ThinBannerCard categoryBanner={categoryBanner} />
         </div>
 
-        <div className={styles.free_shipping}>
-          {bannerCategoryProducts && (
-            <>
-              <h4>Swith it up!</h4>
-              <h2>Update your happy Place</h2>
-            </>
-          )}
-          <Slider {...settings}>
-            {bannerCategoryProducts?.map((item) => (
-              <CategoryCard product={item} key={item._id} />
-            ))}
-          </Slider>
-        </div>
+        {bannerCategoryProducts.length > 0 && (
+          <div className={styles.free_shipping}>
+            <BannerCategoryProducts
+              products={products}
+              banners={banners}
+              bannerCategoryProducts={bannerCategoryProducts}
+            />
+          </div>
+        )}
+        {/* <BannerCategoryProducts products={products} banners={banners} /> */}
 
         <div className={styles.chatbot_wrapper}>
           <div className={styles.chatbot}>{botShow && <ChatBot />}</div>
