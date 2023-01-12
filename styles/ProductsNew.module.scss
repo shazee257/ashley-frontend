@@ -124,7 +124,7 @@
       .products_cards_wrapper {
         margin-top: 50px;
         @include flex-start;
-        border-left: 1px solid $extra-light-grey;
+        // border-left: 1px solid $extra-light-grey;
         border-top: 1px solid $extra-light-grey;
         flex-wrap: wrap;
       }

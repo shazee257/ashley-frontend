@@ -6,10 +6,16 @@
   // height: 550px;
   // @include flex-column;
   // justify-content: space-around;
-  margin: 10px 5px;
+  // margin: 10px 5px;
   padding: 30px 0px 45px 0px;
-  border-right: 1px solid $extra-light-grey;
-  border-bottom: 1px solid $extra-light-grey;
+  // border-right: 1px solid $extra-light-grey;
+  // border-bottom: 1px solid $extra-light-grey;
+
+
+
+  width: 28%;
+  border: 1px solid $extra-light-grey;
+  height: 600px;
 
   .heart {
     // margin-top: 30px;
@@ -176,6 +182,7 @@
 
 @media (max-width: $breakpoint-small) {
   .products_card {
+    height: 520px;
     .card_details {
       .hanker_wrapper {
         .card_image {

@@ -11,8 +11,9 @@ import locationSeven from "./assets/locationSeven.jpg";
 import locationEight from "./assets/locationEight.jpg";
 import locationNine from "./assets/locationNine.jpg";
 import locationTen from "./assets/locationTen.jpg";
+import Link from "next/link";
 
-const locationnew = () => {
+const location = () => {
   return (
     <div className={Location.location_wrapper}>
       <h1>Furniture Mecca Store Location</h1>
@@ -22,7 +23,7 @@ const locationnew = () => {
         {/* map one */}
         <div className={Location.map_location_wrapper}>
           <div className={Location.map_image}>
-            <Image src={locationOne} layout="fill" className={Location.image} />
+            <Image src={locationOne} layout="fill" className={Location.image} priority={true} />
           </div>
           <div className={Location.details}>
             Address :
@@ -36,11 +37,16 @@ const locationnew = () => {
               meccavenango@gmail.com
             </span>
             <br /> */}
-            <button>
-              <a href="https://goo.gl/maps/MwRLeaENitBeuDHHA" target="_blank">
+            <Link href="https://goo.gl/maps/MwRLeaENitBeuDHHA">
+              <a target="_blank">
+                <button>
+                  {/* <a href="https://goo.gl/maps/MwRLeaENitBeuDHHA" target="_blank">
                 Go To Direction
+              </a> */}
+                  Go To Direction
+                </button>
               </a>
-            </button>
+            </Link>
             {/* <button> Go To Direction</button> */}
           </div>
         </div>
@@ -48,7 +54,7 @@ const locationnew = () => {
         {/* map two */}
         <div className={Location.map_location_wrapper}>
           <div className={Location.map_image}>
-            <Image src={locationTwo} layout="fill" className={Location.image} />
+            <Image src={locationTwo} layout="fill" className={Location.image} priority={true} />
           </div>
           <div className={Location.details}>
             Address :
@@ -62,11 +68,13 @@ const locationnew = () => {
               meccavenango@gmail.com
             </span>
             <br /> */}
-            <button>
-              <a href="https://goo.gl/maps/pj7M47eawBYkWTAD8" target="_blank">
-                Go To Direction
+            <Link href="https://goo.gl/maps/pj7M47eawBYkWTAD8">
+              <a target="_blank">
+                <button>
+                  Go To Direction
+                </button>
               </a>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -80,6 +88,7 @@ const locationnew = () => {
               src={locationThree}
               layout="fill"
               className={Location.image}
+              priority={true}
             />
           </div>
           <div className={Location.details}>
@@ -94,11 +103,13 @@ const locationnew = () => {
               meccavenango@gmail.com
             </span>
             <br /> */}
-            <button>
-              <a href="https://goo.gl/maps/RgEYvXyomno4mC1e8" target="_blank">
-                Go To Direction
+            <Link href="https://goo.gl/maps/RgEYvXyomno4mC1e8">
+              <a target="_blank">
+                <button>
+                  Go To Direction
+                </button>
               </a>
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -109,6 +120,7 @@ const locationnew = () => {
               src={locationFour}
               layout="fill"
               className={Location.image}
+              priority={true}
             />
           </div>
           <div className={Location.details}>
@@ -123,11 +135,13 @@ const locationnew = () => {
               meccavenango@gmail.com
             </span>
             <br /> */}
-            <button>
-              <a href="https://goo.gl/maps/LyMrBUoTM1NYwEwj6" target="_blank">
-                Go To Direction
+            <Link href="https://goo.gl/maps/LyMrBUoTM1NYwEwj6">
+              <a target="_blank">
+                <button>
+                  Go To Direction
+                </button>
               </a>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -141,6 +155,7 @@ const locationnew = () => {
               src={locationFive}
               layout="fill"
               className={Location.image}
+              priority={true}
             />
           </div>
           <div className={Location.details}>
@@ -155,18 +170,20 @@ const locationnew = () => {
               meccavenango@gmail.com
             </span>
             <br /> */}
-            <button>
-              <a href="https://goo.gl/maps/H9n2kU9XKs7CZSN96" target="_blank">
-                Go To Direction
+            <Link href="https://goo.gl/maps/H9n2kU9XKs7CZSN96">
+              <a target="_blank">
+                <button>
+                  Go To Direction
+                </button>
               </a>
-            </button>
+            </Link>
           </div>
         </div>
 
         {/* map six */}
         <div className={Location.map_location_wrapper}>
           <div className={Location.map_image}>
-            <Image src={locationSix} layout="fill" className={Location.image} />
+            <Image src={locationSix} layout="fill" className={Location.image} priority={true} />
           </div>
           <div className={Location.details}>
             Address :
@@ -180,11 +197,13 @@ const locationnew = () => {
               meccavenango@gmail.com
             </span>
             <br /> */}
-            <button>
-              <a href="https://goo.gl/maps/YF5NMxvKBqB7wZiz6" target="_blank">
-                Go To Direction
+            <Link href="https://goo.gl/maps/YF5NMxvKBqB7wZiz6">
+              <a target="_blank">
+                <button>
+                  Go To Direction
+                </button>
               </a>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -198,6 +217,7 @@ const locationnew = () => {
               src={locationSeven}
               layout="fill"
               className={Location.image}
+              priority={true}
             />
           </div>
           <div className={Location.details}>
@@ -212,11 +232,13 @@ const locationnew = () => {
               meccavenango@gmail.com
             </span>
             <br /> */}
-            <button>
-              <a href="https://goo.gl/maps/SQcofdoRtoWnh5ms8" target="_blank">
-                Go To Direction
+            <Link href="https://goo.gl/maps/SQcofdoRtoWnh5ms8">
+              <a target="_blank">
+                <button>
+                  Go To Direction
+                </button>
               </a>
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -227,6 +249,7 @@ const locationnew = () => {
               src={locationEight}
               layout="fill"
               className={Location.image}
+              priority={true}
             />
           </div>
           <div className={Location.details}>
@@ -241,11 +264,13 @@ const locationnew = () => {
               meccavenango@gmail.com
             </span>
             <br /> */}
-            <button>
-              <a href="https://goo.gl/maps/WHKV3BSgdwocGUdEA" target="_blank">
-                Go To Direction
+            <Link href="https://goo.gl/maps/WHKV3BSgdwocGUdEA">
+              <a target="_blank">
+                <button>
+                  Go To Direction
+                </button>
               </a>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -259,6 +284,7 @@ const locationnew = () => {
               src={locationNine}
               layout="fill"
               className={Location.image}
+              priority={true}
             />
           </div>
           <div className={Location.details}>
@@ -273,11 +299,13 @@ const locationnew = () => {
               meccavenango@gmail.com
             </span>
             <br /> */}
-            <button>
-              <a href="https://goo.gl/maps/BNTHbhUHoFaXMsUq6" target="_blank">
-                Go To Direction
+            <Link href="https://goo.gl/maps/BNTHbhUHoFaXMsUq6">
+              <a target="_blank">
+                <button>
+                  Go To Direction
+                </button>
               </a>
-            </button>
+            </Link>
             <br />
           </div>
         </div>
@@ -285,7 +313,7 @@ const locationnew = () => {
         {/* map ten */}
         <div className={Location.map_location_wrapper}>
           <div className={Location.map_image}>
-            <Image src={locationTen} layout="fill" className={Location.image} />
+            <Image src={locationTen} layout="fill" className={Location.image} priority={true} />
           </div>
           <div className={Location.details}>
             Address :
@@ -299,11 +327,13 @@ const locationnew = () => {
               meccavenango@gmail.com
             </span>
             <br /> */}
-            <button>
-              <a href="https://goo.gl/maps/PQS4en1mTbeqveEu6" target="_blank">
-                Go To Direction
+            <Link href="https://goo.gl/maps/PQS4en1mTbeqveEu6">
+              <a target="_blank">
+                <button>
+                  Go To Direction
+                </button>
               </a>
-            </button>
+            </Link>
             <br />
           </div>
         </div>
@@ -312,4 +342,4 @@ const locationnew = () => {
   );
 };
 
-export default locationnew;
+export default location;
