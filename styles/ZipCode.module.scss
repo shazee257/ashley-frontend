@@ -1,0 +1,28 @@
+@import "./Variables.module.scss";
+
+.zipcode_modal_container {
+    width: 400px;
+    padding: 18px 30px;
+    border-radius: 6px;
+
+    .textfield_box{
+        margin: 10px 0px;
+        display: flex;
+        .button{
+            margin: 0px 10px;
+            width: 120px;
+        }
+    }
+}
+
+
+
+@media (max-width: $breakpoint-small) {
+    .zipcode_modal_container {
+        width: 315px;
+        padding: 15px 8px;
+        .button{
+            width: 100px;
+        }
+    }
+}
